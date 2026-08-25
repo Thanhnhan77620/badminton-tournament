@@ -3,7 +3,6 @@ import { TournamentProvider, useTournament } from './data/TournamentContext';
 import { Match } from './types/tournament';
 import { TournamentHeader, NavTab } from './components/TournamentHeader';
 import { TournamentHero } from './components/TournamentHero';
-import { TournamentSummary } from './components/TournamentSummary';
 import { ParticipantsSection } from './components/ParticipantsSection';
 import { StandingsSection } from './components/StandingsSection';
 import { ScheduleSection } from './components/ScheduleSection';
@@ -100,7 +99,6 @@ function PublicAppContent() {
               nextUpcomingMatch={nextUpcomingMatch}
             />
 
-            <TournamentSummary tournament={tournament} />
             <KnockoutSection
               semiFinal1={semiFinal1}
               semiFinal2={semiFinal2}
