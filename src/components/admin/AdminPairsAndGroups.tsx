@@ -74,7 +74,6 @@ export const AdminPairsAndGroups: React.FC = () => {
   const [importRawText, setImportRawText] = useState('');
   const [importTargetGroup, setImportTargetGroup] = useState<'AUTO' | 'A' | 'B'>('AUTO');
   const [importReplaceExisting, setImportReplaceExisting] = useState(false);
-  const [importAutoGenerateMatches, setImportAutoGenerateMatches] = useState(false);
   const [importError, setImportError] = useState('');
 
   // Form states
@@ -198,7 +197,7 @@ Phan Tấn Hưng, ISC, Phạm Viết Thiện, ISC`;
     const result = importPairsList(itemsToImport, {
       targetGroup: importTargetGroup,
       replaceExisting: importReplaceExisting,
-      autoGenerateMatches: importAutoGenerateMatches,
+      autoGenerateMatches: false,
     });
 
     if (!result.success) {
@@ -208,11 +207,7 @@ Phan Tấn Hưng, ISC, Phạm Viết Thiện, ISC`;
 
     setIsImportModalOpen(false);
     setImportRawText('');
-    setIsSuccessMsg(
-      `Đã nhập thành công ${result.count} cặp đấu! ${
-        importAutoGenerateMatches ? 'Đồng thời đã tự động tạo mới lịch thi đấu 24 trận.' : ''
-      }`
-    );
+    setIsSuccessMsg(`Đã nhập thành công ${result.count} cặp đấu!`);
     setTimeout(() => setIsSuccessMsg(''), 4500);
   };
 
@@ -1013,7 +1008,7 @@ Phan Tấn Hưng, ISC, Phạm Viết Thiện, ISC`;
                   </select>
                 </div>
 
-                <div className="space-y-2 pt-1">
+                <div className="pt-1">
                   <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-700">
                     <input
                       type="checkbox"
@@ -1027,18 +1022,6 @@ Phan Tấn Hưng, ISC, Phạm Viết Thiện, ISC`;
                         : importTargetGroup === 'B'
                         ? 'Chỉ thay thế các cặp trong Bảng B (giữ nguyên Bảng A)'
                         : 'Thay thế toàn bộ danh sách cặp hiện tại (cả Bảng A & B)'}
-                    </span>
-                  </label>
-
-                  <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-700">
-                    <input
-                      type="checkbox"
-                      checked={importAutoGenerateMatches}
-                      onChange={e => setImportAutoGenerateMatches(e.target.checked)}
-                      className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300"
-                    />
-                    <span>
-                      Tự động tạo lịch 24 trận đấu vòng bảng &amp; knockout (Tắt mặc định)
                     </span>
                   </label>
                 </div>
