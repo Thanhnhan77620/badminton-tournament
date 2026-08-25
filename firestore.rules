@@ -1,0 +1,18 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Tournament documents: Publicly readable by all viewers/referees, writable for live scoring & tournament management
+    match /tournaments/{tournamentId} {
+      allow read, write: if true;
+
+      match /{subcollection=**} {
+        allow read, write: if true;
+      }
+    }
+    
+    // Default fallback
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}

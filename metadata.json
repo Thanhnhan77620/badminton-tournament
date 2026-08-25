@@ -1,0 +1,8 @@
+{
+  "name": "Remix ISC Badminton Open_20260825",
+  "description": "Trang thông tin chính thức giải đấu Cầu lông Đôi Nam ISC Badminton Open 2026: Lịch thi đấu, Bảng đấu, Kết quả trực tiếp và Bảng xếp hạng.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
