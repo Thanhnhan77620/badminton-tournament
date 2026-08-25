@@ -303,7 +303,7 @@ export const AdminMatchesAndResults: React.FC = () => {
             Bàn Trọng Tài: Ghi Nhận Điểm Số &amp; Tỷ Số ({matches.length} Trận)
           </h2>
           <p className="text-xs text-slate-500 mt-0.5">
-            Nhập kết quả, ghi điểm trực tiếp hoặc xử Walkover. Bảng xếp hạng Public sẽ tự động nhảy điểm ngay lập tức.
+            Nhập kết quả và ghi điểm trực tiếp cho từng trận đấu. Bảng xếp hạng Public sẽ tự động cập nhật ngay lập tức.
           </p>
         </div>
 
@@ -702,42 +702,16 @@ export const AdminMatchesAndResults: React.FC = () => {
 
                 {/* Match Action Buttons */}
                 <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-1.5">
-                    {/* Walkover helper buttons */}
-                    <button
-                      type="button"
-                      onClick={() => match.pair1?.id && handleWalkover(match, match.pair1.id)}
-                      disabled={isReadOnly || isBlocked || !match.pair1?.id}
-                      className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-colors ${
-                        isReadOnly || isBlocked || !match.pair1?.id
-                          ? 'bg-slate-100 text-slate-400 cursor-not-allowed opacity-50'
-                          : 'bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer border border-slate-200'
-                      }`}
-                      title={isBlocked ? readiness.reason : `Xử thắng Walkover cho ${match.pair1?.code || 'Cặp 1'}`}
-                    >
-                      WO {match.pair1?.code || 'Cặp 1'}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => match.pair2?.id && handleWalkover(match, match.pair2.id)}
-                      disabled={isReadOnly || isBlocked || !match.pair2?.id}
-                      className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-colors ${
-                        isReadOnly || isBlocked || !match.pair2?.id
-                          ? 'bg-slate-100 text-slate-400 cursor-not-allowed opacity-50'
-                          : 'bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer border border-slate-200'
-                      }`}
-                      title={isBlocked ? readiness.reason : `Xử thắng Walkover cho ${match.pair2?.code || 'Cặp 2'}`}
-                    >
-                      WO {match.pair2?.code || 'Cặp 2'}
-                    </button>
+                  <div>
                     {isFinished && !isReadOnly && (
                       <button
                         type="button"
                         onClick={() => handleResetMatch(match)}
-                        className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg cursor-pointer transition-colors"
+                        className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg cursor-pointer transition-colors flex items-center gap-1 text-xs font-semibold"
                         title="Hủy điểm / Trả về chưa đấu"
                       >
                         <RotateCcw className="w-4 h-4" />
+                        <span className="text-[11px]">Đặt lại</span>
                       </button>
                     )}
                   </div>
