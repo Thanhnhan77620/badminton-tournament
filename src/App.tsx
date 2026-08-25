@@ -107,17 +107,6 @@ function PublicAppContent() {
               championPair={championPair}
               onSelectMatch={setSelectedMatch}
             />
-            <StandingsSection
-              standingsA={standingsA}
-              standingsB={standingsB}
-              matchesA={matchesGroupA}
-              matchesB={matchesGroupB}
-              onSelectMatch={setSelectedMatch}
-              isGroupAPublished={tournament.isGroupAPublished}
-              isGroupBPublished={tournament.isGroupBPublished}
-              isScheduleAPublished={tournament.isScheduleAPublished}
-              isScheduleBPublished={tournament.isScheduleBPublished}
-            />
             <ParticipantsSection
               pairs={pairs}
               isGroupAPublished={tournament.isGroupAPublished}
