@@ -39,12 +39,54 @@ export const StandingsSection: React.FC<StandingsSectionProps> = ({
     isExpanded: boolean,
     onToggle: () => void,
     isGroupPublished: boolean = false
-  ) => (
+  ) => {
+    if (!isGroupPublished) {
+      return (
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+          {/* Group Table Header (Draft State) */}
+          <div className="bg-slate-900 text-white px-4 sm:px-5 py-3.5 flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <span className={`w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs ${
+                groupName === 'A' ? 'bg-blue-600' : 'bg-amber-500 text-slate-950'
+              }`}>
+                {groupName}
+              </span>
+              <div>
+                <h3 className="text-base font-bold font-display">BẢNG {groupName}</h3>
+                <p className="text-[11px] text-amber-300">Bản nháp • Chưa công bố chính thức</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                Đang Chuẩn Bị
+              </span>
+            </div>
+          </div>
+
+          <div className="p-8 text-center bg-slate-50/50 space-y-2">
+            <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
+              <Shield className="w-5 h-5 text-slate-400" />
+            </div>
+            <p className="text-sm font-bold text-slate-700">
+              Danh sách &amp; Bảng xếp hạng Bảng {groupName} chưa được công bố
+            </p>
+            <p className="text-xs text-slate-500 max-w-md mx-auto">
+              Ban tổ chức đang chuẩn bị danh sách phân bảng. Kết quả bốc thăm và bảng xếp hạng sẽ hiển thị tại đây sau khi được công bố chính thức.
+            </p>
+          </div>
+        </div>
+      );
+    }
+
+    return (
     <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
       {/* Group Table Header */}
       <div className="bg-slate-900 text-white px-4 sm:px-5 py-3.5 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <span className="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center font-bold text-xs">
+          <span className={`w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs ${
+            groupName === 'A' ? 'bg-blue-600' : 'bg-amber-500 text-slate-950'
+          }`}>
             {groupName}
           </span>
           <div>
@@ -238,6 +280,7 @@ export const StandingsSection: React.FC<StandingsSectionProps> = ({
       )}
     </div>
   );
+  };
 
   return (
     <section className="py-8 bg-slate-50/70 border-b border-slate-200">
@@ -305,7 +348,12 @@ export const StandingsSection: React.FC<StandingsSectionProps> = ({
                 className="w-full px-4 py-3 bg-slate-50 hover:bg-slate-100 flex items-center justify-between text-xs font-bold text-slate-700 transition-colors cursor-pointer"
               >
                 <span className="flex items-center gap-2">
-                  <span>DANH SÁCH {matchesA.length} TRẬN ĐẤU BẢNG A</span>
+                  <span>DANH SÁCH {isScheduleAPublished ? matchesA.length : 0} TRẬN ĐẤU BẢNG A</span>
+                  {!isScheduleAPublished && (
+                    <span className="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-md">
+                      Chưa công bố
+                    </span>
+                  )}
                 </span>
                 <span className="flex items-center gap-1 text-blue-600 font-semibold">
                   {showMatchesA ? 'Thu gọn' : 'Xem chi tiết'}
@@ -319,7 +367,12 @@ export const StandingsSection: React.FC<StandingsSectionProps> = ({
 
               {showMatchesA && (
                 <div className="p-4 bg-slate-50/40">
-                  {matchesA.length === 0 ? (
+                  {!isScheduleAPublished ? (
+                    <div className="py-6 text-center text-xs text-slate-500 font-medium space-y-1">
+                      <p className="font-bold text-slate-700">Lịch thi đấu Bảng A chưa được công bố chính thức</p>
+                      <p className="text-[11px] text-slate-400">Ban tổ chức đang chuẩn bị và sẽ sớm công bố lịch thi đấu chính thức.</p>
+                    </div>
+                  ) : matchesA.length === 0 ? (
                     <div className="py-6 text-center text-xs text-slate-500 font-medium">
                       Chưa có lịch thi đấu cho Bảng A.
                     </div>
@@ -352,7 +405,12 @@ export const StandingsSection: React.FC<StandingsSectionProps> = ({
                 className="w-full px-4 py-3 bg-slate-50 hover:bg-slate-100 flex items-center justify-between text-xs font-bold text-slate-700 transition-colors cursor-pointer"
               >
                 <span className="flex items-center gap-2">
-                  <span>DANH SÁCH {matchesB.length} TRẬN ĐẤU BẢNG B</span>
+                  <span>DANH SÁCH {isScheduleBPublished ? matchesB.length : 0} TRẬN ĐẤU BẢNG B</span>
+                  {!isScheduleBPublished && (
+                    <span className="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-md">
+                      Chưa công bố
+                    </span>
+                  )}
                 </span>
                 <span className="flex items-center gap-1 text-blue-600 font-semibold">
                   {showMatchesB ? 'Thu gọn' : 'Xem chi tiết'}
@@ -366,7 +424,12 @@ export const StandingsSection: React.FC<StandingsSectionProps> = ({
 
               {showMatchesB && (
                 <div className="p-4 bg-slate-50/40">
-                  {matchesB.length === 0 ? (
+                  {!isScheduleBPublished ? (
+                    <div className="py-6 text-center text-xs text-slate-500 font-medium space-y-1">
+                      <p className="font-bold text-slate-700">Lịch thi đấu Bảng B chưa được công bố chính thức</p>
+                      <p className="text-[11px] text-slate-400">Ban tổ chức đang chuẩn bị và sẽ sớm công bố lịch thi đấu chính thức.</p>
+                    </div>
+                  ) : matchesB.length === 0 ? (
                     <div className="py-6 text-center text-xs text-slate-500 font-medium">
                       Chưa có lịch thi đấu cho Bảng B.
                     </div>

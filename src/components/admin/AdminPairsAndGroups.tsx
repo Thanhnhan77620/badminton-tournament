@@ -74,7 +74,7 @@ export const AdminPairsAndGroups: React.FC = () => {
   const [importRawText, setImportRawText] = useState('');
   const [importTargetGroup, setImportTargetGroup] = useState<'AUTO' | 'A' | 'B'>('AUTO');
   const [importReplaceExisting, setImportReplaceExisting] = useState(false);
-  const [importAutoGenerateMatches, setImportAutoGenerateMatches] = useState(true);
+  const [importAutoGenerateMatches, setImportAutoGenerateMatches] = useState(false);
   const [importError, setImportError] = useState('');
 
   // Form states
@@ -1013,7 +1013,7 @@ Phan Tấn Hưng, ISC, Phạm Viết Thiện, ISC`;
                   </select>
                 </div>
 
-                <div className="pt-1 sm:pt-4">
+                <div className="space-y-2 pt-1">
                   <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-700">
                     <input
                       type="checkbox"
@@ -1029,6 +1029,29 @@ Phan Tấn Hưng, ISC, Phạm Viết Thiện, ISC`;
                         : 'Thay thế toàn bộ danh sách cặp hiện tại (cả Bảng A & B)'}
                     </span>
                   </label>
+
+                  <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-700">
+                    <input
+                      type="checkbox"
+                      checked={importAutoGenerateMatches}
+                      onChange={e => setImportAutoGenerateMatches(e.target.checked)}
+                      className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300"
+                    />
+                    <span>
+                      Tự động tạo lịch 24 trận đấu vòng bảng &amp; knockout (Tắt mặc định)
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+              {/* Privacy / Draft Notice */}
+              <div className="p-3 bg-amber-50/80 rounded-xl border border-amber-200 text-xs text-amber-900 flex items-start gap-2">
+                <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                <div className="space-y-0.5">
+                  <p className="font-bold">Quy trình Công khai (Private / Public):</p>
+                  <p className="text-[11px] text-amber-800">
+                    Sau khi Import, danh sách cặp đấu được giữ ở chế độ <strong>Bản Nháp (Riêng tư - Private)</strong>. Trang Public của người xem sẽ không thấy thông tin cho tới khi bạn bấm nút <strong>&quot;Public Bảng&quot;</strong>.
+                  </p>
                 </div>
               </div>
 

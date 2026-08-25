@@ -17,11 +17,11 @@ export const ParticipantsSection: React.FC<ParticipantsSectionProps> = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedGroup, setSelectedGroup] = useState<'ALL' | 'A' | 'B'>('ALL');
 
-  // Filter public pairs based on group publish state
+  // Filter public pairs based on group publish state (only show pairs of published groups)
   const publicPairs = pairs.filter(p => {
     if (p.group === 'A') return isGroupAPublished;
     if (p.group === 'B') return isGroupBPublished;
-    return true;
+    return false;
   });
 
   const pairsA = publicPairs.filter(p => p.group === 'A');
@@ -73,7 +73,7 @@ export const ParticipantsSection: React.FC<ParticipantsSectionProps> = ({
               {searchTerm && (
                 <button
                   onClick={() => setSearchTerm('')}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs cursor-pointer"
                 >
                   ✕
                 </button>
@@ -90,7 +90,7 @@ export const ParticipantsSection: React.FC<ParticipantsSectionProps> = ({
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                Tất Cả ({pairs.length})
+                Tất Cả ({publicPairs.length})
               </button>
               <button
                 onClick={() => setSelectedGroup('A')}
@@ -100,7 +100,7 @@ export const ParticipantsSection: React.FC<ParticipantsSectionProps> = ({
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                Bảng A ({pairsA.length})
+                Bảng A ({isGroupAPublished ? pairsA.length : 0})
               </button>
               <button
                 onClick={() => setSelectedGroup('B')}
@@ -110,7 +110,7 @@ export const ParticipantsSection: React.FC<ParticipantsSectionProps> = ({
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                Bảng B ({pairsB.length})
+                Bảng B ({isGroupBPublished ? pairsB.length : 0})
               </button>
             </div>
           </div>
@@ -192,12 +192,18 @@ export const ParticipantsSection: React.FC<ParticipantsSectionProps> = ({
           </div>
         ) : (
           <div className="p-8 text-center bg-slate-50 rounded-xl border border-slate-200">
-            <p className="text-sm text-slate-600 font-medium">
-              {pairs.length === 0
-                ? 'Chưa có cặp đấu nào trong danh sách.'
-                : `Không tìm thấy cặp đấu nào phù hợp với bộ lọc "${searchTerm}".`}
+            <p className="text-sm text-slate-700 font-semibold">
+              {searchTerm
+                ? `Không tìm thấy cặp đấu nào phù hợp với từ khóa "${searchTerm}".`
+                : selectedGroup === 'A' && !isGroupAPublished
+                ? 'Danh sách cặp đấu Bảng A đang được Ban tổ chức chuẩn bị và chưa công bố chính thức.'
+                : selectedGroup === 'B' && !isGroupBPublished
+                ? 'Danh sách cặp đấu Bảng B đang được Ban tổ chức chuẩn bị và chưa công bố chính thức.'
+                : publicPairs.length === 0
+                ? 'Danh sách các cặp đấu đang trong giai đoạn chuẩn bị và chưa công bố chính thức.'
+                : 'Chưa có cặp đấu nào trong danh sách.'}
             </p>
-            {pairs.length > 0 && (
+            {searchTerm && (
               <button
                 onClick={() => {
                   setSearchTerm('');

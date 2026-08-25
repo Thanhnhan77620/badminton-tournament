@@ -36,7 +36,7 @@ export const ScheduleSection: React.FC<ScheduleSectionProps> = ({
       if (m.group === 'A') return isScheduleAPublished;
       if (m.group === 'B') return isScheduleBPublished;
       if (m.round !== 'GROUP_STAGE') return isScheduleKnockoutPublished;
-      return true;
+      return false;
     });
   }, [matches, isScheduleAPublished, isScheduleBPublished, isScheduleKnockoutPublished]);
 
@@ -120,7 +120,7 @@ export const ScheduleSection: React.FC<ScheduleSectionProps> = ({
           <div className="flex flex-wrap items-center gap-2">
             <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 bg-white px-3.5 py-2 rounded-xl border border-slate-200 shadow-xs">
               <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              <span>Đã hoàn tất <strong>{finishedCount}</strong>/{matches.length} trận</span>
+              <span>Đã hoàn tất <strong>{finishedCount}</strong>/{publicMatches.length} trận công bố</span>
             </div>
           </div>
         </div>
@@ -165,7 +165,7 @@ export const ScheduleSection: React.FC<ScheduleSectionProps> = ({
                     : 'bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200'
                 }`}
               >
-                Tất Cả ({matches.length})
+                Tất Cả ({publicMatches.length})
               </button>
               <button
                 onClick={() => setSelectedGroupFilter('A')}
@@ -295,11 +295,29 @@ export const ScheduleSection: React.FC<ScheduleSectionProps> = ({
               <Search className="w-6 h-6" />
             </div>
             <h4 className="text-base font-bold text-slate-800">
-              {searchQuery ? 'Không tìm thấy trận đấu nào phù hợp' : 'Chưa có trận đấu nào trong danh sách'}
+              {searchQuery
+                ? 'Không tìm thấy trận đấu nào phù hợp'
+                : selectedGroupFilter === 'A' && !isScheduleAPublished
+                ? 'Lịch thi đấu Bảng A chưa được công bố'
+                : selectedGroupFilter === 'B' && !isScheduleBPublished
+                ? 'Lịch thi đấu Bảng B chưa được công bố'
+                : selectedGroupFilter === 'KNOCKOUT' && !isScheduleKnockoutPublished
+                ? 'Lịch thi đấu Bán kết & Chung kết chưa được công bố'
+                : publicMatches.length === 0
+                ? 'Lịch thi đấu đang trong giai đoạn chuẩn bị'
+                : 'Chưa có trận đấu nào trong danh sách'}
             </h4>
             <p className="text-xs text-slate-500 max-w-md mx-auto">
               {searchQuery
                 ? `Không có trận đấu nào khớp với từ khóa "${searchQuery}".`
+                : selectedGroupFilter === 'A' && !isScheduleAPublished
+                ? 'Ban tổ chức đang chuẩn bị và sẽ sớm công bố lịch thi đấu chính thức cho Bảng A.'
+                : selectedGroupFilter === 'B' && !isScheduleBPublished
+                ? 'Ban tổ chức đang chuẩn bị và sẽ sớm công bố lịch thi đấu chính thức cho Bảng B.'
+                : selectedGroupFilter === 'KNOCKOUT' && !isScheduleKnockoutPublished
+                ? 'Lịch thi đấu vòng Bán kết và Chung kết sẽ được công bố sau khi hoàn tất vòng bảng.'
+                : publicMatches.length === 0
+                ? 'Ban tổ chức sẽ công bố lịch thi đấu chính thức của các bảng đấu trước giờ khai mạc.'
                 : 'Lịch thi đấu các trận sẽ được cập nhật tại đây khi giải đấu diễn ra.'}
             </p>
             {(searchQuery || selectedGroupFilter !== 'ALL' || selectedStatusFilter !== 'ALL') && (
