@@ -113,7 +113,7 @@ export const TournamentHero: React.FC<TournamentHeroProps> = ({
           </div>
 
           {/* Right Column: Key Tournament Stats Matrix */}
-          <div className="w-full lg:w-84 shrink-0 flex flex-col">
+          <div className="w-full lg:w-96 xl:w-[420px] shrink-0 flex flex-col">
             <div className="h-full bg-slate-800/90 border border-slate-700/80 rounded-2xl p-4 sm:p-5 shadow-xl flex flex-col justify-between space-y-3.5">
               <div className="border-b border-slate-700 pb-2.5">
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
@@ -162,7 +162,9 @@ export const TournamentHero: React.FC<TournamentHeroProps> = ({
                     Giải Thưởng
                   </div>
                   <div className="mt-2">
-                    <p className="text-xl font-black text-amber-300 font-display">{totalPrizeFormatted}</p>
+                    <p className="text-base sm:text-lg lg:text-base xl:text-lg 2xl:text-xl font-black text-amber-300 font-display whitespace-nowrap tracking-tight leading-tight">
+                      {totalPrizeFormatted}
+                    </p>
                     <p className="text-[11px] text-slate-400 mt-0.5">{prizes.length} Giải thưởng</p>
                   </div>
                 </div>
