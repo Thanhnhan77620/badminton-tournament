@@ -58,6 +58,9 @@ export const AdminPortal: React.FC = () => {
   const [activeSection, setActiveSection] = useState<AdminSectionId>('dashboard');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showStatusModal, setShowStatusModal] = useState(false);
+  const [selectedPendingStatus, setSelectedPendingStatus] = useState<'UPCOMING' | 'IN_PROGRESS' | 'COMPLETED' | null>(null);
+  const [statusPasscode, setStatusPasscode] = useState('');
+  const [statusError, setStatusError] = useState('');
 
   const navItems: NavItem[] = [
     { id: 'dashboard', label: 'Bảng Điều Khiển (Dashboard)', icon: LayoutDashboard },
@@ -304,17 +307,17 @@ export const AdminPortal: React.FC = () => {
               {/* Option 1: UPCOMING */}
               <div
                 onClick={() => {
-                  setTournamentStatus('UPCOMING');
-                  setShowStatusModal(false);
+                  setSelectedPendingStatus('UPCOMING');
+                  setStatusError('');
                 }}
                 className={`p-4 rounded-2xl border-2 transition-all cursor-pointer flex items-start gap-3 ${
-                  tournament.status === 'UPCOMING'
+                  (selectedPendingStatus || tournament.status) === 'UPCOMING'
                     ? 'border-blue-600 bg-blue-50/50'
                     : 'border-slate-200 hover:border-slate-300 bg-slate-50/50'
                 }`}
               >
                 <div className="w-5 h-5 rounded-full border-2 border-blue-600 flex items-center justify-center shrink-0 mt-0.5">
-                  {tournament.status === 'UPCOMING' && (
+                  {(selectedPendingStatus || tournament.status) === 'UPCOMING' && (
                     <div className="w-2.5 h-2.5 rounded-full bg-blue-600" />
                   )}
                 </div>
@@ -336,17 +339,17 @@ export const AdminPortal: React.FC = () => {
               {/* Option 2: IN_PROGRESS */}
               <div
                 onClick={() => {
-                  setTournamentStatus('IN_PROGRESS');
-                  setShowStatusModal(false);
+                  setSelectedPendingStatus('IN_PROGRESS');
+                  setStatusError('');
                 }}
                 className={`p-4 rounded-2xl border-2 transition-all cursor-pointer flex items-start gap-3 ${
-                  tournament.status === 'IN_PROGRESS'
+                  (selectedPendingStatus || tournament.status) === 'IN_PROGRESS'
                     ? 'border-emerald-600 bg-emerald-50/50'
                     : 'border-slate-200 hover:border-slate-300 bg-slate-50/50'
                 }`}
               >
                 <div className="w-5 h-5 rounded-full border-2 border-emerald-600 flex items-center justify-center shrink-0 mt-0.5">
-                  {tournament.status === 'IN_PROGRESS' && (
+                  {(selectedPendingStatus || tournament.status) === 'IN_PROGRESS' && (
                     <div className="w-2.5 h-2.5 rounded-full bg-emerald-600" />
                   )}
                 </div>
@@ -368,17 +371,17 @@ export const AdminPortal: React.FC = () => {
               {/* Option 3: COMPLETED */}
               <div
                 onClick={() => {
-                  setTournamentStatus('COMPLETED');
-                  setShowStatusModal(false);
+                  setSelectedPendingStatus('COMPLETED');
+                  setStatusError('');
                 }}
                 className={`p-4 rounded-2xl border-2 transition-all cursor-pointer flex items-start gap-3 ${
-                  tournament.status === 'COMPLETED'
+                  (selectedPendingStatus || tournament.status) === 'COMPLETED'
                     ? 'border-purple-600 bg-purple-50/50'
                     : 'border-slate-200 hover:border-slate-300 bg-slate-50/50'
                 }`}
               >
                 <div className="w-5 h-5 rounded-full border-2 border-purple-600 flex items-center justify-center shrink-0 mt-0.5">
-                  {tournament.status === 'COMPLETED' && (
+                  {(selectedPendingStatus || tournament.status) === 'COMPLETED' && (
                     <div className="w-2.5 h-2.5 rounded-full bg-purple-600" />
                   )}
                 </div>
@@ -398,12 +401,82 @@ export const AdminPortal: React.FC = () => {
               </div>
             </div>
 
-            <div className="pt-2 flex justify-end">
+            {/* Passcode Confirmation Box */}
+            {selectedPendingStatus && selectedPendingStatus !== tournament.status && (
+              <div className="p-3.5 bg-slate-50 border-2 border-blue-200 rounded-2xl space-y-2 animate-in fade-in">
+                <label className="block text-xs font-bold text-slate-800 flex items-center justify-between">
+                  <span className="flex items-center gap-1.5 text-blue-900">
+                    <Lock className="w-3.5 h-3.5 text-blue-600" />
+                    Mã khóa bảo mật chuyển giai đoạn:
+                  </span>
+                  <span className="text-[10px] text-red-600 font-bold">
+                    * Bắt buộc
+                  </span>
+                </label>
+                <input
+                  type="password"
+                  value={statusPasscode}
+                  onChange={e => {
+                    setStatusPasscode(e.target.value);
+                    if (statusError) setStatusError('');
+                  }}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter') {
+                      if (statusPasscode.trim() !== '12345678') {
+                        setStatusError('Mã khóa không chính xác. Vui lòng nhập đúng mã "12345678"!');
+                        return;
+                      }
+                      setTournamentStatus(selectedPendingStatus);
+                      setShowStatusModal(false);
+                      setSelectedPendingStatus(null);
+                      setStatusPasscode('');
+                      setStatusError('');
+                    }
+                  }}
+                  placeholder="Nhập mã khóa xác nhận (12345678)"
+                  className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-600 text-slate-900 placeholder:text-slate-400"
+                  autoFocus
+                />
+                {statusError && (
+                  <p className="text-red-500 text-xs font-medium flex items-center gap-1">
+                    <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
+                    {statusError}
+                  </p>
+                )}
+              </div>
+            )}
+
+            <div className="pt-2 flex items-center justify-end gap-2">
               <button
-                onClick={() => setShowStatusModal(false)}
+                onClick={() => {
+                  setShowStatusModal(false);
+                  setSelectedPendingStatus(null);
+                  setStatusPasscode('');
+                  setStatusError('');
+                }}
                 className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold cursor-pointer"
               >
-                Đóng
+                Hủy bỏ
+              </button>
+              <button
+                onClick={() => {
+                  if (!selectedPendingStatus || selectedPendingStatus === tournament.status) {
+                    setShowStatusModal(false);
+                    return;
+                  }
+                  if (statusPasscode.trim() !== '12345678') {
+                    setStatusError('Mã khóa không chính xác. Vui lòng nhập đúng mã "12345678"!');
+                    return;
+                  }
+                  setTournamentStatus(selectedPendingStatus);
+                  setShowStatusModal(false);
+                  setSelectedPendingStatus(null);
+                  setStatusPasscode('');
+                  setStatusError('');
+                }}
+                className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-600/20 cursor-pointer"
+              >
+                Xác Nhận Chuyển
               </button>
             </div>
           </div>
