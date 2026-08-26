@@ -423,7 +423,7 @@ export const AdminPortal: React.FC = () => {
                   onKeyDown={e => {
                     if (e.key === 'Enter') {
                       if (statusPasscode.trim() !== '12345678') {
-                        setStatusError('Mã khóa không chính xác. Vui lòng nhập đúng mã "12345678"!');
+                        setStatusError('Mã khóa bảo mật không chính xác. Vui lòng thử lại!');
                         return;
                       }
                       setTournamentStatus(selectedPendingStatus);
@@ -433,7 +433,7 @@ export const AdminPortal: React.FC = () => {
                       setStatusError('');
                     }
                   }}
-                  placeholder="Nhập mã khóa xác nhận (12345678)"
+                  placeholder="Nhập mã khóa bảo mật xác nhận"
                   className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-600 text-slate-900 placeholder:text-slate-400"
                   autoFocus
                 />
@@ -465,7 +465,7 @@ export const AdminPortal: React.FC = () => {
                     return;
                   }
                   if (statusPasscode.trim() !== '12345678') {
-                    setStatusError('Mã khóa không chính xác. Vui lòng nhập đúng mã "12345678"!');
+                    setStatusError('Mã khóa bảo mật không chính xác. Vui lòng thử lại!');
                     return;
                   }
                   setTournamentStatus(selectedPendingStatus);
