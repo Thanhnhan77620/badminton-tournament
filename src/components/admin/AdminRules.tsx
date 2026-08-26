@@ -8,7 +8,8 @@ export const AdminRules: React.FC = () => {
 
   const [rules, setRules] = useState<TournamentRuleItem[]>(tournament.rules || []);
   const [prizes, setPrizes] = useState<Prize[]>(tournament.prizes || []);
-  const [isSaved, setIsSaved] = useState(false);
+  const [isRulesSaved, setIsRulesSaved] = useState(false);
+  const [isPrizesSaved, setIsPrizesSaved] = useState(false);
 
   useEffect(() => {
     if (tournament.rules) {
@@ -66,12 +67,16 @@ export const AdminRules: React.FC = () => {
 
   const currentTotalPrize = prizes.reduce((sum, p) => sum + (Number(p.amount) || 0), 0);
 
-  const handleSaveAll = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSaveRules = () => {
     updateRules(rules);
+    setIsRulesSaved(true);
+    setTimeout(() => setIsRulesSaved(false), 3000);
+  };
+
+  const handleSavePrizes = () => {
     updatePrizes(prizes);
-    setIsSaved(true);
-    setTimeout(() => setIsSaved(false), 3500);
+    setIsPrizesSaved(true);
+    setTimeout(() => setIsPrizesSaved(false), 3000);
   };
 
   return (
@@ -87,31 +92,33 @@ export const AdminRules: React.FC = () => {
             Cập nhật quy định tính điểm vòng bảng, bán kết, chung kết, luật Let/Walkover và quỹ tiền thưởng
           </p>
         </div>
-
-        <div className="flex items-center gap-3">
-          {isSaved && (
-            <div className="px-3.5 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold flex items-center gap-1.5 animate-in fade-in">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              <span>Đã lưu &amp; đồng bộ toàn trang!</span>
-            </div>
-          )}
-          <button
-            type="button"
-            onClick={handleSaveAll}
-            className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/25 transition-all flex items-center gap-2 cursor-pointer"
-          >
-            <Save className="w-4 h-4" />
-            <span>Lưu Thay Đổi</span>
-          </button>
-        </div>
       </div>
 
       {/* Rules Editor Cards */}
       <div className="space-y-5">
-        <h3 className="text-sm font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-blue-600"></span>
-          1. Quy Định Các Vòng Đấu (Vòng Bảng, Bán Kết, Chung Kết)
-        </h3>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white px-5 py-4 rounded-2xl border border-slate-200 shadow-xs">
+          <h3 className="text-sm font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+            1. Quy Định Các Vòng Đấu (Vòng Bảng, Bán Kết, Chung Kết)
+          </h3>
+
+          <div className="flex items-center gap-3">
+            {isRulesSaved && (
+              <div className="px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold flex items-center gap-1.5 animate-in fade-in">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                <span>Đã lưu điều lệ!</span>
+              </div>
+            )}
+            <button
+              type="button"
+              onClick={handleSaveRules}
+              className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition-all flex items-center gap-2 cursor-pointer shrink-0"
+            >
+              <Save className="w-4 h-4" />
+              <span>Lưu Thay Đổi (Phần 1)</span>
+            </button>
+          </div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {rules.map((rule, ruleIdx) => (
@@ -212,10 +219,10 @@ export const AdminRules: React.FC = () => {
 
       {/* Prize Editor */}
       <div className="bg-white rounded-2xl border border-slate-200 shadow-xs p-6 space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-2 border-b border-slate-100">
-          <div>
+        <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-4 pb-3 border-b border-slate-100">
+          <div className="min-w-0">
             <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 flex items-center gap-2">
-              <Trophy className="w-4 h-4 text-amber-500" />
+              <Trophy className="w-4 h-4 text-amber-500 shrink-0" />
               2. Cơ Cấu Tiền Thưởng Giải Đấu (VNĐ)
             </h3>
             <p className="text-xs text-slate-500 mt-0.5">
@@ -223,9 +230,27 @@ export const AdminRules: React.FC = () => {
             </p>
           </div>
 
-          <div className="px-3.5 py-1.5 rounded-xl bg-amber-50 border border-amber-300/80 text-amber-900 text-xs font-bold flex items-center gap-2 shrink-0">
-            <Sparkles className="w-4 h-4 text-amber-600 shrink-0" />
-            <span>Tổng Quỹ Thưởng: <strong className="text-amber-700 text-sm font-black">{currentTotalPrize.toLocaleString('vi-VN')} VNĐ</strong></span>
+          <div className="flex flex-row items-center gap-3 shrink-0 flex-nowrap self-start xl:self-auto">
+            <div className="h-10 px-3.5 rounded-xl bg-amber-50 border border-amber-300/80 text-amber-900 text-xs font-bold flex items-center gap-2 shrink-0 whitespace-nowrap">
+              <Sparkles className="w-4 h-4 text-amber-600 shrink-0" />
+              <span>Tổng Quỹ Thưởng: <strong className="text-amber-700 text-sm font-black">{currentTotalPrize.toLocaleString('vi-VN')} VNĐ</strong></span>
+            </div>
+
+            {isPrizesSaved && (
+              <div className="h-10 px-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold flex items-center gap-1.5 animate-in fade-in shrink-0 whitespace-nowrap">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                <span>Đã lưu giải thưởng!</span>
+              </div>
+            )}
+
+            <button
+              type="button"
+              onClick={handleSavePrizes}
+              className="h-10 px-4 rounded-xl bg-amber-500 hover:bg-amber-600 active:scale-95 text-slate-950 font-bold text-xs shadow-sm shadow-amber-500/25 transition-all flex items-center gap-2 cursor-pointer shrink-0 whitespace-nowrap"
+            >
+              <Save className="w-4 h-4" />
+              <span>Lưu Thay Đổi (Phần 2)</span>
+            </button>
           </div>
         </div>
 

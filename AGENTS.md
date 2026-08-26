@@ -9,3 +9,6 @@
 - **Quy trình khi cần chỉnh sửa tính năng cũ để phát triển tính năng mới**:
   1. **Nêu rõ nội dung thay đổi**: Giải thích cụ thể lý do cần sửa, vị trí code và phạm vi ảnh hưởng tới tính năng cũ.
   2. **Chờ xác nhận**: Chỉ được phép viết code hoặc chỉnh sửa sau khi người dùng đã xem và bấm **CONFIRM / Đồng ý**.
+
+## 3. Git & Commit Rules
+- **Tuyệt đối không tự ý commit code**: Chỉ thực hiện `git commit` khi người dùng yêu cầu rõ ràng. Trong quá trình phát triển thông thường, không tự ý chạy các lệnh `git commit`.
