@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useTournament } from '../../data/TournamentContext';
-import { TournamentRuleItem, Prize } from '../../types/tournament';
+import { TournamentRuleItem, Prize, SupplementaryRegulation } from '../../types/tournament';
+import { DEFAULT_SUPPLEMENTARY_REGULATIONS } from '../../data/tournamentData';
 import {
   BookOpen,
   Save,
@@ -28,11 +29,11 @@ import {
   Activity,
   Heart,
   Clock,
+  Trash2,
 } from 'lucide-react';
 import { FormattedText } from '../RulesSection';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import Underline from '@tiptap/extension-underline';
 
 // Categorized Emoji data for the Windows-style picker
 const EMOJI_CATEGORIES = [
@@ -141,7 +142,6 @@ const FormatEditor: React.FC<FormatEditorProps> = ({
           levels: [1, 2, 3],
         },
       }),
-      Underline,
     ],
     content: getInitialContent(value),
     onUpdate: ({ editor }) => {
@@ -539,14 +539,20 @@ const FormatEditor: React.FC<FormatEditorProps> = ({
 };
 
 export const AdminRules: React.FC = () => {
-  const { tournament, updateRules, updatePrizes } = useTournament();
+  const { tournament, updateRules, updatePrizes, updateSupplementaryRegulations } = useTournament();
 
   const isEditable = tournament.status === 'UPCOMING';
 
   const [rules, setRules] = useState<TournamentRuleItem[]>(tournament.rules || []);
   const [prizes, setPrizes] = useState<Prize[]>(tournament.prizes || []);
+  const [supplementaryRegulations, setSupplementaryRegulations] = useState<SupplementaryRegulation[]>(
+    tournament.supplementaryRegulations && tournament.supplementaryRegulations.length > 0
+      ? tournament.supplementaryRegulations
+      : DEFAULT_SUPPLEMENTARY_REGULATIONS
+  );
   const [isRulesSaved, setIsRulesSaved] = useState(false);
   const [isPrizesSaved, setIsPrizesSaved] = useState(false);
+  const [isSuppSaved, setIsSuppSaved] = useState(false);
 
   useEffect(() => {
     if (tournament.rules) {
@@ -555,7 +561,10 @@ export const AdminRules: React.FC = () => {
     if (tournament.prizes) {
       setPrizes(tournament.prizes);
     }
-  }, [tournament.rules, tournament.prizes]);
+    if (tournament.supplementaryRegulations && tournament.supplementaryRegulations.length > 0) {
+      setSupplementaryRegulations(tournament.supplementaryRegulations);
+    }
+  }, [tournament.rules, tournament.prizes, tournament.supplementaryRegulations]);
 
   const handleRuleChange = (index: number, field: keyof TournamentRuleItem, value: any) => {
     if (!isEditable) return;
@@ -629,6 +638,83 @@ export const AdminRules: React.FC = () => {
     updatePrizes(prizes);
     setIsPrizesSaved(true);
     setTimeout(() => setIsPrizesSaved(false), 3000);
+  };
+
+  const handleSuppTitleChange = (regIndex: number, title: string) => {
+    if (!isEditable) return;
+    const updated = [...supplementaryRegulations];
+    updated[regIndex] = { ...updated[regIndex], title };
+    setSupplementaryRegulations(updated);
+  };
+
+  const handleSuppSubtitleChange = (regIndex: number, subtitle: string) => {
+    if (!isEditable) return;
+    const updated = [...supplementaryRegulations];
+    updated[regIndex] = { ...updated[regIndex], subtitle };
+    setSupplementaryRegulations(updated);
+  };
+
+  const handleSuppItemChange = (
+    regIndex: number,
+    itemIndex: number,
+    field: 'title' | 'description' | 'label',
+    val: string
+  ) => {
+    if (!isEditable) return;
+    const updated = [...supplementaryRegulations];
+    const items = [...updated[regIndex].items];
+    items[itemIndex] = { ...items[itemIndex], [field]: val };
+    updated[regIndex] = { ...updated[regIndex], items };
+    setSupplementaryRegulations(updated);
+  };
+
+  const handleAddSuppItem = (regIndex: number) => {
+    if (!isEditable) return;
+    const updated = [...supplementaryRegulations];
+    const isLet = updated[regIndex].id === 'let_rule' || regIndex === 0;
+    const currentItems = updated[regIndex].items || [];
+    const nextIdx = currentItems.length;
+    const nextLabel = isLet ? `${nextIdx + 1}` : String.fromCharCode(65 + nextIdx);
+    
+    const newItem = {
+      id: `supp-${Date.now()}-${nextIdx}`,
+      label: nextLabel,
+      title: '',
+      description: ''
+    };
+    
+    updated[regIndex] = { ...updated[regIndex], items: [...currentItems, newItem] };
+    setSupplementaryRegulations(updated);
+  };
+
+  const handleDeleteSuppItem = (regIndex: number, itemIndex: number) => {
+    if (!isEditable) return;
+    const updated = [...supplementaryRegulations];
+    const items = updated[regIndex].items.filter((_, idx) => idx !== itemIndex);
+    updated[regIndex] = { ...updated[regIndex], items };
+    setSupplementaryRegulations(updated);
+  };
+
+  const handleSuppNoteChange = (regIndex: number, field: 'noteTitle' | 'noteContent', val: string) => {
+    if (!isEditable) return;
+    const updated = [...supplementaryRegulations];
+    updated[regIndex] = { ...updated[regIndex], [field]: val };
+    setSupplementaryRegulations(updated);
+  };
+
+  const handleSaveSupplementary = () => {
+    if (!isEditable) return;
+    updateSupplementaryRegulations(supplementaryRegulations);
+    setIsSuppSaved(true);
+    setTimeout(() => setIsSuppSaved(false), 3000);
+  };
+
+  const handleResetSupplementary = () => {
+    if (!isEditable) return;
+    setSupplementaryRegulations(DEFAULT_SUPPLEMENTARY_REGULATIONS);
+    updateSupplementaryRegulations(DEFAULT_SUPPLEMENTARY_REGULATIONS);
+    setIsSuppSaved(true);
+    setTimeout(() => setIsSuppSaved(false), 3000);
   };
 
   return (
@@ -813,6 +899,215 @@ export const AdminRules: React.FC = () => {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* 3. Supplementary Regulations Editor */}
+      <div className="space-y-2">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 bg-white px-3 py-2 rounded-xl border border-slate-200 shadow-xs">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-indigo-600"></span>
+            3. Quy Định Đánh Lại Điểm (Let) &amp; Xử Lý Bỏ Cuộc / Bỏ Giải (Walkover)
+          </h3>
+
+          <div className="flex flex-wrap items-center gap-2">
+            {isSuppSaved && (
+              <div className="px-2 py-0.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold flex items-center gap-1 animate-in fade-in shrink-0">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Đã lưu quy định bổ sung!</span>
+              </div>
+            )}
+
+            <button
+              type="button"
+              onClick={handleResetSupplementary}
+              disabled={!isEditable}
+              className="px-2.5 py-1 rounded-lg font-bold text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              title="Khôi phục về nội dung mặc định của BTC"
+            >
+              Khôi Phục Mặc Định
+            </button>
+
+            <button
+              type="button"
+              onClick={handleSaveSupplementary}
+              disabled={!isEditable}
+              className={`px-3 py-1 rounded-lg font-bold text-xs shadow-xs transition-all flex items-center gap-1.5 shrink-0 ${
+                isEditable
+                  ? 'bg-indigo-600 hover:bg-indigo-700 text-white cursor-pointer'
+                  : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+              }`}
+            >
+              <Save className="w-3.5 h-3.5" />
+              <span>Lưu Thay Đổi (Phần 3)</span>
+            </button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+          {supplementaryRegulations.map((reg, regIdx) => {
+            const isLet = reg.id === 'let_rule' || regIdx === 0;
+
+            return (
+              <div
+                key={reg.id || regIdx}
+                className={`bg-white rounded-xl border ${
+                  isLet ? 'border-blue-200' : 'border-amber-200'
+                } shadow-xs p-3 sm:p-3.5 space-y-3 flex flex-col justify-start`}
+              >
+                {/* Header of the Card */}
+                <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+                  <div className="flex items-center gap-2">
+                    <span className="text-base">{isLet ? '🔄' : '⚠️'}</span>
+                    <span
+                      className={`px-2 py-0.5 rounded-md font-black text-[10px] uppercase tracking-wider ${
+                        isLet ? 'bg-blue-100 text-blue-700' : 'bg-amber-100 text-amber-800'
+                      }`}
+                    >
+                      {isLet ? 'QUY ĐỊNH ĐÁNH LẠI (LET)' : 'QUY ĐỊNH BỎ CUỘC (WALKOVER)'}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Tiêu đề & Mô tả phụ của Thẻ */}
+                <div className="space-y-2">
+                  <div>
+                    <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">
+                      Tiêu Đề Chính Của Thẻ
+                    </label>
+                    <input
+                      type="text"
+                      value={reg.title}
+                      onChange={e => handleSuppTitleChange(regIdx, e.target.value)}
+                      disabled={!isEditable}
+                      className={`w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-bold text-slate-900 focus:bg-white focus:outline-none focus:ring-1 ${
+                        isLet ? 'focus:ring-blue-500' : 'focus:ring-amber-500'
+                      } disabled:bg-slate-100 disabled:text-slate-500`}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">
+                      Mô Tả Phụ (Subtitle)
+                    </label>
+                    <input
+                      type="text"
+                      value={reg.subtitle}
+                      onChange={e => handleSuppSubtitleChange(regIdx, e.target.value)}
+                      disabled={!isEditable}
+                      className={`w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-700 focus:bg-white focus:outline-none focus:ring-1 ${
+                        isLet ? 'focus:ring-blue-500' : 'focus:ring-amber-500'
+                      } disabled:bg-slate-100 disabled:text-slate-500`}
+                    />
+                  </div>
+                </div>
+
+                {/* Danh Sách Các Mục / Trường Hợp Chi Tiết */}
+                <div className="space-y-2.5 pt-1">
+                  <div>
+                    <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                      Danh Sách Chi Tiết Các Trường Hợp ({reg.items.length} Mục)
+                    </label>
+                  </div>
+
+                  {reg.items.length === 0 && (
+                    <div className="p-3 text-center rounded-lg bg-slate-50 border border-dashed border-slate-200 text-xs text-slate-400">
+                      Chưa có trường hợp nào. Nhấn "Thêm Trường Hợp" để thêm mới.
+                    </div>
+                  )}
+
+                  {reg.items.map((item, itemIdx) => (
+                    <div
+                      key={item.id || itemIdx}
+                      className="p-2.5 rounded-lg bg-slate-50 border border-slate-200 space-y-1.5"
+                    >
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="text"
+                          value={item.label || (isLet ? `${itemIdx + 1}` : String.fromCharCode(65 + itemIdx))}
+                          onChange={e => handleSuppItemChange(regIdx, itemIdx, 'label', e.target.value)}
+                          disabled={!isEditable}
+                          title="Ký hiệu thứ tự (1, 2... hoặc A, B...)"
+                          className={`w-7 h-7 text-center rounded-md font-bold text-xs shrink-0 border border-slate-300 focus:outline-none focus:ring-1 focus:ring-blue-400 ${
+                            isLet ? 'bg-blue-100 text-blue-700' : 'bg-amber-100 text-amber-800'
+                          }`}
+                        />
+                        <input
+                          type="text"
+                          value={item.title}
+                          onChange={e => handleSuppItemChange(regIdx, itemIdx, 'title', e.target.value)}
+                          disabled={!isEditable}
+                          placeholder="Tiêu đề trường hợp (VD: Ngoại cảnh can thiệp:)..."
+                          className="w-full px-2 py-1 bg-white border border-slate-200 rounded text-xs font-bold text-slate-900 focus:outline-none focus:ring-1 focus:ring-blue-400 disabled:bg-slate-100"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteSuppItem(regIdx, itemIdx)}
+                          disabled={!isEditable}
+                          title="Xóa trường hợp này"
+                          className="p-1.5 rounded text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors disabled:opacity-30 disabled:cursor-not-allowed shrink-0 cursor-pointer"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                      <textarea
+                        value={item.description}
+                        onChange={e => handleSuppItemChange(regIdx, itemIdx, 'description', e.target.value)}
+                        disabled={!isEditable}
+                        rows={2}
+                        placeholder="Nội dung giải thích chi tiết..."
+                        className="w-full px-2 py-1.5 bg-white border border-slate-200 rounded text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-400 disabled:bg-slate-100 resize-y"
+                      />
+                    </div>
+                  ))}
+
+                  {reg.items.length > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => handleAddSuppItem(regIdx)}
+                      disabled={!isEditable}
+                      className={`w-full py-1.5 rounded-lg border border-dashed text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
+                        isEditable
+                          ? isLet
+                            ? 'border-blue-300 text-blue-700 hover:bg-blue-50/70'
+                            : 'border-amber-300 text-amber-800 hover:bg-amber-50/70'
+                          : 'opacity-50 cursor-not-allowed'
+                      }`}
+                    >
+                      <Plus className="w-3.5 h-3.5" /> Thêm Trường Hợp Mới
+                    </button>
+                  )}
+                </div>
+
+                {/* Phần Lưu Ý / Quyết Định ở cuối Thẻ */}
+                <div
+                  className={`p-2.5 rounded-lg border ${
+                    isLet ? 'bg-blue-50/70 border-blue-200' : 'bg-amber-50/70 border-amber-200'
+                  } space-y-1.5`}
+                >
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="text"
+                      value={reg.noteTitle || ''}
+                      onChange={e => handleSuppNoteChange(regIdx, 'noteTitle', e.target.value)}
+                      disabled={!isEditable}
+                      placeholder={isLet ? '📌 Lưu ý:' : '⚖️ Quyết định:'}
+                      className="w-32 px-2 py-1 bg-white border border-slate-200 rounded text-xs font-bold text-slate-900 focus:outline-none focus:ring-1 focus:ring-blue-400 disabled:bg-slate-100"
+                    />
+                    <span className="text-[10px] text-slate-500 font-medium">(Nhãn ghi chú)</span>
+                  </div>
+                  <textarea
+                    value={reg.noteContent || ''}
+                    onChange={e => handleSuppNoteChange(regIdx, 'noteContent', e.target.value)}
+                    disabled={!isEditable}
+                    rows={2}
+                    placeholder="Nội dung lưu ý / quyết định..."
+                    className="w-full px-2 py-1.5 bg-white border border-slate-200 rounded text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-blue-400 disabled:bg-slate-100 resize-y"
+                  />
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

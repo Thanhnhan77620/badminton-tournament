@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { TournamentInfo, Pair, Match, MatchStatus, Standing, Player, ScoringFormat } from '../types/tournament';
+import { TournamentInfo, Pair, Match, MatchStatus, Standing, Player, ScoringFormat, SupplementaryRegulation } from '../types/tournament';
 import {
   tournamentInfo as defaultTournamentInfo,
   initialPlayers as defaultInitialPlayers,
@@ -7,6 +7,7 @@ import {
   initialMatches as defaultInitialMatches,
   calculateStandings as defaultCalculateStandings,
   PLACEHOLDER_PAIRS,
+  DEFAULT_SUPPLEMENTARY_REGULATIONS,
 } from '../data/tournamentData';
 import {
   saveTournamentToCloud,
@@ -50,6 +51,7 @@ export interface TournamentContextType {
   updateTournamentInfo: (info: Partial<TournamentInfo>) => void;
   updateRules: (rules: TournamentInfo['rules']) => void;
   updatePrizes: (prizes: TournamentInfo['prizes']) => void;
+  updateSupplementaryRegulations: (regulations: SupplementaryRegulation[]) => void;
 
   // Player & Pair Management
   addPlayer: (player: Player) => void;
@@ -522,6 +524,12 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
   const updatePrizes = (prizes: TournamentInfo['prizes']) => {
     const updated = { ...tournament, prizes };
+    setTournament(updated);
+    syncToCloud(updated, pairs, matches, players);
+  };
+
+  const updateSupplementaryRegulations = (supplementaryRegulations: SupplementaryRegulation[]) => {
+    const updated = { ...tournament, supplementaryRegulations };
     setTournament(updated);
     syncToCloud(updated, pairs, matches, players);
   };
@@ -1487,6 +1495,7 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         updateTournamentInfo,
         updateRules,
         updatePrizes,
+        updateSupplementaryRegulations,
         addPlayer,
         updatePlayer,
         deletePlayer,

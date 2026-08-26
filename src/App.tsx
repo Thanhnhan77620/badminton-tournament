@@ -104,7 +104,10 @@ function PublicAppContent() {
               isGroupAPublished={tournament.isGroupAPublished}
               isGroupBPublished={tournament.isGroupBPublished}
             />
-            <RulesSection rules={tournament.rules} />
+            <RulesSection
+              rules={tournament.rules}
+              supplementaryRegulations={tournament.supplementaryRegulations}
+            />
           </div>
         )}
 
@@ -191,7 +194,10 @@ function PublicAppContent() {
                 </p>
               </div>
             </div>
-            <RulesSection rules={tournament.rules} />
+            <RulesSection
+              rules={tournament.rules}
+              supplementaryRegulations={tournament.supplementaryRegulations}
+            />
           </div>
         )}
       </main>

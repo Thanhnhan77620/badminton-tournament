@@ -1,4 +1,73 @@
-import { TournamentInfo, Pair, Match, Standing, Player } from '../types/tournament';
+import { TournamentInfo, Pair, Match, Standing, Player, SupplementaryRegulation } from '../types/tournament';
+
+export const DEFAULT_SUPPLEMENTARY_REGULATIONS: SupplementaryRegulation[] = [
+  {
+    id: 'let_rule',
+    title: 'Quy Định Đánh Lại Điểm (Quả Cầu Hỏng / "Let")',
+    subtitle: 'Các trường hợp pha cầu bị hủy và tiến hành phát lại mà không tính điểm',
+    items: [
+      {
+        id: 'let-1',
+        label: '1',
+        title: 'Ngoại cảnh can thiệp bất ngờ:',
+        description: 'Có cầu từ sân khác bay vào khu vực thi đấu, hoặc có người/vật cản đột ngột di chuyển vào sân làm ảnh hưởng trực tiếp đến pha cầu đang diễn ra.'
+      },
+      {
+        id: 'let-2',
+        label: '2',
+        title: 'Bên nhận chưa sẵn sàng:',
+        description: 'Bên phát cầu thực hiện giao cầu khi bên nhận chưa có tư thế sẵn sàng (với điều kiện bên nhận không có hành động cố gắng đỡ cầu).'
+      },
+      {
+        id: 'let-3',
+        label: '3',
+        title: 'Cầu hỏng hoặc mắc kẹt trên lưới:',
+        description: 'Quả cầu bị gãy cánh lông/vỡ nát bất ngờ giữa pha đánh, hoặc cầu bị mắc lại trên đỉnh lưới (ngoại trừ trường hợp quả giao cầu chạm lưới).'
+      },
+      {
+        id: 'let-4',
+        label: '4',
+        title: 'Tranh chấp không thể phân định:',
+        description: 'Trọng tài hoặc 2 đội không thể xác định chính xác cầu trong hay ngoài sân và không đạt được sự đồng thuận sau khi trao đổi nhanh.'
+      }
+    ],
+    noteTitle: '📌 Lưu ý:',
+    noteContent: 'Khi có hiệu lệnh "Đánh lại", bên vừa phát cầu sẽ thực hiện lại quả giao cầu từ ô phát cầu tương ứng với điểm số hiện tại.'
+  },
+  {
+    id: 'walkover_rule',
+    title: 'Quy Định Bỏ Cuộc / Bỏ Giải (Walkover - WO)',
+    subtitle: 'Biện pháp xử lý điểm số và thứ hạng khi có cặp VĐV không thể hoàn thành giải đấu',
+    items: [
+      {
+        id: 'wo-1',
+        label: 'A',
+        title: 'Bỏ cuộc giữa trận (Dừng do chấn thương / sự cố):',
+        description: 'Cặp đấu dừng trận bị xử thua. Cặp đối thủ được tính thắng với điểm tối đa của trận (21 điểm hoặc đủ điểm thắng set), giữ nguyên điểm số hiện có của cặp bỏ cuộc để ghi nhận biên bản.'
+      },
+      {
+        id: 'wo-2',
+        label: 'B',
+        title: 'Bỏ giải hoàn toàn ở Vòng Bảng:',
+        description: 'Nếu 1 cặp đôi rút lui hoàn toàn khỏi giải: BTC sẽ xử thua 0 - 21 (Walkover) ở tất cả các trận chưa thi đấu của cặp đó. Các trận đã diễn ra trước đó vẫn được bảo lưu kết quả bảng điểm.'
+      },
+      {
+        id: 'wo-3',
+        label: 'C',
+        title: 'Bỏ cuộc tại Vòng Bán Kết / Chung Kết:',
+        description: 'Cặp đối thủ trực tiếp được đặc cách thắng (Walkover) và vào thẳng vòng tiếp theo hoặc nhận hạng giải tương ứng (Quán Quân / Á Quân / Hạng Ba).'
+      },
+      {
+        id: 'wo-4',
+        label: 'D',
+        title: 'Quyền hạn cao nhất của Ban Tổ Chức (BTC):',
+        description: 'Trong các trường hợp phát sinh tranh chấp hoặc trường hợp bất khả kháng, quyết định của BTC là quyết định cuối cùng và có hiệu lực tuyệt đối.'
+      }
+    ],
+    noteTitle: '⚖️ Quyết định:',
+    noteContent: 'Mọi vận động viên tham gia cam kết tuân thủ tinh thần thể thao cao thượng, fair-play và tôn trọng quyết định điều hành giải đấu.'
+  }
+];
 
 export const tournamentInfo: TournamentInfo = {
   id: 'isc-open-2026',
@@ -20,6 +89,7 @@ export const tournamentInfo: TournamentInfo = {
   isScheduleAPublished: false,
   isScheduleBPublished: false,
   isScheduleKnockoutPublished: false,
+  supplementaryRegulations: DEFAULT_SUPPLEMENTARY_REGULATIONS,
   prizes: [
     {
       rank: 1,

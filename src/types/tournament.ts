@@ -87,6 +87,22 @@ export interface TournamentRuleItem {
   advancement: string;
 }
 
+export interface RegulationItem {
+  id?: string;
+  label?: string; // "1", "2", "3", "4" or "A", "B", "C", "D"
+  title: string; // e.g. "Ngoại cảnh can thiệp bất ngờ:"
+  description: string; // e.g. "Có cầu từ sân khác bay vào..."
+}
+
+export interface SupplementaryRegulation {
+  id: string; // 'let_rule' | 'walkover_rule'
+  title: string;
+  subtitle: string;
+  items: RegulationItem[];
+  noteTitle?: string;
+  noteContent?: string;
+}
+
 export interface TournamentInfo {
   id: string;
   name: string;
@@ -104,6 +120,7 @@ export interface TournamentInfo {
   status: TournamentStatus;
   prizes: Prize[];
   rules: TournamentRuleItem[];
+  supplementaryRegulations?: SupplementaryRegulation[];
   // Publish status for Groups & Schedules (Draft vs Public)
   isGroupAPublished?: boolean;
   isGroupBPublished?: boolean;

@@ -1,0 +1,42 @@
+{
+  "entities": {
+    "Tournament": {
+      "title": "Tournament",
+      "description": "Full state of the badminton tournament including details, pairs, matches and players",
+      "type": "object",
+      "properties": {
+        "tournament": {
+          "type": "object",
+          "description": "Tournament metadata, dates, rules, and configuration"
+        },
+        "pairs": {
+          "type": "array",
+          "description": "List of participating pairs in group A and B"
+        },
+        "matches": {
+          "type": "array",
+          "description": "List of matches across group stages and knockout rounds"
+        },
+        "players": {
+          "type": "array",
+          "description": "List of registered players"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of last cloud update"
+        },
+        "version": {
+          "type": "number",
+          "description": "Version timestamp for synchronization"
+        }
+      },
+      "required": ["tournament", "pairs", "matches", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/tournaments/{tournamentId}": {
+      "schema": "Tournament",
+      "description": "Stores current state of badminton tournament instance"
+    }
+  }
+}

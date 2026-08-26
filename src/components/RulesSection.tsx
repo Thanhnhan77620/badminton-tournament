@@ -1,9 +1,11 @@
 import React from 'react';
-import { TournamentRuleItem } from '../types/tournament';
+import { TournamentRuleItem, SupplementaryRegulation } from '../types/tournament';
+import { DEFAULT_SUPPLEMENTARY_REGULATIONS } from '../data/tournamentData';
 import { FileText, CheckCircle2, ChevronRight } from 'lucide-react';
 
 interface RulesSectionProps {
   rules: TournamentRuleItem[];
+  supplementaryRegulations?: SupplementaryRegulation[];
 }
 
 /**
@@ -212,7 +214,10 @@ const renderRuleItem = (sc: string, sIdx: number) => {
   );
 };
 
-export const RulesSection: React.FC<RulesSectionProps> = ({ rules }) => {
+export const RulesSection: React.FC<RulesSectionProps> = ({ rules, supplementaryRegulations }) => {
+  const letRule = supplementaryRegulations?.find(r => r.id === 'let_rule') || DEFAULT_SUPPLEMENTARY_REGULATIONS[0];
+  const walkoverRule = supplementaryRegulations?.find(r => r.id === 'walkover_rule') || DEFAULT_SUPPLEMENTARY_REGULATIONS[1];
+
   return (
     <section className="py-8 bg-slate-50/70 border-b border-slate-200">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-6 sm:space-y-8">
@@ -264,60 +269,50 @@ export const RulesSection: React.FC<RulesSectionProps> = ({ rules }) => {
               </div>
               <div>
                 <h3 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
-                  Quy Định Đánh Lại Điểm (Quả Cầu Hỏng / "Let")
+                  {letRule.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-500">
-                  Các trường hợp pha cầu bị hủy và tiến hành phát lại mà không tính điểm
-                </p>
+                {letRule.subtitle && (
+                  <p className="text-xs sm:text-sm text-slate-500">
+                    {letRule.subtitle}
+                  </p>
+                )}
               </div>
             </div>
 
             <div className="space-y-2.5 text-xs sm:text-sm text-slate-700">
-              <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 flex items-start gap-2.5">
-                <span className="w-5 h-5 rounded-md bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
-                  1
-                </span>
-                <div className="text-justify">
-                  <strong className="text-slate-900 block text-xs sm:text-sm mb-0.5 text-left">Ngoại cảnh can thiệp bất ngờ:</strong>
-                  <span className="leading-relaxed">Có cầu từ sân khác bay vào khu vực thi đấu, hoặc có người/vật cản đột ngột di chuyển vào sân làm ảnh hưởng trực tiếp đến pha cầu đang diễn ra.</span>
+              {letRule.items.map((item, idx) => (
+                <div key={item.id || idx} className="p-3 rounded-xl bg-slate-50 border border-slate-100 flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-md bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
+                    {item.label || idx + 1}
+                  </span>
+                  <div className="text-justify w-full">
+                    {item.title && (
+                      <strong className="text-slate-900 block text-xs sm:text-sm mb-0.5 text-left">
+                        {item.title}
+                      </strong>
+                    )}
+                    <span className="leading-relaxed">
+                      <FormattedText text={item.description} />
+                    </span>
+                  </div>
                 </div>
-              </div>
-
-              <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 flex items-start gap-2.5">
-                <span className="w-5 h-5 rounded-md bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
-                  2
-                </span>
-                <div className="text-justify">
-                  <strong className="text-slate-900 block text-xs sm:text-sm mb-0.5 text-left">Bên nhận chưa sẵn sàng:</strong>
-                  <span className="leading-relaxed">Bên phát cầu thực hiện giao cầu khi bên nhận chưa có tư thế sẵn sàng (với điều kiện bên nhận không có hành động cố gắng đỡ cầu).</span>
-                </div>
-              </div>
-
-              <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 flex items-start gap-2.5">
-                <span className="w-5 h-5 rounded-md bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
-                  3
-                </span>
-                <div className="text-justify">
-                  <strong className="text-slate-900 block text-xs sm:text-sm mb-0.5 text-left">Cầu hỏng hoặc mắc kẹt trên lưới:</strong>
-                  <span className="leading-relaxed">Quả cầu bị gãy cánh lông/vỡ nát bất ngờ giữa pha đánh, hoặc cầu bị mắc lại trên đỉnh lưới (ngoại trừ trường hợp quả giao cầu chạm lưới).</span>
-                </div>
-              </div>
-
-              <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 flex items-start gap-2.5">
-                <span className="w-5 h-5 rounded-md bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
-                  4
-                </span>
-                <div className="text-justify">
-                  <strong className="text-slate-900 block text-xs sm:text-sm mb-0.5 text-left">Tranh chấp không thể phân định:</strong>
-                  <span className="leading-relaxed">Trọng tài hoặc 2 đội không thể xác định chính xác cầu trong hay ngoài sân và không đạt được sự đồng thuận sau khi trao đổi nhanh.</span>
-                </div>
-              </div>
+              ))}
             </div>
 
-            <div className="p-3 rounded-xl bg-blue-50/80 border border-blue-200/70 text-xs sm:text-sm text-blue-950 font-medium flex items-center gap-2">
-              <span className="font-bold shrink-0">📌 Lưu ý:</span>
-              <span className="leading-relaxed text-justify">Khi có hiệu lệnh "Đánh lại", bên vừa phát cầu sẽ thực hiện lại quả giao cầu từ ô phát cầu tương ứng với điểm số hiện tại.</span>
-            </div>
+            {(letRule.noteContent || letRule.noteTitle) && (
+              <div className="p-3.5 sm:p-4 rounded-xl bg-blue-50/90 border border-blue-200 text-xs sm:text-sm text-slate-800 leading-relaxed">
+                <div className="leading-relaxed text-slate-700 font-normal">
+                  {letRule.noteTitle && (
+                    <strong className="font-bold text-blue-950 mr-1.5 inline">
+                      {letRule.noteTitle}
+                    </strong>
+                  )}
+                  <span className="inline">
+                    {letRule.noteContent}
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Card 2: Quy Định Xử Lý Bỏ Cuộc / Bỏ Giải (Walkover & Forfeiture) */}
@@ -328,60 +323,50 @@ export const RulesSection: React.FC<RulesSectionProps> = ({ rules }) => {
               </div>
               <div>
                 <h3 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
-                  Quy Định Bỏ Cuộc / Bỏ Giải (Walkover - WO)
+                  {walkoverRule.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-500">
-                  Biện pháp xử lý điểm số và thứ hạng khi có cặp VĐV không thể hoàn thành giải đấu
-                </p>
+                {walkoverRule.subtitle && (
+                  <p className="text-xs sm:text-sm text-slate-500">
+                    {walkoverRule.subtitle}
+                  </p>
+                )}
               </div>
             </div>
 
             <div className="space-y-2.5 text-xs sm:text-sm text-slate-700">
-              <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 flex items-start gap-2.5">
-                <span className="w-5 h-5 rounded-md bg-amber-100 text-amber-800 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
-                  A
-                </span>
-                <div className="text-justify">
-                  <strong className="text-slate-900 block text-xs sm:text-sm mb-0.5 text-left">Bỏ cuộc giữa trận (Dừng do chấn thương / sự cố):</strong>
-                  <span className="leading-relaxed">Cặp đấu dừng trận bị xử thua. Cặp đối thủ được tính thắng với điểm tối đa của trận (21 điểm hoặc đủ điểm thắng set), giữ nguyên điểm số hiện có của cặp bỏ cuộc để ghi nhận biên bản.</span>
+              {walkoverRule.items.map((item, idx) => (
+                <div key={item.id || idx} className="p-3 rounded-xl bg-slate-50 border border-slate-100 flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-md bg-amber-100 text-amber-800 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
+                    {item.label || String.fromCharCode(65 + idx)}
+                  </span>
+                  <div className="text-justify w-full">
+                    {item.title && (
+                      <strong className="text-slate-900 block text-xs sm:text-sm mb-0.5 text-left">
+                        {item.title}
+                      </strong>
+                    )}
+                    <span className="leading-relaxed">
+                      <FormattedText text={item.description} />
+                    </span>
+                  </div>
                 </div>
-              </div>
-
-              <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 flex items-start gap-2.5">
-                <span className="w-5 h-5 rounded-md bg-amber-100 text-amber-800 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
-                  B
-                </span>
-                <div className="text-justify">
-                  <strong className="text-slate-900 block text-xs sm:text-sm mb-0.5 text-left">Bỏ giải hoàn toàn ở Vòng Bảng:</strong>
-                  <span className="leading-relaxed">Nếu 1 cặp đôi rút lui hoàn toàn khỏi giải: BTC sẽ xử thua <strong>0 - 21 (Walkover)</strong> ở tất cả các trận chưa thi đấu của cặp đó. Các trận đã diễn ra trước đó vẫn được bảo lưu kết quả bảng điểm.</span>
-                </div>
-              </div>
-
-              <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 flex items-start gap-2.5">
-                <span className="w-5 h-5 rounded-md bg-amber-100 text-amber-800 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
-                  C
-                </span>
-                <div className="text-justify">
-                  <strong className="text-slate-900 block text-xs sm:text-sm mb-0.5 text-left">Bỏ cuộc tại Vòng Bán Kết / Chung Kết:</strong>
-                  <span className="leading-relaxed">Cặp đối thủ trực tiếp được đặc cách thắng (Walkover) và vào thẳng vòng tiếp theo hoặc nhận hạng giải tương ứng (Quán Quân / Á Quân / Hạng Ba).</span>
-                </div>
-              </div>
-
-              <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 flex items-start gap-2.5">
-                <span className="w-5 h-5 rounded-md bg-amber-100 text-amber-800 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
-                  D
-                </span>
-                <div className="text-justify">
-                  <strong className="text-slate-900 block text-xs sm:text-sm mb-0.5 text-left">Quyền hạn cao nhất của Ban Tổ Chức (BTC):</strong>
-                  <span className="leading-relaxed">Trong các trường hợp phát sinh tranh chấp hoặc trường hợp bất khả kháng, quyết định của BTC là <strong>quyết định cuối cùng và có hiệu lực tuyệt đối</strong>.</span>
-                </div>
-              </div>
+              ))}
             </div>
 
-            <div className="p-3 rounded-xl bg-amber-50/90 border border-amber-200/70 text-xs sm:text-sm text-amber-950 font-medium flex items-center gap-2">
-              <span className="font-bold shrink-0">⚖️ Quyết định:</span>
-              <span className="leading-relaxed text-justify">Mọi vận động viên tham gia cam kết tuân thủ tinh thần thể thao cao thượng, fair-play và tôn trọng quyết định điều hành giải đấu.</span>
-            </div>
+            {(walkoverRule.noteContent || walkoverRule.noteTitle) && (
+              <div className="p-3.5 sm:p-4 rounded-xl bg-amber-50/90 border border-amber-200 text-xs sm:text-sm text-slate-800 leading-relaxed">
+                <div className="leading-relaxed text-slate-700 font-normal">
+                  {walkoverRule.noteTitle && (
+                    <strong className="font-bold text-amber-950 mr-1.5 inline">
+                      {walkoverRule.noteTitle}
+                    </strong>
+                  )}
+                  <span className="inline">
+                    {walkoverRule.noteContent}
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
