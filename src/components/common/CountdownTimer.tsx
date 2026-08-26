@@ -307,14 +307,10 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = ({
           </span>
         </div>
 
-        {isExpired ? (
+        {isExpired && (
           <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/40 animate-pulse">
             <Flame className="w-3 h-3 text-rose-400" />
             ĐANG DIỄN RA
-          </span>
-        ) : (
-          <span className="text-[11px] sm:text-xs font-semibold text-slate-400">
-            12/09/2026 • 08:00 AM
           </span>
         )}
       </div>

@@ -78,13 +78,9 @@ export const TournamentHero: React.FC<TournamentHeroProps> = ({
             {/* MATCH / TOURNAMENT COUNTDOWN */}
             <div className="w-full bg-slate-900/95 border border-blue-500/40 hover:border-blue-400/60 transition-colors rounded-2xl p-3 sm:p-4 shadow-xl bg-radial from-blue-950/30 to-slate-900/90">
               <CountdownTimer
-                scheduledDate={nextUpcomingMatch?.scheduledDate || tournament.rawDate || tournament.date || '12/09/2026'}
-                scheduledTime={nextUpcomingMatch?.scheduledTime || '08:00'}
-                title={
-                  nextUpcomingMatch
-                    ? `ĐẾM NGƯỢC TRẬN ĐẤU TIẾP THEO: ${nextUpcomingMatch.roundLabel} (${nextUpcomingMatch.scheduledTime})`
-                    : `ĐẾM NGƯỢC THỜI GIAN KHỞI TRANH GIẢI ĐẤU`
-                }
+                scheduledDate={tournament.rawDate || tournament.date || '12/09/2026'}
+                scheduledTime="08:00"
+                title="ĐẾM NGƯỢC ĐẾN GIẢI ĐẤU"
                 variant="banner"
               />
             </div>
