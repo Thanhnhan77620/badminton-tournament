@@ -477,7 +477,7 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
   // Auth functions
   const login = (passcode: string) => {
-    const validCodes = ['admin', 'isc2026', '123456', 'isc', 'btc'];
+    const validCodes = ['btcadmin'];
     if (validCodes.includes(passcode.trim().toLowerCase())) {
       setIsAdminAuthenticated(true);
       try {

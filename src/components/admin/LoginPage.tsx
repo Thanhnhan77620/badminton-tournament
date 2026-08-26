@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTournament } from '../../data/TournamentContext';
-import { ShieldCheck, Lock, ArrowRight, Eye, Sparkles, AlertCircle, X } from 'lucide-react';
+import { ShieldCheck, Lock, ArrowRight, Eye, AlertCircle, X } from 'lucide-react';
 
 interface LoginPageProps {
   onSuccess?: () => void;
@@ -30,16 +30,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccess, onBackToPublic 
         setViewMode('admin');
         if (onSuccess) onSuccess();
       } else {
-        setError('Mật mã không chính xác. Vui lòng thử lại (Gợi ý: admin hoặc isc2026).');
+        setError('Mật mã Ban Tổ Chức không chính xác. Vui lòng thử lại.');
       }
     }, 200);
-  };
-
-  const handleQuickLogin = (code: string) => {
-    setPasscode(code);
-    login(code);
-    setViewMode('admin');
-    if (onSuccess) onSuccess();
   };
 
   const handleExit = () => {
@@ -98,7 +91,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccess, onBackToPublic 
                     setPasscode(e.target.value);
                     if (error) setError('');
                   }}
-                  placeholder="Nhập mật khẩu (ví dụ: admin)"
+                  placeholder="Nhập mật mã quản trị BTC"
                   className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all"
                   autoFocus
                 />
@@ -129,27 +122,8 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccess, onBackToPublic 
             </button>
           </form>
 
-          {/* Quick Access Helper for Development / Demo */}
-          <div className="pt-4 border-t border-slate-100 space-y-2">
-            <div className="flex items-center justify-between text-xs text-slate-500">
-              <span className="font-semibold flex items-center gap-1">
-                <Sparkles className="w-3.5 h-3.5 text-amber-500" /> Đăng nhập nhanh (Demo):
-              </span>
-              <button
-                type="button"
-                onClick={() => handleQuickLogin('admin')}
-                className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-50 hover:text-blue-700 text-slate-700 text-xs font-bold border border-slate-200 transition-colors cursor-pointer"
-              >
-                Mã: <code>admin</code>
-              </button>
-            </div>
-            <p className="text-[11px] text-slate-400 text-center">
-              Các mã được chấp nhận: <span className="font-mono text-slate-600">admin</span>, <span className="font-mono text-slate-600">isc2026</span>, <span className="font-mono text-slate-600">123456</span>
-            </p>
-          </div>
-
           {/* Back to Public Page */}
-          <div className="text-center">
+          <div className="text-center pt-2 border-t border-slate-100">
             <button
               type="button"
               onClick={handleExit}
