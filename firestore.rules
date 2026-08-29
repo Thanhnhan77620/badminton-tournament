@@ -1,18 +1,43 @@
 rules_version = '2';
+
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Tournament documents: Publicly readable by all viewers/referees, writable for live scoring & tournament management
-    match /tournaments/{tournamentId} {
-      allow read, write: if true;
 
-      match /{subcollection=**} {
-        allow read, write: if true;
-      }
+    // Helper: Verify data structure and bounds
+    function isValidTournamentPayload(data) {
+      return data.tournament is map
+        && data.tournament.name is string
+        && data.tournament.name.size() > 0
+        && data.tournament.name.size() <= 200
+        && data.pairs is list
+        && data.pairs.size() <= 200
+        && data.matches is list
+        && data.matches.size() <= 500
+        && data.players is list
+        && data.players.size() <= 500;
     }
-    
-    // Default fallback
+
+    // Helper: Check if request is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Tournament collection: Public Read, Authenticated & Validated Write Only
+    match /tournaments/{tournamentId} {
+      // 1. PUBLIC READ: Anyone (athletes, fans, referees) can read tournament data
+      allow read: if true;
+
+      // 2. MUTATION: Only authenticated sessions with conforming data schema
+      allow create, update: if isAuthenticated() && isValidTournamentPayload(request.resource.data);
+
+      // 3. DELETE: Strictly forbidden via client SDK
+      allow delete: if false;
+    }
+
+    // Default Deny all other collections
     match /{document=**} {
-      allow read, write: if true;
+      allow read, write: if false;
     }
   }
 }
+

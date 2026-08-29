@@ -1,4 +1,5 @@
 import React from 'react';
+import DOMPurify from 'dompurify';
 import { TournamentRuleItem, SupplementaryRegulation } from '../types/tournament';
 import { DEFAULT_SUPPLEMENTARY_REGULATIONS } from '../data/tournamentData';
 import { FileText, CheckCircle2, ChevronRight } from 'lucide-react';
@@ -62,10 +63,15 @@ export const FormattedText: React.FC<{ text: string; className?: string }> = ({ 
   const isHtml = /<[a-z][\s\S]*>/i.test(text);
 
   if (isHtml) {
+    const cleanHtml = DOMPurify.sanitize(text, {
+      ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'a', 'p', 'ul', 'ol', 'li', 'span', 'br', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'table', 'tr', 'td', 'th', 'thead', 'tbody'],
+      ALLOWED_ATTR: ['href', 'target', 'rel', 'class', 'style']
+    });
+
     return (
       <div
         className={`prose-sm max-w-none text-slate-700 font-normal leading-relaxed text-justify space-y-1.5 [&_strong]:text-slate-900 [&_strong]:font-bold [&_em]:text-slate-800 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_p]:my-1 [&_p]:leading-relaxed [&_p]:font-normal ${className}`}
-        dangerouslySetInnerHTML={{ __html: text }}
+        dangerouslySetInnerHTML={{ __html: cleanHtml }}
       />
     );
   }

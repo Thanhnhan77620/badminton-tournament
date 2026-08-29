@@ -13,7 +13,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccess, onBackToPublic 
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!passcode.trim()) {
       setError('Vui lòng nhập mật mã truy cập BTC.');
@@ -23,8 +23,8 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccess, onBackToPublic 
     setIsLoading(true);
     setError('');
 
-    setTimeout(() => {
-      const ok = login(passcode);
+    try {
+      const ok = await login(passcode);
       setIsLoading(false);
       if (ok) {
         setViewMode('admin');
@@ -32,7 +32,10 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccess, onBackToPublic 
       } else {
         setError('Mật mã Ban Tổ Chức không chính xác. Vui lòng thử lại.');
       }
-    }, 200);
+    } catch {
+      setIsLoading(false);
+      setError('Lỗi kết nối xác thực. Vui lòng thử lại.');
+    }
   };
 
   const handleExit = () => {

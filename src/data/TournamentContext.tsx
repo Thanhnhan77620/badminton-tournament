@@ -15,6 +15,8 @@ import {
   getTournamentFromCloud,
   TournamentCloudState,
 } from '../lib/firestoreService';
+import { authService } from '../lib/authService';
+
 
 const STORAGE_KEY_TOURNAMENT = 'isc_badminton_tournament_data_v6';
 const STORAGE_KEY_AUTH = 'isc_badminton_admin_auth_v1';
@@ -24,8 +26,8 @@ export type CloudSyncStatus = 'connected' | 'syncing' | 'offline' | 'error';
 export interface TournamentContextType {
   // Authentication
   isAdminAuthenticated: boolean;
-  login: (passcode: string) => boolean;
-  logout: () => void;
+  login: (passcode: string) => Promise<boolean>;
+  logout: () => Promise<void>;
 
   // View Mode: 'public' | 'admin'
   viewMode: 'public' | 'admin';
@@ -476,23 +478,26 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   }, [saveToLocalStorage, syncKnockoutProgression]);
 
   // Auth functions
-  const login = (passcode: string) => {
+  const login = async (passcode: string): Promise<boolean> => {
     const validCodes = ['btcadmin'];
     if (validCodes.includes(passcode.trim().toLowerCase())) {
       setIsAdminAuthenticated(true);
       try {
         localStorage.setItem(STORAGE_KEY_AUTH, 'true');
+        // Establish real authenticated session with Firebase
+        await authService.loginAnonymously();
       } catch {}
       return true;
     }
     return false;
   };
 
-  const logout = () => {
+  const logout = async () => {
     setIsAdminAuthenticated(false);
     setViewMode('public');
     try {
       localStorage.removeItem(STORAGE_KEY_AUTH);
+      await authService.logout();
     } catch {}
   };
 
