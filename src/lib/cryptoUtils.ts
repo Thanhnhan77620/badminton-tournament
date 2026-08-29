@@ -1,16 +1,14 @@
 /**
  * Cryptographic Utility for Secure Salted Hashing
- * Prevents plain-text password leakage in client bundles and Rainbow Table attacks.
+ * Hashes user inputs with dynamic salt fetched from Database
  */
-
-const AUTH_SALT = 'BadmintonOpen_2026_SecureSalt_FTEL_ISC_CDC';
 
 /**
- * Hash a plain string with internal salt using browser native SHA-256 (Web Crypto API)
+ * Hash a plain string with dynamic salt using browser native SHA-256 (Web Crypto API)
  */
-export async function hashWithSalt(plainText: string): Promise<string> {
+export async function hashWithSalt(plainText: string, salt: string): Promise<string> {
   const normalized = plainText.trim();
-  const data = new TextEncoder().encode(normalized + AUTH_SALT);
+  const data = new TextEncoder().encode(normalized + salt);
   
   if (typeof window !== 'undefined' && window.crypto && window.crypto.subtle) {
     const hashBuffer = await window.crypto.subtle.digest('SHA-256', data);

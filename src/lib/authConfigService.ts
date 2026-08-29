@@ -3,6 +3,7 @@ import { db } from './firebase';
 import { hashWithSalt, recordFailedAttempt, resetRateLimit, getRateLimitStatus } from './cryptoUtils';
 
 export interface AdminSecurityConfig {
+  salt: string;
   loginHash: string;
   statusHash: string;
   updatedAt: string;
@@ -11,39 +12,25 @@ export interface AdminSecurityConfig {
 const CONFIG_COLLECTION = 'system_config';
 const CONFIG_DOC_ID = 'admin_security';
 
-// Primary Salted Hash Defaults in Database
-const DEFAULT_LOGIN_HASH = '0d2322b03f69d5d2981018c2cc8d81ef4abbf0b7f9dc2b6c6c56fbf107580ad4';
-const DEFAULT_STATUS_HASH = '934e1f127a8b565eae6567d192d4ba2175ca9b24d60136316c3ddd5ac0a853c0';
-
 /**
- * Fetch or initialize security hashes from Firestore DB
+ * Fetch security config purely from Firestore DB
  */
-export async function getAdminSecurityConfig(): Promise<AdminSecurityConfig> {
+export async function getAdminSecurityConfig(): Promise<AdminSecurityConfig | null> {
   try {
     const docRef = doc(db, CONFIG_COLLECTION, CONFIG_DOC_ID);
     const snap = await getDoc(docRef);
     if (snap.exists()) {
       return snap.data() as AdminSecurityConfig;
     }
-    // If not exists in DB yet, initialize it
-    const initialConfig: AdminSecurityConfig = {
-      loginHash: DEFAULT_LOGIN_HASH,
-      statusHash: DEFAULT_STATUS_HASH,
-      updatedAt: new Date().toISOString(),
-    };
-    await setDoc(docRef, initialConfig, { merge: true }).catch(() => {});
-    return initialConfig;
-  } catch {
-    return {
-      loginHash: DEFAULT_LOGIN_HASH,
-      statusHash: DEFAULT_STATUS_HASH,
-      updatedAt: new Date().toISOString(),
-    };
+    return null;
+  } catch (err) {
+    console.warn('[SecurityConfig] Error fetching security config from DB:', err);
+    return null;
   }
 }
 
 /**
- * Verify Login Passcode against Salted Cryptographic Hash in DB
+ * Verify Login Passcode against Salt and Hash stored in DB
  */
 export async function verifyLoginPasscode(enteredPasscode: string): Promise<{
   success: boolean;
@@ -58,11 +45,18 @@ export async function verifyLoginPasscode(enteredPasscode: string): Promise<{
     };
   }
 
-  // 2. Hash user input with internal salt
-  const inputHash = await hashWithSalt(enteredPasscode);
-
-  // 3. Compare with DB Hash
+  // 2. Fetch Salt & Hash from Firestore
   const config = await getAdminSecurityConfig();
+  if (!config || !config.loginHash || !config.salt) {
+    return {
+      success: false,
+      error: 'Không tìm thấy cấu hình bảo mật trên máy chủ hoặc lỗi kết nối. Vui lòng thử lại.',
+    };
+  }
+
+  // 3. Hash user input with salt from DB
+  const inputHash = await hashWithSalt(enteredPasscode, config.salt);
+
   const isValid = inputHash === config.loginHash;
 
   if (isValid) {
@@ -84,12 +78,13 @@ export async function verifyLoginPasscode(enteredPasscode: string): Promise<{
 }
 
 /**
- * Verify Tournament Status Change Passcode against Salted Cryptographic Hash in DB
+ * Verify Tournament Status Change Passcode against Salt and Hash stored in DB
  */
 export async function verifyStatusPasscode(enteredPasscode: string): Promise<boolean> {
   try {
-    const inputHash = await hashWithSalt(enteredPasscode);
     const config = await getAdminSecurityConfig();
+    if (!config || !config.statusHash || !config.salt) return false;
+    const inputHash = await hashWithSalt(enteredPasscode, config.salt);
     return inputHash === config.statusHash;
   } catch {
     return false;
