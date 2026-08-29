@@ -316,38 +316,38 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = ({
       </div>
 
       {/* 4 Digital Blocks Board */}
-      <div className="w-full grid grid-cols-4 gap-2 sm:gap-3 font-mono">
+      <div className="w-full grid grid-cols-4 gap-1.5 sm:gap-2 font-mono">
         {/* Days Block */}
-        <div className="flex flex-col items-center justify-center p-2.5 sm:p-4 rounded-xl bg-slate-950/80 border border-slate-700/90 shadow-inner group hover:border-blue-500/50 transition-colors">
-          <div className="text-2xl sm:text-4xl md:text-5xl font-black text-white tabular-nums tracking-tight">
+        <div className="flex flex-col items-center justify-center p-1.5 sm:p-2.5 rounded-lg bg-slate-950/80 border border-slate-700/90 shadow-inner group hover:border-blue-500/50 transition-colors">
+          <div className="text-xl sm:text-2xl md:text-3xl font-black text-white tabular-nums tracking-tight">
             {pad(timeLeft.days)}
           </div>
           {showLabels && (
-            <span className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase mt-1 sm:mt-1.5 font-sans tracking-wider">
+            <span className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase mt-0.5 sm:mt-1 font-sans tracking-wider">
               NGÀY
             </span>
           )}
         </div>
 
         {/* Hours Block */}
-        <div className="flex flex-col items-center justify-center p-2.5 sm:p-4 rounded-xl bg-slate-950/80 border border-slate-700/90 shadow-inner group hover:border-blue-500/50 transition-colors">
-          <div className="text-2xl sm:text-4xl md:text-5xl font-black text-white tabular-nums tracking-tight">
+        <div className="flex flex-col items-center justify-center p-1.5 sm:p-2.5 rounded-lg bg-slate-950/80 border border-slate-700/90 shadow-inner group hover:border-blue-500/50 transition-colors">
+          <div className="text-xl sm:text-2xl md:text-3xl font-black text-white tabular-nums tracking-tight">
             {pad(timeLeft.hours)}
           </div>
           {showLabels && (
-            <span className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase mt-1 sm:mt-1.5 font-sans tracking-wider">
+            <span className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase mt-0.5 sm:mt-1 font-sans tracking-wider">
               GIỜ
             </span>
           )}
         </div>
 
         {/* Minutes Block */}
-        <div className="flex flex-col items-center justify-center p-2.5 sm:p-4 rounded-xl bg-slate-950/80 border border-slate-700/90 shadow-inner group hover:border-blue-500/50 transition-colors">
-          <div className="text-2xl sm:text-4xl md:text-5xl font-black text-white tabular-nums tracking-tight">
+        <div className="flex flex-col items-center justify-center p-1.5 sm:p-2.5 rounded-lg bg-slate-950/80 border border-slate-700/90 shadow-inner group hover:border-blue-500/50 transition-colors">
+          <div className="text-xl sm:text-2xl md:text-3xl font-black text-white tabular-nums tracking-tight">
             {pad(timeLeft.minutes)}
           </div>
           {showLabels && (
-            <span className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase mt-1 sm:mt-1.5 font-sans tracking-wider">
+            <span className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase mt-0.5 sm:mt-1 font-sans tracking-wider">
               PHÚT
             </span>
           )}
@@ -355,18 +355,18 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = ({
 
         {/* Seconds Block */}
         <div
-          className={`flex flex-col items-center justify-center p-2.5 sm:p-4 rounded-xl border shadow-inner transition-all ${
+          className={`flex flex-col items-center justify-center p-1.5 sm:p-2.5 rounded-lg border shadow-inner transition-all ${
             timeLeft.isUrgent || isExpired
               ? 'bg-rose-600/90 border-rose-500 text-white shadow-rose-950/50'
               : 'bg-blue-600/90 border-blue-500 text-white shadow-blue-950/50'
           }`}
         >
-          <div className="text-2xl sm:text-4xl md:text-5xl font-black text-white tabular-nums tracking-tight">
+          <div className="text-xl sm:text-2xl md:text-3xl font-black text-white tabular-nums tracking-tight">
             {pad(timeLeft.seconds)}
           </div>
           {showLabels && (
             <span
-              className={`text-[10px] sm:text-xs font-bold uppercase mt-1 sm:mt-1.5 font-sans tracking-wider ${
+              className={`text-[9px] sm:text-[10px] font-bold uppercase mt-0.5 sm:mt-1 font-sans tracking-wider ${
                 timeLeft.isUrgent || isExpired ? 'text-rose-200' : 'text-blue-100'
               }`}
             >

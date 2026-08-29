@@ -28,13 +28,13 @@ export const TournamentHero: React.FC<TournamentHeroProps> = ({
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           {/* Left Column: Tournament Identity & Title */}
-          <div className="lg:col-span-7 xl:col-span-7 space-y-4">
+          <div className="lg:col-span-7 xl:col-span-7 space-y-4 min-w-0">
             {/* Main Tournament Heading */}
-            <div>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white font-display uppercase leading-tight">
+            <div className="min-w-0">
+              <h1 className="text-lg sm:text-2xl md:text-3xl font-extrabold tracking-tight text-white font-display uppercase leading-snug break-words">
                 {tournament.name}
               </h1>
-              <p className="text-xs sm:text-sm text-slate-300 mt-2 font-normal leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-300 mt-1.5 font-normal leading-relaxed break-words">
                 {tournament.subtitle} — Hội tụ các cặp đôi xuất sắc tranh tài qua 24 trận đấu tranh cúp vô địch và tổng cơ cấu giải thưởng {totalPrizeFormatted}.
               </p>
             </div>
@@ -45,10 +45,14 @@ export const TournamentHero: React.FC<TournamentHeroProps> = ({
                 <div className="p-2 rounded-lg bg-blue-500/20 text-blue-400 shrink-0 mt-0.5">
                   <Calendar className="w-4 h-4" />
                 </div>
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <p className="text-xs text-slate-400 font-semibold">Thời gian thi đấu</p>
-                  <p className="text-sm sm:text-base font-bold text-white tracking-wide mt-0.5">{tournament.date}</p>
-                  <p className="text-xs font-semibold text-blue-400 mt-0.5">{tournament.timeRange}</p>
+                  <div className="flex flex-wrap items-center gap-1.5 mt-0.5">
+                    <p className="text-sm sm:text-base font-bold text-white tracking-wide">{tournament.date}</p>
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-blue-500/25 border border-blue-400/50 text-blue-300 text-xs sm:text-sm font-extrabold tracking-wide shadow-xs">
+                      {tournament.timeRange}
+                    </span>
+                  </div>
                 </div>
               </div>
 
@@ -67,16 +71,16 @@ export const TournamentHero: React.FC<TournamentHeroProps> = ({
                     <p className="text-xs text-slate-400 font-semibold">Địa điểm tổ chức</p>
                     <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-400 transition-colors" />
                   </div>
-                  <p className="text-xs sm:text-sm font-bold text-white group-hover:text-indigo-200 transition-colors truncate mt-0.5">
+                  <p className="text-xs sm:text-sm font-bold text-white group-hover:text-indigo-200 transition-colors line-clamp-1 mt-0.5">
                     {tournament.venueName}
                   </p>
-                  <p className="text-xs text-slate-400 truncate mt-0.5">{tournament.venueAddress}</p>
+                  <p className="text-xs text-slate-400 line-clamp-1 mt-0.5">{tournament.venueAddress}</p>
                 </div>
               </a>
             </div>
 
             {/* MATCH / TOURNAMENT COUNTDOWN */}
-            <div className="w-full bg-slate-900/95 border border-blue-500/40 hover:border-blue-400/60 transition-colors rounded-2xl p-3 sm:p-4 shadow-xl bg-radial from-blue-950/30 to-slate-900/90">
+            <div className="w-full bg-slate-900/90 border border-blue-500/30 hover:border-blue-400/50 transition-colors rounded-xl p-2.5 sm:p-3 shadow-lg bg-radial from-blue-950/20 to-slate-900/90">
               <CountdownTimer
                 scheduledDate={tournament.rawDate || tournament.date || '12/09/2026'}
                 scheduledTime="08:00"
@@ -86,10 +90,10 @@ export const TournamentHero: React.FC<TournamentHeroProps> = ({
             </div>
 
             {/* Quick Action Navigation */}
-            <div className="flex flex-wrap items-center gap-2.5 pt-1">
+            <div className="grid grid-cols-1 sm:flex sm:flex-wrap items-center gap-2 pt-1">
               <button
                 onClick={() => onNavigate('schedule')}
-                className="px-4 py-2 sm:px-5 sm:py-2.5 bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-bold rounded-xl shadow-md shadow-blue-950 flex items-center gap-2 transition-all cursor-pointer"
+                className="w-full sm:w-auto px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-bold rounded-xl shadow-md shadow-blue-950 flex items-center justify-center gap-2 transition-all cursor-pointer"
               >
                 Xem Lịch &amp; Kết Quả
                 <ChevronRight className="w-4 h-4" />
@@ -97,14 +101,14 @@ export const TournamentHero: React.FC<TournamentHeroProps> = ({
 
               <button
                 onClick={() => onNavigate('groups')}
-                className="px-4 py-2 sm:px-5 sm:py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white text-xs sm:text-sm font-bold rounded-xl border border-slate-700 transition-all cursor-pointer"
+                className="w-full sm:w-auto px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white text-xs sm:text-sm font-bold rounded-xl border border-slate-700 transition-all cursor-pointer text-center"
               >
                 Bảng Xếp Hạng A &amp; B
               </button>
 
               <button
                 onClick={() => onNavigate('knockout')}
-                className="px-4 py-2 sm:px-5 sm:py-2.5 bg-slate-800 hover:bg-slate-700 text-amber-300 hover:text-amber-200 text-xs sm:text-sm font-bold rounded-xl border border-slate-700 transition-all cursor-pointer flex items-center gap-1.5"
+                className="w-full sm:w-auto px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-amber-300 hover:text-amber-200 text-xs sm:text-sm font-bold rounded-xl border border-slate-700 transition-all cursor-pointer flex items-center justify-center gap-1.5"
               >
                 <Trophy className="w-4 h-4 text-amber-400" />
                 Vòng Chung Kết

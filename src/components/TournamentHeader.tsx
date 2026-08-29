@@ -43,7 +43,7 @@ export const TournamentHeader: React.FC<TournamentHeaderProps> = ({
             </div>
             <div className="min-w-0">
               <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
-                BADMINTON OPEN
+                BADMINTON TOURNAMENT 2026
               </span>
               <h1 className="text-base sm:text-lg font-extrabold tracking-tight text-white leading-tight font-display truncate">
                 {tournament.name || 'ISC OPEN 2026'}
