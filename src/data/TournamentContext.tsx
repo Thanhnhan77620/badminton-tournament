@@ -7,6 +7,7 @@ import {
   initialMatches as defaultInitialMatches,
   calculateStandings as defaultCalculateStandings,
   PLACEHOLDER_PAIRS,
+  DEFAULT_RULES,
   DEFAULT_SUPPLEMENTARY_REGULATIONS,
 } from '../data/tournamentData';
 import {
@@ -122,6 +123,29 @@ export interface TournamentContextType {
 
 const TournamentContext = createContext<TournamentContextType | undefined>(undefined);
 
+// Helper to sanitize and ensure rules and supplementary regulations are always populated
+const sanitizeTournamentInfo = (tour: TournamentInfo): TournamentInfo => {
+  if (!tour) return { ...defaultTournamentInfo, status: 'IN_PROGRESS' };
+  const rules =
+    tour.rules && Array.isArray(tour.rules) && tour.rules.length > 0
+      ? tour.rules.map((r, i) => {
+          if (!r || !r.formatDescription || r.formatDescription.trim() === '') {
+            return DEFAULT_RULES[i] || r;
+          }
+          return r;
+        })
+      : DEFAULT_RULES;
+
+  return {
+    ...tour,
+    rules,
+    supplementaryRegulations:
+      tour.supplementaryRegulations && tour.supplementaryRegulations.length > 0
+        ? tour.supplementaryRegulations
+        : DEFAULT_SUPPLEMENTARY_REGULATIONS,
+  };
+};
+
 export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // 1. Auth State
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(() => {
@@ -145,7 +169,7 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const [tournament, setTournament] = useState<TournamentInfo>(() => {
     try {
       const saved = localStorage.getItem(`${STORAGE_KEY_TOURNAMENT}_info`);
-      return saved ? JSON.parse(saved) : { ...defaultTournamentInfo, status: 'IN_PROGRESS' };
+      return saved ? sanitizeTournamentInfo(JSON.parse(saved)) : { ...defaultTournamentInfo, status: 'IN_PROGRESS' };
     } catch {
       return { ...defaultTournamentInfo, status: 'IN_PROGRESS' };
     }
@@ -428,13 +452,14 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         // If this update was triggered by another client or initial load
         if (cloudData && cloudData.tournament) {
           isApplyingRemoteRef.current = true;
-          setTournament(cloudData.tournament);
+          const sanitizedTour = sanitizeTournamentInfo(cloudData.tournament);
+          setTournament(sanitizedTour);
           setPairs(cloudData.pairs || []);
           const syncedMatches = syncKnockoutProgression(cloudData.matches || [], cloudData.pairs || []);
           setMatches(syncedMatches);
           setPlayers(cloudData.players || []);
           saveToLocalStorage(
-            cloudData.tournament,
+            sanitizedTour,
             cloudData.pairs || [],
             syncedMatches,
             cloudData.players || []
