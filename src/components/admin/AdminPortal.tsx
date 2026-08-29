@@ -26,6 +26,7 @@ import { AdminRules } from './AdminRules';
 import { AdminPlayers } from './AdminPlayers';
 import { AdminPairsAndGroups } from './AdminPairsAndGroups';
 import { AdminMatchesAndResults } from './AdminMatchesAndResults';
+import { verifyStatusPasscode } from '../../lib/authConfigService';
 
 export type AdminSectionId =
   | 'dashboard'
@@ -420,9 +421,14 @@ export const AdminPortal: React.FC = () => {
                     setStatusPasscode(e.target.value);
                     if (statusError) setStatusError('');
                   }}
-                  onKeyDown={e => {
+                  onKeyDown={async e => {
                     if (e.key === 'Enter') {
-                      if (statusPasscode.trim() !== '12345678') {
+                      if (!selectedPendingStatus || selectedPendingStatus === tournament.status) {
+                        setShowStatusModal(false);
+                        return;
+                      }
+                      const isValid = await verifyStatusPasscode(statusPasscode);
+                      if (!isValid) {
                         setStatusError('Mã khóa bảo mật không chính xác. Vui lòng thử lại!');
                         return;
                       }
@@ -459,12 +465,13 @@ export const AdminPortal: React.FC = () => {
                 Hủy bỏ
               </button>
               <button
-                onClick={() => {
+                onClick={async () => {
                   if (!selectedPendingStatus || selectedPendingStatus === tournament.status) {
                     setShowStatusModal(false);
                     return;
                   }
-                  if (statusPasscode.trim() !== '12345678') {
+                  const isValid = await verifyStatusPasscode(statusPasscode);
+                  if (!isValid) {
                     setStatusError('Mã khóa bảo mật không chính xác. Vui lòng thử lại!');
                     return;
                   }

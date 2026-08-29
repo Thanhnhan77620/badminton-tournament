@@ -7,6 +7,7 @@ import {
   initialMatches as defaultInitialMatches,
   calculateStandings as defaultCalculateStandings,
   PLACEHOLDER_PAIRS,
+  DEFAULT_RULES,
   DEFAULT_SUPPLEMENTARY_REGULATIONS,
 } from '../data/tournamentData';
 import {
@@ -15,6 +16,9 @@ import {
   getTournamentFromCloud,
   TournamentCloudState,
 } from '../lib/firestoreService';
+import { authService } from '../lib/authService';
+import { verifyLoginPasscode } from '../lib/authConfigService';
+
 
 const STORAGE_KEY_TOURNAMENT = 'isc_badminton_tournament_data_v6';
 const STORAGE_KEY_AUTH = 'isc_badminton_admin_auth_v1';
@@ -24,8 +28,8 @@ export type CloudSyncStatus = 'connected' | 'syncing' | 'offline' | 'error';
 export interface TournamentContextType {
   // Authentication
   isAdminAuthenticated: boolean;
-  login: (passcode: string) => boolean;
-  logout: () => void;
+  login: (passcode: string) => Promise<{ success: boolean; error?: string }>;
+  logout: () => Promise<void>;
 
   // View Mode: 'public' | 'admin'
   viewMode: 'public' | 'admin';
@@ -119,6 +123,29 @@ export interface TournamentContextType {
 
 const TournamentContext = createContext<TournamentContextType | undefined>(undefined);
 
+// Helper to sanitize and ensure rules and supplementary regulations are always populated
+const sanitizeTournamentInfo = (tour: TournamentInfo): TournamentInfo => {
+  if (!tour) return { ...defaultTournamentInfo, status: 'IN_PROGRESS' };
+  const rules =
+    tour.rules && Array.isArray(tour.rules) && tour.rules.length > 0
+      ? tour.rules.map((r, i) => {
+          if (!r || !r.formatDescription || r.formatDescription.trim() === '') {
+            return DEFAULT_RULES[i] || r;
+          }
+          return r;
+        })
+      : DEFAULT_RULES;
+
+  return {
+    ...tour,
+    rules,
+    supplementaryRegulations:
+      tour.supplementaryRegulations && tour.supplementaryRegulations.length > 0
+        ? tour.supplementaryRegulations
+        : DEFAULT_SUPPLEMENTARY_REGULATIONS,
+  };
+};
+
 export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // 1. Auth State
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(() => {
@@ -142,7 +169,7 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const [tournament, setTournament] = useState<TournamentInfo>(() => {
     try {
       const saved = localStorage.getItem(`${STORAGE_KEY_TOURNAMENT}_info`);
-      return saved ? JSON.parse(saved) : { ...defaultTournamentInfo, status: 'IN_PROGRESS' };
+      return saved ? sanitizeTournamentInfo(JSON.parse(saved)) : { ...defaultTournamentInfo, status: 'IN_PROGRESS' };
     } catch {
       return { ...defaultTournamentInfo, status: 'IN_PROGRESS' };
     }
@@ -425,13 +452,14 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         // If this update was triggered by another client or initial load
         if (cloudData && cloudData.tournament) {
           isApplyingRemoteRef.current = true;
-          setTournament(cloudData.tournament);
+          const sanitizedTour = sanitizeTournamentInfo(cloudData.tournament);
+          setTournament(sanitizedTour);
           setPairs(cloudData.pairs || []);
           const syncedMatches = syncKnockoutProgression(cloudData.matches || [], cloudData.pairs || []);
           setMatches(syncedMatches);
           setPlayers(cloudData.players || []);
           saveToLocalStorage(
-            cloudData.tournament,
+            sanitizedTour,
             cloudData.pairs || [],
             syncedMatches,
             cloudData.players || []
@@ -475,24 +503,29 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     };
   }, [saveToLocalStorage, syncKnockoutProgression]);
 
-  // Auth functions
-  const login = (passcode: string) => {
-    const validCodes = ['btcadmin'];
-    if (validCodes.includes(passcode.trim().toLowerCase())) {
-      setIsAdminAuthenticated(true);
-      try {
-        localStorage.setItem(STORAGE_KEY_AUTH, 'true');
-      } catch {}
-      return true;
+  // Auth functions - zero hardcoded passwords (verified against salted DB hash)
+  const login = async (passcode: string): Promise<{ success: boolean; error?: string }> => {
+    try {
+      const res = await verifyLoginPasscode(passcode);
+      if (res.success) {
+        setIsAdminAuthenticated(true);
+        try {
+          localStorage.setItem(STORAGE_KEY_AUTH, 'true');
+        } catch {}
+        return { success: true };
+      }
+      return { success: false, error: res.error || 'Mật mã Ban Tổ Chức không chính xác. Vui lòng thử lại.' };
+    } catch {
+      return { success: false, error: 'Lỗi xác thực hệ thống. Vui lòng thử lại.' };
     }
-    return false;
   };
 
-  const logout = () => {
+  const logout = async () => {
     setIsAdminAuthenticated(false);
     setViewMode('public');
     try {
       localStorage.removeItem(STORAGE_KEY_AUTH);
+      await authService.logout();
     } catch {}
   };
 
