@@ -1,21 +1,36 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getFirestore, Firestore } from 'firebase/firestore';
 import { getAuth, Auth } from 'firebase/auth';
-import localFirebaseConfig from '../../firebase-applet-config.json';
+// Read config from Vite environment variables (Recommended for Vercel/Production)
+// or fallback to import.meta.glob for local container development
+const env = import.meta.env;
 
-// Construct config favoring environment variables (e.g. for Vercel/Production deployment)
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || localFirebaseConfig.apiKey || '',
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || localFirebaseConfig.authDomain || '',
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || localFirebaseConfig.projectId || '',
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || localFirebaseConfig.storageBucket || '',
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || localFirebaseConfig.messagingSenderId || '',
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || localFirebaseConfig.appId || '',
-  firestoreDatabaseId:
-    import.meta.env.VITE_FIREBASE_FIRESTORE_DATABASE_ID ||
-    localFirebaseConfig.firestoreDatabaseId ||
-    '(default)',
+  apiKey: env.VITE_FIREBASE_API_KEY || '',
+  authDomain: env.VITE_FIREBASE_AUTH_DOMAIN || '',
+  projectId: env.VITE_FIREBASE_PROJECT_ID || '',
+  storageBucket: env.VITE_FIREBASE_STORAGE_BUCKET || '',
+  messagingSenderId: env.VITE_FIREBASE_MESSAGING_SENDER_ID || '',
+  appId: env.VITE_FIREBASE_APP_ID || '',
+  firestoreDatabaseId: env.VITE_FIREBASE_FIRESTORE_DATABASE_ID || '(default)',
 };
+
+// Auto-fill fallback in dev environment if local json is present
+const localConfigModules = import.meta.glob<{ default: Record<string, string> }>('../../firebase-applet-config.json', {
+  eager: true,
+});
+const localFile = localConfigModules['../../firebase-applet-config.json']?.default;
+if (localFile) {
+  if (!firebaseConfig.apiKey) firebaseConfig.apiKey = localFile.apiKey || '';
+  if (!firebaseConfig.authDomain) firebaseConfig.authDomain = localFile.authDomain || '';
+  if (!firebaseConfig.projectId) firebaseConfig.projectId = localFile.projectId || '';
+  if (!firebaseConfig.storageBucket) firebaseConfig.storageBucket = localFile.storageBucket || '';
+  if (!firebaseConfig.messagingSenderId) firebaseConfig.messagingSenderId = localFile.messagingSenderId || '';
+  if (!firebaseConfig.appId) firebaseConfig.appId = localFile.appId || '';
+  if (firebaseConfig.firestoreDatabaseId === '(default)' && localFile.firestoreDatabaseId) {
+    firebaseConfig.firestoreDatabaseId = localFile.firestoreDatabaseId;
+  }
+}
 
 // Initialize Firebase App singleton
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
