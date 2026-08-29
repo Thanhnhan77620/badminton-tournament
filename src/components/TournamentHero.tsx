@@ -31,10 +31,10 @@ export const TournamentHero: React.FC<TournamentHeroProps> = ({
           <div className="lg:col-span-7 xl:col-span-7 space-y-4">
             {/* Main Tournament Heading */}
             <div>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white font-display uppercase leading-tight">
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-white font-display uppercase leading-tight">
                 {tournament.name}
               </h1>
-              <p className="text-xs sm:text-sm text-slate-300 mt-2 font-normal leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-300 mt-1.5 font-normal leading-relaxed">
                 {tournament.subtitle} — Hội tụ các cặp đôi xuất sắc tranh tài qua 24 trận đấu tranh cúp vô địch và tổng cơ cấu giải thưởng {totalPrizeFormatted}.
               </p>
             </div>
@@ -45,10 +45,14 @@ export const TournamentHero: React.FC<TournamentHeroProps> = ({
                 <div className="p-2 rounded-lg bg-blue-500/20 text-blue-400 shrink-0 mt-0.5">
                   <Calendar className="w-4 h-4" />
                 </div>
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <p className="text-xs text-slate-400 font-semibold">Thời gian thi đấu</p>
-                  <p className="text-sm sm:text-base font-bold text-white tracking-wide mt-0.5">{tournament.date}</p>
-                  <p className="text-xs font-semibold text-blue-400 mt-0.5">{tournament.timeRange}</p>
+                  <div className="flex flex-wrap items-center gap-1.5 mt-0.5">
+                    <p className="text-sm sm:text-base font-bold text-white tracking-wide">{tournament.date}</p>
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-blue-500/25 border border-blue-400/50 text-blue-300 text-xs sm:text-sm font-extrabold tracking-wide shadow-xs">
+                      {tournament.timeRange}
+                    </span>
+                  </div>
                 </div>
               </div>
 
@@ -76,7 +80,7 @@ export const TournamentHero: React.FC<TournamentHeroProps> = ({
             </div>
 
             {/* MATCH / TOURNAMENT COUNTDOWN */}
-            <div className="w-full bg-slate-900/95 border border-blue-500/40 hover:border-blue-400/60 transition-colors rounded-2xl p-3 sm:p-4 shadow-xl bg-radial from-blue-950/30 to-slate-900/90">
+            <div className="w-full bg-slate-900/90 border border-blue-500/30 hover:border-blue-400/50 transition-colors rounded-xl p-2.5 sm:p-3 shadow-lg bg-radial from-blue-950/20 to-slate-900/90">
               <CountdownTimer
                 scheduledDate={tournament.rawDate || tournament.date || '12/09/2026'}
                 scheduledTime="08:00"
