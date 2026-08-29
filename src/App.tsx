@@ -74,7 +74,7 @@ function PublicAppContent() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-slate-50 flex flex-col font-sans selection:bg-blue-600 selection:text-white">
       {/* Header with BTC Admin button */}
       <TournamentHeader
         tournament={tournament}
@@ -90,7 +90,7 @@ function PublicAppContent() {
       />
 
       {/* Main Content Area */}
-      <main className="flex-1">
+      <main className="flex-1 w-full max-w-full overflow-x-hidden">
         {activeTab === 'overview' && (
           <div className="space-y-0">
             <TournamentHero
