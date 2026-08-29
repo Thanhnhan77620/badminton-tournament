@@ -869,20 +869,41 @@ export function calculateStandings(group: 'A' | 'B', pairs: Pair[], matches: Mat
     };
   });
 
-  // Sort criteria:
+  // Sort criteria (Tuân thủ Điều lệ & Thể thức giải):
   // 1. Số trận thắng (1 trận = 1 điểm, nhiều hơn xếp trên)
-  // 2. Đối đầu trực tiếp (Head-to-head) giữa 2 cặp đấu nếu bằng số trận thắng
-  // 3. Xét hệ số điểm bị thua trên trận thua (đội thua ít điểm hơn / ghi nhiều điểm hơn trong trận thua xếp trên)
+  // 2. Xét hệ số điểm bị thua trên trận thua (đội thua ít điểm hơn xếp trên: lostMatchScoreDeficit nhỏ hơn xếp trên)
+  // 3. Điểm ghi được trong trận thua (nhiều điểm hơn xếp trên)
   // 4. Hiệu số điểm thắng/thua toàn giải (lớn hơn xếp trên)
   // 5. Tổng điểm thắng toàn giải (lớn hơn xếp trên)
-  // 6. Tổng điểm thua toàn giải (ít hơn xếp trên)
+  // 6. Đối đầu trực tiếp (Head-to-head) nếu các chỉ số trên bằng nhau
+  // 7. Tổng điểm thua toàn giải (ít hơn xếp trên)
   standingsList.sort((a, b) => {
     // 1. Điểm số trận thắng
     if (b.rankingPoints !== a.rankingPoints) {
       return b.rankingPoints - a.rankingPoints;
     }
 
-    // 2. Đối đầu trực tiếp (Head-to-Head) nếu 2 cặp bằng điểm/số trận thắng
+    // 2. Đồng trận thắng: Xét hệ số điểm bị thua ở các trận thua (ít điểm thua hơn xếp trên)
+    if (a.lostMatchScoreDeficit !== b.lostMatchScoreDeficit) {
+      return a.lostMatchScoreDeficit - b.lostMatchScoreDeficit;
+    }
+
+    // 3. Điểm ghi được trong trận thua (cao hơn xếp trên)
+    if (b.lostMatchPointsScored !== a.lostMatchPointsScored) {
+      return b.lostMatchPointsScored - a.lostMatchPointsScored;
+    }
+
+    // 4. Hiệu số điểm toàn giải
+    if (b.pointDiff !== a.pointDiff) {
+      return b.pointDiff - a.pointDiff;
+    }
+
+    // 5. Tổng điểm thắng toàn giải
+    if (b.pointsFor !== a.pointsFor) {
+      return b.pointsFor - a.pointsFor;
+    }
+
+    // 6. Đối đầu trực tiếp (Head-to-Head) nếu các chỉ số điểm trên đều bằng nhau
     const h2hMatch = groupMatches.find(
       m =>
         m.status === 'FINISHED' &&
@@ -894,23 +915,7 @@ export function calculateStandings(group: 'A' | 'B', pairs: Pair[], matches: Mat
       if (h2hMatch.winnerId === b.pair.id) return 1;
     }
 
-    // 3. Đồng trận thắng & không có kết quả đối đầu phân định: Xét hệ số điểm bị thua ở các trận thua (ít điểm thua hơn xếp trên)
-    if (a.lostMatchScoreDeficit !== b.lostMatchScoreDeficit) {
-      return a.lostMatchScoreDeficit - b.lostMatchScoreDeficit;
-    }
-    // Hoặc điểm ghi được trong trận thua (cao hơn xếp trên)
-    if (b.lostMatchPointsScored !== a.lostMatchPointsScored) {
-      return b.lostMatchPointsScored - a.lostMatchPointsScored;
-    }
-    // 4. Hiệu số điểm toàn giải
-    if (b.pointDiff !== a.pointDiff) {
-      return b.pointDiff - a.pointDiff;
-    }
-    // 5. Tổng điểm thắng toàn giải
-    if (b.pointsFor !== a.pointsFor) {
-      return b.pointsFor - a.pointsFor;
-    }
-    // 6. Tổng điểm thua toàn giải
+    // 7. Tổng điểm thua toàn giải
     return a.pointsAgainst - b.pointsAgainst;
   });
 
