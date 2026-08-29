@@ -129,9 +129,9 @@ export const tournamentInfo: TournamentInfo = {
   date: '12 Tháng 09, 2026',
   rawDate: '2026-09-12T08:00:00+07:00',
   timeRange: '8h - 12h',
-  venueName: 'Sân Cầu Lông ECO Badminton Court',
+  venueName: 'Eco District 7 Badminton Courts',
   venueAddress: '128 Đường Số 8, Phường Bình An, TP. Thủ Đức, TP. Hồ Chí Minh',
-  venueMapUrl: 'https://share.google/8v5rTSLdYcTDDtBeX',
+  venueMapUrl: 'https://maps.app.goo.gl/9Bk9SMftnQtR2NRp8',
   totalPairs: 10,
   groupsCount: 2,
   status: 'IN_PROGRESS', // Đang diễn ra ở vòng bảng
