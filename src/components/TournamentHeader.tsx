@@ -41,13 +41,13 @@ export const TournamentHeader: React.FC<TournamentHeaderProps> = ({
             <div className="w-9 h-9 lg:w-10 lg:h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white shadow-md shadow-blue-900/30 border border-blue-400/30 group-hover:scale-105 transition-transform shrink-0">
               <Trophy className="w-5 h-5 text-amber-300" />
             </div>
-            <div className="min-w-0">
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
-                BADMINTON TOURNAMENT 2026
+            <div className="min-w-0 flex flex-col justify-center">
+              <span className="text-xs sm:text-sm font-extrabold uppercase tracking-[0.24em] text-blue-400 font-display leading-tight">
+                BADMINTON
               </span>
-              <h1 className="text-base sm:text-lg font-extrabold tracking-tight text-white leading-tight font-display truncate">
-                {tournament.name || 'ISC OPEN 2026'}
-              </h1>
+              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-tight text-blue-400 font-display leading-tight">
+                TOURNAMENT 2026
+              </span>
             </div>
           </button>
 
@@ -78,37 +78,42 @@ export const TournamentHeader: React.FC<TournamentHeaderProps> = ({
 
           {/* Right Action: Cloud Live Indicator + Admin BTC Button */}
           <div className="flex items-center gap-1.5 lg:gap-2 shrink-0">
-            {/* Real-time Cloud Status */}
+            {/* Real-time Cloud Status Dot Indicator */}
             <div
-              className={`hidden sm:flex items-center gap-1.5 px-2 py-1 lg:px-2.5 rounded-lg text-[11px] font-medium border ${
+              className={`flex items-center justify-center p-2 rounded-lg border transition-colors ${
                 isRealtimeConnected
-                  ? 'bg-emerald-950/40 text-emerald-300 border-emerald-800/50'
+                  ? 'bg-emerald-950/40 border-emerald-800/50'
                   : cloudSyncStatus === 'syncing'
-                  ? 'bg-blue-950/40 text-blue-300 border-blue-800/50'
-                  : 'bg-slate-800 text-slate-400 border-slate-700'
+                  ? 'bg-blue-950/40 border-blue-800/50'
+                  : 'bg-amber-950/40 border-amber-800/50'
               }`}
               title={
                 isRealtimeConnected
-                  ? 'Đang kết nối Real-time Firebase Firestore (Tỉ số trực tiếp)'
-                  : 'Đang đồng bộ dữ liệu với Cloud'
+                  ? 'Live: Đang kết nối Trực tiếp Firebase Firestore'
+                  : cloudSyncStatus === 'syncing'
+                  ? 'Sync: Đang đồng bộ dữ liệu đám mây'
+                  : 'Local: Chế độ dữ liệu nội bộ (Local Storage)'
               }
             >
-              <span className="relative flex h-2 w-2">
+              <span className="relative flex h-2.5 w-2.5">
                 {isRealtimeConnected && (
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 )}
+                {cloudSyncStatus === 'syncing' && (
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                )}
+                {!isRealtimeConnected && cloudSyncStatus !== 'syncing' && (
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-50"></span>
+                )}
                 <span
-                  className={`relative inline-flex rounded-full h-2 w-2 ${
+                  className={`relative inline-flex rounded-full h-2.5 w-2.5 ${
                     isRealtimeConnected
                       ? 'bg-emerald-500'
                       : cloudSyncStatus === 'syncing'
-                      ? 'bg-blue-500 animate-pulse'
+                      ? 'bg-blue-500'
                       : 'bg-amber-500'
                   }`}
                 ></span>
-              </span>
-              <span className="hidden xl:inline font-mono text-[10px] tracking-wide">
-                {isRealtimeConnected ? 'LIVE CLOUD' : cloudSyncStatus === 'syncing' ? 'SYNCING...' : 'LOCAL'}
               </span>
             </div>
 
