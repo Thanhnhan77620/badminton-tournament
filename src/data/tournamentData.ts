@@ -122,8 +122,8 @@ export const DEFAULT_RULES: TournamentRuleItem[] = [
 
 export const tournamentInfo: TournamentInfo = {
   id: 'isc-open-2026',
-  name: 'ISC BADMINTON OPEN 2026',
-  subtitle: 'Giải Cầu Lông Đôi Nam ISC Mở Rộng 2026',
+  name: 'ISC-CDC BADMINTON OPEN 2026',
+  subtitle: 'Giải Cầu Lông Đôi Nam ISC-CDC Mở Rộng 2026',
   category: 'Đôi Nam',
   categoryEn: "Men's Doubles",
   date: '12 Tháng 09, 2026',
@@ -131,7 +131,7 @@ export const tournamentInfo: TournamentInfo = {
   timeRange: '8h - 12h',
   venueName: 'Eco District 7 Badminton Courts',
   venueAddress: '128 Đường Số 8, Phường Bình An, TP. Thủ Đức, TP. Hồ Chí Minh',
-  venueMapUrl: 'https://maps.app.goo.gl/9Bk9SMftnQtR2NRp8',
+  venueMapUrl: 'https://maps.app.goo.gl/qh56sHzJs9wCSc8A7',
   totalPairs: 10,
   groupsCount: 2,
   status: 'IN_PROGRESS', // Đang diễn ra ở vòng bảng
