@@ -42,10 +42,10 @@ export const TournamentHeader: React.FC<TournamentHeaderProps> = ({
               <Trophy className="w-5 h-5 text-amber-300" />
             </div>
             <div className="min-w-0 flex flex-col justify-center">
-              <span className="text-xs sm:text-sm font-extrabold uppercase tracking-[0.24em] text-blue-400 font-display leading-tight">
+              <span className="text-sm sm:text-base font-extrabold uppercase tracking-[0.23em] text-blue-400 font-display leading-tight">
                 BADMINTON
               </span>
-              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-tight text-blue-400 font-display leading-tight">
+              <span className="text-xs sm:text-sm font-extrabold uppercase tracking-tight text-blue-400 font-display leading-tight">
                 TOURNAMENT 2026
               </span>
             </div>
