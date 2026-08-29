@@ -24,13 +24,13 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSuccess, onBackToPublic 
     setError('');
 
     try {
-      const ok = await login(passcode);
+      const res = await login(passcode);
       setIsLoading(false);
-      if (ok) {
+      if (res.success) {
         setViewMode('admin');
         if (onSuccess) onSuccess();
       } else {
-        setError('Mật mã Ban Tổ Chức không chính xác. Vui lòng thử lại.');
+        setError(res.error || 'Mật mã Ban Tổ Chức không chính xác. Vui lòng thử lại.');
       }
     } catch {
       setIsLoading(false);

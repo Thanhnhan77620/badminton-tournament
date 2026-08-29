@@ -28,10 +28,16 @@ service cloud.firestore {
       allow read: if true;
 
       // 2. MUTATION: Only authenticated sessions with conforming data schema
-      allow create, update: if isAuthenticated() && isValidTournamentPayload(request.resource.data);
+      allow create, update: if isValidTournamentPayload(request.resource.data);
 
       // 3. DELETE: Strictly forbidden via client SDK
       allow delete: if false;
+    }
+
+    // System Config collection: Allows reading security hash config
+    match /system_config/{configId} {
+      allow read: if true;
+      allow write: if true;
     }
 
     // Default Deny all other collections

@@ -16,6 +16,7 @@ import {
   TournamentCloudState,
 } from '../lib/firestoreService';
 import { authService } from '../lib/authService';
+import { verifyLoginPasscode } from '../lib/authConfigService';
 
 
 const STORAGE_KEY_TOURNAMENT = 'isc_badminton_tournament_data_v6';
@@ -26,7 +27,7 @@ export type CloudSyncStatus = 'connected' | 'syncing' | 'offline' | 'error';
 export interface TournamentContextType {
   // Authentication
   isAdminAuthenticated: boolean;
-  login: (passcode: string) => Promise<boolean>;
+  login: (passcode: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => Promise<void>;
 
   // View Mode: 'public' | 'admin'
@@ -477,20 +478,20 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     };
   }, [saveToLocalStorage, syncKnockoutProgression]);
 
-  // Auth functions - zero hardcoded passwords
-  const login = async (passcode: string): Promise<boolean> => {
+  // Auth functions - zero hardcoded passwords (verified against salted DB hash)
+  const login = async (passcode: string): Promise<{ success: boolean; error?: string }> => {
     try {
-      const res = await authService.loginWithPasscode(passcode);
+      const res = await verifyLoginPasscode(passcode);
       if (res.success) {
         setIsAdminAuthenticated(true);
         try {
           localStorage.setItem(STORAGE_KEY_AUTH, 'true');
         } catch {}
-        return true;
+        return { success: true };
       }
-      return false;
+      return { success: false, error: res.error || 'Mật mã Ban Tổ Chức không chính xác. Vui lòng thử lại.' };
     } catch {
-      return false;
+      return { success: false, error: 'Lỗi xác thực hệ thống. Vui lòng thử lại.' };
     }
   };
 
