@@ -477,19 +477,21 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     };
   }, [saveToLocalStorage, syncKnockoutProgression]);
 
-  // Auth functions
+  // Auth functions - zero hardcoded passwords
   const login = async (passcode: string): Promise<boolean> => {
-    const validCodes = ['btcadmin'];
-    if (validCodes.includes(passcode.trim().toLowerCase())) {
-      setIsAdminAuthenticated(true);
-      try {
-        localStorage.setItem(STORAGE_KEY_AUTH, 'true');
-        // Establish real authenticated session with Firebase
-        await authService.loginAnonymously();
-      } catch {}
-      return true;
+    try {
+      const res = await authService.loginWithPasscode(passcode);
+      if (res.success) {
+        setIsAdminAuthenticated(true);
+        try {
+          localStorage.setItem(STORAGE_KEY_AUTH, 'true');
+        } catch {}
+        return true;
+      }
+      return false;
+    } catch {
+      return false;
     }
-    return false;
   };
 
   const logout = async () => {
