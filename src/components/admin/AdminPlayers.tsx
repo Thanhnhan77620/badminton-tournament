@@ -186,52 +186,42 @@ export const AdminPlayers: React.FC = () => {
         </div>
 
         <div className="flex flex-wrap items-center gap-1.5">
-          {/* Clear all players button */}
-          <button
-            onClick={() => setIsClearAllModalOpen(true)}
-            disabled={!isEditable || players.length === 0}
-            className={`px-2.5 py-1.5 rounded-lg text-xs font-bold border transition-all flex items-center gap-1 ${
-              !isEditable || players.length === 0
-                ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed opacity-60'
-                : 'bg-rose-50 hover:bg-rose-100 text-rose-700 border-rose-200 cursor-pointer'
-            }`}
-            title={
-              !isEditable
-                ? 'Đã khóa xóa danh sách khi giải đang diễn ra hoặc đã bế mạc'
-                : 'Xóa toàn bộ DS để import lại khi import sai'
-            }
-          >
-            <RotateCcw className="w-3 h-3" />
-            <span>Xóa Sạch DS Để Import Lại</span>
-          </button>
+          {isEditable && (
+            <>
+              {/* Clear all players button */}
+              <button
+                onClick={() => setIsClearAllModalOpen(true)}
+                disabled={players.length === 0}
+                className={`px-2.5 py-1.5 rounded-lg text-xs font-bold border transition-all flex items-center gap-1 ${
+                  players.length === 0
+                    ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed opacity-60'
+                    : 'bg-rose-50 hover:bg-rose-100 text-rose-700 border-rose-200 cursor-pointer'
+                }`}
+                title="Xóa toàn bộ DS để import lại khi import sai"
+              >
+                <RotateCcw className="w-3 h-3" />
+                <span>Xóa Sạch DS Để Import Lại</span>
+              </button>
 
-          <button
-            onClick={() => setIsImportModalOpen(true)}
-            disabled={!isEditable}
-            className={`px-2.5 py-1.5 rounded-lg text-xs font-bold border transition-all flex items-center gap-1 ${
-              !isEditable
-                ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed opacity-60'
-                : 'bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-200 cursor-pointer'
-            }`}
-            title={!isEditable ? 'Đã khóa import trong khi giải đang diễn ra hoặc đã bế mạc' : 'Import Excel / CSV'}
-          >
-            <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Import Excel / CSV</span>
-          </button>
+              <button
+                onClick={() => setIsImportModalOpen(true)}
+                className="px-2.5 py-1.5 rounded-lg text-xs font-bold border transition-all flex items-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-200 cursor-pointer"
+                title="Import Excel / CSV"
+              >
+                <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Import Excel / CSV</span>
+              </button>
 
-          <button
-            onClick={handleOpenAdd}
-            disabled={!isEditable}
-            className={`px-3 py-1.5 rounded-lg text-white font-bold text-xs shadow-xs transition-all flex items-center gap-1 ${
-              !isEditable
-                ? 'bg-slate-400 cursor-not-allowed opacity-60 shadow-none'
-                : 'bg-blue-600 hover:bg-blue-700 shadow-blue-600/25 cursor-pointer'
-            }`}
-            title={!isEditable ? 'Đã khóa thêm VĐV trong khi giải đang diễn ra hoặc đã bế mạc' : 'Thêm VĐV Mới'}
-          >
-            <UserPlus className="w-3.5 h-3.5" />
-            <span>Thêm VĐV Mới</span>
-          </button>
+              <button
+                onClick={handleOpenAdd}
+                className="px-3 py-1.5 rounded-lg text-white font-bold text-xs shadow-xs transition-all flex items-center gap-1 bg-blue-600 hover:bg-blue-700 shadow-blue-600/25 cursor-pointer"
+                title="Thêm VĐV Mới"
+              >
+                <UserPlus className="w-3.5 h-3.5" />
+                <span>Thêm VĐV Mới</span>
+              </button>
+            </>
+          )}
         </div>
       </div>
 
@@ -348,13 +338,13 @@ export const AdminPlayers: React.FC = () => {
               <th className="py-2 px-3">Đơn Vị / CLB</th>
               <th className="py-2 px-3">Tình Trạng Ghép Cặp</th>
               <th className="py-2 px-3">Mã Định Danh (ID)</th>
-              <th className="py-2 px-3 text-right">Thao Tác</th>
+              {isEditable && <th className="py-2 px-3 text-right">Thao Tác</th>}
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
             {filteredPlayers.length === 0 ? (
               <tr>
-                <td colSpan={6} className="py-6 text-center text-slate-500 font-medium text-xs">
+                <td colSpan={isEditable ? 6 : 5} className="py-6 text-center text-slate-500 font-medium text-xs">
                   Chưa có thông tin
                 </td>
               </tr>
@@ -410,33 +400,25 @@ export const AdminPlayers: React.FC = () => {
                     <td className="py-1.5 px-3 font-mono text-[10px] text-slate-500">
                       {player.id}
                     </td>
-                    <td className="py-1.5 px-3 text-right space-x-1">
-                      <button
-                        onClick={() => handleOpenEdit(player)}
-                        disabled={!isEditable}
-                        className={`p-1 rounded transition-colors ${
-                          !isEditable
-                            ? 'text-slate-300 cursor-not-allowed opacity-50'
-                            : 'text-slate-500 hover:text-blue-600 hover:bg-blue-50 cursor-pointer'
-                        }`}
-                        title={!isEditable ? 'Đã khóa chỉnh sửa VĐV' : 'Chỉnh sửa'}
-                      >
-                        <Edit2 className="w-3.5 h-3.5" />
-                      </button>
+                    {isEditable && (
+                      <td className="py-1.5 px-3 text-right space-x-1">
+                        <button
+                          onClick={() => handleOpenEdit(player)}
+                          className="p-1 rounded transition-colors text-slate-500 hover:text-blue-600 hover:bg-blue-50 cursor-pointer"
+                          title="Chỉnh sửa"
+                        >
+                          <Edit2 className="w-3.5 h-3.5" />
+                        </button>
 
-                      <button
-                        onClick={() => setPlayerToDelete(player)}
-                        disabled={!isEditable}
-                        className={`p-1 rounded transition-colors ${
-                          !isEditable
-                            ? 'text-slate-300 cursor-not-allowed opacity-50'
-                            : 'text-slate-500 hover:text-rose-600 hover:bg-rose-50 cursor-pointer'
-                        }`}
-                        title={!isEditable ? 'Đã khóa xóa VĐV' : 'Xóa VĐV'}
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
-                    </td>
+                        <button
+                          onClick={() => setPlayerToDelete(player)}
+                          className="p-1 rounded transition-colors text-slate-500 hover:text-rose-600 hover:bg-rose-50 cursor-pointer"
+                          title="Xóa VĐV"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </td>
+                    )}
                   </tr>
                 );
               })

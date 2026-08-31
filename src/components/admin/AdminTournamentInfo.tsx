@@ -175,20 +175,17 @@ export const AdminTournamentInfo: React.FC = () => {
         </div>
 
         {/* Submit */}
-        <div className="pt-2.5 border-t border-slate-100 flex items-center justify-end gap-2">
-          <button
-            type="submit"
-            disabled={!isEditable}
-            className={`px-3.5 py-1.5 rounded-lg font-bold text-xs shadow-xs transition-all flex items-center gap-1.5 ${
-              isEditable
-                ? 'bg-blue-600 hover:bg-blue-700 text-white cursor-pointer'
-                : 'bg-slate-200 text-slate-400 cursor-not-allowed'
-            }`}
-          >
-            <Save className="w-3.5 h-3.5" />
-            <span>Lưu &amp; Cập Nhật Ra Trang Public</span>
-          </button>
-        </div>
+        {isEditable && (
+          <div className="pt-2.5 border-t border-slate-100 flex items-center justify-end gap-2">
+            <button
+              type="submit"
+              className="px-3.5 py-1.5 rounded-lg font-bold text-xs shadow-xs transition-all flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white cursor-pointer"
+            >
+              <Save className="w-3.5 h-3.5" />
+              <span>Lưu &amp; Cập Nhật Ra Trang Public</span>
+            </button>
+          </div>
+        )}
       </form>
     </div>
   );
