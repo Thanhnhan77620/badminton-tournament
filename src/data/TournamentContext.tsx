@@ -318,14 +318,28 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         const targetP1 = sf1Loser || PLACEHOLDER_PAIRS.SF1_LOSER;
         const targetP2 = sf2Loser || PLACEHOLDER_PAIRS.SF2_LOSER;
 
-        if (m.pair1?.id !== targetP1.id || m.pair2?.id !== targetP2.id) {
+        let matchUpdated = m;
+        // Normalize format to BEST_OF_3_15 if it was previously ONE_SET_21 and not yet played
+        if (matchUpdated.format !== 'BEST_OF_3_15' && matchUpdated.status === 'UPCOMING') {
+          matchUpdated = {
+            ...matchUpdated,
+            format: 'BEST_OF_3_15',
+            sets: [
+              { setNumber: 1, pair1Score: 0, pair2Score: 0, isFinished: false },
+              { setNumber: 2, pair1Score: 0, pair2Score: 0, isFinished: false },
+              { setNumber: 3, pair1Score: 0, pair2Score: 0, isFinished: false },
+            ],
+          };
+        }
+
+        if (matchUpdated.pair1?.id !== targetP1.id || matchUpdated.pair2?.id !== targetP2.id) {
           return {
-            ...m,
+            ...matchUpdated,
             pair1: targetP1,
             pair2: targetP2,
           };
         }
-        return m;
+        return matchUpdated;
       }
 
       return m;
@@ -924,8 +938,12 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
           status: 'UPCOMING',
           pair1: PLACEHOLDER_PAIRS.THIRD_PAIR1,
           pair2: PLACEHOLDER_PAIRS.THIRD_PAIR2,
-          sets: [{ setNumber: 1, pair1Score: 0, pair2Score: 0, isFinished: false }],
-          format: 'ONE_SET_21',
+          sets: [
+            { setNumber: 1, pair1Score: 0, pair2Score: 0, isFinished: false },
+            { setNumber: 2, pair1Score: 0, pair2Score: 0, isFinished: false },
+            { setNumber: 3, pair1Score: 0, pair2Score: 0, isFinished: false },
+          ],
+          format: 'BEST_OF_3_15',
         });
 
         newMatches.push({
@@ -1330,8 +1348,12 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         status: 'UPCOMING',
         pair1: PLACEHOLDER_PAIRS.THIRD_PAIR1,
         pair2: PLACEHOLDER_PAIRS.THIRD_PAIR2,
-        sets: [{ setNumber: 1, pair1Score: 0, pair2Score: 0, isFinished: false }],
-        format: 'ONE_SET_21',
+        sets: [
+          { setNumber: 1, pair1Score: 0, pair2Score: 0, isFinished: false },
+          { setNumber: 2, pair1Score: 0, pair2Score: 0, isFinished: false },
+          { setNumber: 3, pair1Score: 0, pair2Score: 0, isFinished: false },
+        ],
+        format: 'BEST_OF_3_15',
       });
     }
 
