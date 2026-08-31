@@ -127,4 +127,6 @@ export interface TournamentInfo {
   isScheduleAPublished?: boolean;
   isScheduleBPublished?: boolean;
   isScheduleKnockoutPublished?: boolean;
+  isKnockoutSFPublished?: boolean;
+  isKnockoutFinalPublished?: boolean;
 }

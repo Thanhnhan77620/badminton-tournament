@@ -56,26 +56,38 @@ export const AdminMatchesAndResults: React.FC = () => {
 
   const isMatchReadyToScore = (m: Match): { ready: boolean; reason?: string } => {
     if (m.round === 'GROUP_STAGE') return { ready: true };
-    
+
     const hasRealPair1 = m.pair1 && !m.pair1.id.startsWith('placeholder');
     const hasRealPair2 = m.pair2 && !m.pair2.id.startsWith('placeholder');
+    const isSFPublished = tournament.isKnockoutSFPublished || tournament.isScheduleKnockoutPublished;
+    const isFinalPublished = tournament.isKnockoutFinalPublished || tournament.isScheduleKnockoutPublished;
 
     if (m.round === 'SEMI_FINAL') {
-      if (hasRealPair1 && hasRealPair2) return { ready: true };
-      if (!isRoundRobinComplete) {
+      if (!isRoundRobinComplete && (!hasRealPair1 || !hasRealPair2)) {
         return {
           ready: false,
           reason: 'Cần hoàn tất các trận Vòng Bảng (Bảng A & B) để tự động xác định Nhất/Nhì bảng vào Bán Kết!',
         };
       }
+      if (!isSFPublished) {
+        return {
+          ready: false,
+          reason: 'Vui lòng vào tab "Bán kết & Chung kết" để kiểm tra và bấm "Công Khai Bán Kết" trước khi ghi nhận điểm!',
+        };
+      }
       return { ready: true };
     }
     if (m.round === 'FINAL' || m.round === 'THIRD_PLACE') {
-      if (hasRealPair1 && hasRealPair2) return { ready: true };
-      if (!isSemiFinalsComplete) {
+      if (!isSemiFinalsComplete && (!hasRealPair1 || !hasRealPair2)) {
         return {
           ready: false,
           reason: 'Cần hoàn tất cả 2 trận Bán Kết 1 & 2 để tự động xác định các cặp đấu vào Chung Kết & Tranh Hạng Ba!',
+        };
+      }
+      if (!isFinalPublished) {
+        return {
+          ready: false,
+          reason: 'Vui lòng vào tab "Bán kết & Chung kết" để kiểm tra và bấm "Công Khai Chung Kết" trước khi ghi nhận điểm!',
         };
       }
       return { ready: true };

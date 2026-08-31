@@ -126,6 +126,8 @@ function PublicAppContent() {
               isScheduleAPublished={tournament.isScheduleAPublished}
               isScheduleBPublished={tournament.isScheduleBPublished}
               isScheduleKnockoutPublished={tournament.isScheduleKnockoutPublished}
+              isKnockoutSFPublished={tournament.isKnockoutSFPublished}
+              isKnockoutFinalPublished={tournament.isKnockoutFinalPublished}
             />
           </div>
         )}

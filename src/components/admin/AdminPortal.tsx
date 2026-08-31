@@ -7,6 +7,7 @@ import {
   Users,
   Layers,
   Award,
+  Trophy,
   Eye,
   LogOut,
   ShieldCheck,
@@ -26,6 +27,7 @@ import { AdminRules } from './AdminRules';
 import { AdminPlayers } from './AdminPlayers';
 import { AdminPairsAndGroups } from './AdminPairsAndGroups';
 import { AdminMatchesAndResults } from './AdminMatchesAndResults';
+import { AdminKnockoutManager } from './AdminKnockoutManager';
 import { verifyStatusPasscode } from '../../lib/authConfigService';
 
 export type AdminSectionId =
@@ -35,6 +37,7 @@ export type AdminSectionId =
   | 'players'
   | 'pairs'
   | 'groups'
+  | 'knockout'
   | 'matches'
   | 'results';
 
@@ -69,6 +72,7 @@ export const AdminPortal: React.FC = () => {
     { id: 'rules', label: 'Điều Lệ & Giải Thưởng', icon: BookOpen },
     { id: 'players', label: 'Vận Động Viên', icon: Users, badge: `${players.length}` },
     { id: 'groups', label: 'Cặp Đấu & Bảng A/B', icon: Layers, badge: `${pairs.length}` },
+    { id: 'knockout', label: 'Bán kết & Chung kết', icon: Trophy },
     { id: 'results', label: 'Bàn Ghi Điểm & Tỷ Số', icon: Award, badge: `${matches.length}` },
   ];
 
@@ -85,6 +89,8 @@ export const AdminPortal: React.FC = () => {
       case 'pairs':
       case 'groups':
         return <AdminPairsAndGroups />;
+      case 'knockout':
+        return <AdminKnockoutManager />;
       case 'matches':
       case 'results':
         return <AdminMatchesAndResults />;

@@ -290,10 +290,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigateSectio
               </p>
             </div>
             <button
-              onClick={() => onNavigateSection('results')}
+              onClick={() => onNavigateSection('knockout')}
               className="text-[11px] font-bold text-blue-600 hover:text-blue-700 cursor-pointer"
             >
-              Cập nhật điểm →
+              Xem Nhánh Đấu Knockout →
             </button>
           </div>
 

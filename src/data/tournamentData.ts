@@ -140,6 +140,8 @@ export const tournamentInfo: TournamentInfo = {
   isScheduleAPublished: false,
   isScheduleBPublished: false,
   isScheduleKnockoutPublished: false,
+  isKnockoutSFPublished: false,
+  isKnockoutFinalPublished: false,
   supplementaryRegulations: DEFAULT_SUPPLEMENTARY_REGULATIONS,
   prizes: [
     {

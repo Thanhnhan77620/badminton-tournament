@@ -398,35 +398,38 @@ export const KnockoutSection: React.FC<KnockoutSectionProps> = ({
   const isGroupAFinished = matchesGroupA.length > 0 && matchesGroupA.every(m => m.status === 'FINISHED');
   const isGroupBFinished = matchesGroupB.length > 0 && matchesGroupB.every(m => m.status === 'FINISHED');
 
-  // Semi Finals readiness and qualified pairs
-  const sf1Pair1 = isGroupAFinished && standingsA.length >= 1 ? standingsA[0].pair : null;
-  const sf1Pair2 = isGroupBFinished && standingsB.length >= 2 ? standingsB[1].pair : null;
-  const isSF1Ready = isGroupAFinished && isGroupBFinished;
+  // Semi Finals readiness and qualified pairs (Check publication flags)
+  const isSFPublished = tournament.isKnockoutSFPublished || tournament.isScheduleKnockoutPublished;
+  const isFinalPublished = tournament.isKnockoutFinalPublished || tournament.isScheduleKnockoutPublished;
 
-  const sf2Pair1 = isGroupBFinished && standingsB.length >= 1 ? standingsB[0].pair : null;
-  const sf2Pair2 = isGroupAFinished && standingsA.length >= 2 ? standingsA[1].pair : null;
-  const isSF2Ready = isGroupAFinished && isGroupBFinished;
+  const sf1Pair1 = isSFPublished && isGroupAFinished && standingsA.length >= 1 ? standingsA[0].pair : null;
+  const sf1Pair2 = isSFPublished && isGroupBFinished && standingsB.length >= 2 ? standingsB[1].pair : null;
+  const isSF1Ready = isSFPublished && isGroupAFinished && isGroupBFinished;
+
+  const sf2Pair1 = isSFPublished && isGroupBFinished && standingsB.length >= 1 ? standingsB[0].pair : null;
+  const sf2Pair2 = isSFPublished && isGroupAFinished && standingsA.length >= 2 ? standingsA[1].pair : null;
+  const isSF2Ready = isSFPublished && isGroupAFinished && isGroupBFinished;
 
   // Semi-Final completed checks
   const isSF1Finished = semiFinal1?.status === 'FINISHED' && !!semiFinal1.winnerId;
   const isSF2Finished = semiFinal2?.status === 'FINISHED' && !!semiFinal2.winnerId;
 
   // Final & 3rd place pairs
-  const finalPair1 = isSF1Finished
+  const finalPair1 = isFinalPublished && isSF1Finished
     ? (semiFinal1.winnerId === semiFinal1.pair1?.id ? (isGroupAFinished ? standingsA[0]?.pair : semiFinal1.pair1) : (isGroupBFinished ? standingsB[1]?.pair : semiFinal1.pair2))
     : null;
-  const finalPair2 = isSF2Finished
+  const finalPair2 = isFinalPublished && isSF2Finished
     ? (semiFinal2.winnerId === semiFinal2.pair1?.id ? (isGroupBFinished ? standingsB[0]?.pair : semiFinal2.pair1) : (isGroupAFinished ? standingsA[1]?.pair : semiFinal2.pair2))
     : null;
-  const isFinalReady = isSF1Finished && isSF2Finished;
+  const isFinalReady = isFinalPublished && isSF1Finished && isSF2Finished;
 
-  const thirdPair1 = isSF1Finished
+  const thirdPair1 = isFinalPublished && isSF1Finished
     ? (semiFinal1.winnerId === semiFinal1.pair1?.id ? (isGroupBFinished ? standingsB[1]?.pair : semiFinal1.pair2) : (isGroupAFinished ? standingsA[0]?.pair : semiFinal1.pair1))
     : null;
-  const thirdPair2 = isSF2Finished
+  const thirdPair2 = isFinalPublished && isSF2Finished
     ? (semiFinal2.winnerId === semiFinal2.pair1?.id ? (isGroupAFinished ? standingsA[1]?.pair : semiFinal2.pair2) : (isGroupBFinished ? standingsB[0]?.pair : semiFinal2.pair1))
     : null;
-  const isThirdReady = isSF1Finished && isSF2Finished;
+  const isThirdReady = isFinalPublished && isSF1Finished && isSF2Finished;
 
   // Dynamic ranking from finalMatch and thirdPlaceMatch (only when matches are actually finished)
   const firstPair = isFinalFinished && finalMatch?.winnerId

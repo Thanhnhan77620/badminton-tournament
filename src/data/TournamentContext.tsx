@@ -86,6 +86,7 @@ export interface TournamentContextType {
   // Group & Schedule Publication State Management
   togglePublishGroup: (group: 'A' | 'B', publish?: boolean) => void;
   togglePublishSchedule: (group: 'A' | 'B' | 'KNOCKOUT', publish?: boolean) => void;
+  togglePublishKnockoutStage: (stage: 'SF' | 'FINAL', publish?: boolean) => void;
   createManualMatch: (matchData: {
     group: 'A' | 'B';
     pair1Id: string;
@@ -188,15 +189,27 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const syncKnockoutProgression = useCallback((rawMatches: Match[], currentPairs: Pair[]): Match[] => {
     if (!rawMatches || rawMatches.length === 0) return rawMatches;
 
-    const groupAMatches = rawMatches.filter(m => m.group === 'A');
-    const groupBMatches = rawMatches.filter(m => m.group === 'B');
+    // Ensure 4 default knockout matches are present in rawMatches
+    let workingMatches = [...rawMatches];
+    const defaultKnockoutMatches = defaultInitialMatches.filter(m => m.round !== 'GROUP_STAGE');
+    defaultKnockoutMatches.forEach(defM => {
+      const exists = workingMatches.some(
+        m => m.id === defM.id || (m.round === defM.round && m.matchNumber === defM.matchNumber)
+      );
+      if (!exists) {
+        workingMatches.push(defM);
+      }
+    });
+
+    const groupAMatches = workingMatches.filter(m => m.group === 'A');
+    const groupBMatches = workingMatches.filter(m => m.group === 'B');
     const isGroupAFinished = groupAMatches.length > 0 && groupAMatches.every(m => m.status === 'FINISHED');
     const isGroupBFinished = groupBMatches.length > 0 && groupBMatches.every(m => m.status === 'FINISHED');
 
-    const curStandingsA = defaultCalculateStandings('A', currentPairs, rawMatches);
-    const curStandingsB = defaultCalculateStandings('B', currentPairs, rawMatches);
+    const curStandingsA = defaultCalculateStandings('A', currentPairs, workingMatches);
+    const curStandingsB = defaultCalculateStandings('B', currentPairs, workingMatches);
 
-    // If group A is completed (or has rank 1 & 2), determine top pairs
+    // If group A has completed (or has rankings), determine top pairs
     const topA1 =
       (isGroupAFinished || groupAMatches.some(m => m.status === 'FINISHED')) && curStandingsA.length >= 1
         ? curStandingsA[0].pair
@@ -210,34 +223,19 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         ? curStandingsB[0].pair
         : null;
     const topB2 =
-      (isGroupBFinished || groupBMatches.length > 0 && groupBMatches.some(m => m.status === 'FINISHED')) &&
-      curStandingsB.length >= 2
+      (isGroupBFinished || groupBMatches.some(m => m.status === 'FINISHED')) && curStandingsB.length >= 2
         ? curStandingsB[1].pair
         : null;
 
-    let updated = rawMatches.map(m => {
-      // Semi-final 1 (Nhất A vs Nhì B)
+    let updated = workingMatches.map(m => {
+      // Semi-final 1: Nhất Bảng A (A1) vs Nhì Bảng B (B2)
       if (
         m.id === 'm-sf-1' ||
         m.matchNumber === 21 ||
         (m.round === 'SEMI_FINAL' && (m.roundLabel?.includes('1') || m.roundLabel?.includes('Nhất A')))
       ) {
-        const targetP1 =
-          isGroupAFinished && topA1
-            ? topA1
-            : m.pair1 && !m.pair1.id.startsWith('placeholder') && !isGroupAFinished
-            ? m.pair1
-            : topA1 && isGroupAFinished
-            ? topA1
-            : PLACEHOLDER_PAIRS.A1;
-        const targetP2 =
-          isGroupBFinished && topB2
-            ? topB2
-            : m.pair2 && !m.pair2.id.startsWith('placeholder') && !isGroupBFinished
-            ? m.pair2
-            : topB2 && isGroupBFinished
-            ? topB2
-            : PLACEHOLDER_PAIRS.B2;
+        const targetP1 = isGroupAFinished && topA1 ? topA1 : (topA1 && groupAMatches.some(gm => gm.status === 'FINISHED') ? topA1 : PLACEHOLDER_PAIRS.A1);
+        const targetP2 = isGroupBFinished && topB2 ? topB2 : (topB2 && groupBMatches.some(gm => gm.status === 'FINISHED') ? topB2 : PLACEHOLDER_PAIRS.B2);
 
         if (m.pair1?.id !== targetP1.id || m.pair2?.id !== targetP2.id || m.format !== 'BEST_OF_3_15') {
           return {
@@ -250,28 +248,14 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         return m;
       }
 
-      // Semi-final 2 (Nhất B vs Nhì A)
+      // Semi-final 2: Nhất Bảng B (B1) vs Nhì Bảng A (A2)
       if (
         m.id === 'm-sf-2' ||
         m.matchNumber === 22 ||
         (m.round === 'SEMI_FINAL' && (m.roundLabel?.includes('2') || m.roundLabel?.includes('Nhất B')))
       ) {
-        const targetP1 =
-          isGroupBFinished && topB1
-            ? topB1
-            : m.pair1 && !m.pair1.id.startsWith('placeholder') && !isGroupBFinished
-            ? m.pair1
-            : topB1 && isGroupBFinished
-            ? topB1
-            : PLACEHOLDER_PAIRS.B1;
-        const targetP2 =
-          isGroupAFinished && topA2
-            ? topA2
-            : m.pair2 && !m.pair2.id.startsWith('placeholder') && !isGroupAFinished
-            ? m.pair2
-            : topA2 && isGroupAFinished
-            ? topA2
-            : PLACEHOLDER_PAIRS.A2;
+        const targetP1 = isGroupBFinished && topB1 ? topB1 : (topB1 && groupBMatches.some(gm => gm.status === 'FINISHED') ? topB1 : PLACEHOLDER_PAIRS.B1);
+        const targetP2 = isGroupAFinished && topA2 ? topA2 : (topA2 && groupAMatches.some(gm => gm.status === 'FINISHED') ? topA2 : PLACEHOLDER_PAIRS.A2);
 
         if (m.pair1?.id !== targetP1.id || m.pair2?.id !== targetP2.id || m.format !== 'BEST_OF_3_15') {
           return {
@@ -314,18 +298,10 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       isSF2Done && curSF2 ? (curSF2.winnerId === curSF2.pair1.id ? curSF2.pair2 : curSF2.pair1) : null;
 
     updated = updated.map(m => {
-      // Final match (#24)
+      // Final match (#24) - Thắng BK1 vs Thắng BK2
       if (m.id === 'm-final' || m.round === 'FINAL' || m.matchNumber === 24) {
-        const targetP1 =
-          sf1Winner ||
-          (m.pair1 && !m.pair1.id.startsWith('placeholder') && !isSF1Done
-            ? m.pair1
-            : PLACEHOLDER_PAIRS.SF1_WINNER);
-        const targetP2 =
-          sf2Winner ||
-          (m.pair2 && !m.pair2.id.startsWith('placeholder') && !isSF2Done
-            ? m.pair2
-            : PLACEHOLDER_PAIRS.SF2_WINNER);
+        const targetP1 = sf1Winner || PLACEHOLDER_PAIRS.SF1_WINNER;
+        const targetP2 = sf2Winner || PLACEHOLDER_PAIRS.SF2_WINNER;
 
         if (m.pair1?.id !== targetP1.id || m.pair2?.id !== targetP2.id) {
           return {
@@ -337,18 +313,10 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         return m;
       }
 
-      // Third Place match (#23)
+      // Third Place match (#23) - Thua BK1 vs Thua BK2
       if (m.id === 'm-third' || m.round === 'THIRD_PLACE' || m.matchNumber === 23) {
-        const targetP1 =
-          sf1Loser ||
-          (m.pair1 && !m.pair1.id.startsWith('placeholder') && !isSF1Done
-            ? m.pair1
-            : PLACEHOLDER_PAIRS.SF1_LOSER);
-        const targetP2 =
-          sf2Loser ||
-          (m.pair2 && !m.pair2.id.startsWith('placeholder') && !isSF2Done
-            ? m.pair2
-            : PLACEHOLDER_PAIRS.SF2_LOSER);
+        const targetP1 = sf1Loser || PLACEHOLDER_PAIRS.SF1_LOSER;
+        const targetP2 = sf2Loser || PLACEHOLDER_PAIRS.SF2_LOSER;
 
         if (m.pair1?.id !== targetP1.id || m.pair2?.id !== targetP2.id) {
           return {
@@ -1033,6 +1001,15 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     syncToCloud(updated, pairs, matches, players);
   };
 
+  const togglePublishKnockoutStage = (stage: 'SF' | 'FINAL', publish?: boolean) => {
+    const key = stage === 'SF' ? 'isKnockoutSFPublished' : 'isKnockoutFinalPublished';
+    const currentVal = tournament[key] ?? false;
+    const nextVal = typeof publish === 'boolean' ? publish : !currentVal;
+    const updated = { ...tournament, [key]: nextVal };
+    setTournament(updated);
+    syncToCloud(updated, pairs, matches, players);
+  };
+
   // Manual Match Creation for a Group
   const createManualMatch = (matchData: {
     group: 'A' | 'B';
@@ -1541,6 +1518,7 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         importPairsList,
         togglePublishGroup,
         togglePublishSchedule,
+        togglePublishKnockoutStage,
         createManualMatch,
         importCustomGroupSchedule,
         reorderGroupMatches,
