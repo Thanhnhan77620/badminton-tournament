@@ -69,91 +69,86 @@ export const MatchCard: React.FC<MatchCardProps> = ({ match, onClick, compact = 
       </div>
 
       {/* Main Teams Box */}
-      <div className="p-3 sm:p-3.5 space-y-2.5 bg-white">
+      <div className="p-2 sm:p-3.5 space-y-1.5 sm:space-y-2.5 bg-white">
         {/* Pair 1 Row */}
         <div
-          className={`flex items-center justify-between p-2.5 sm:p-3 rounded-xl transition-all duration-200 ${
+          className={`flex items-center justify-between p-1.5 sm:p-2.5 rounded-xl transition-all duration-200 ${
             isPair1Winner
               ? 'bg-amber-50/70 border border-amber-300 shadow-2xs'
               : 'bg-slate-50/80 border border-slate-200/80 group-hover:bg-slate-50 group-hover:border-slate-300'
           }`}
         >
           {isPair1Placeholder ? (
-            <div className="flex-1 min-w-0 pr-2 flex items-center gap-2.5 py-1">
-              <span className="w-7 h-7 rounded-lg bg-blue-100 text-blue-900 font-black text-xs flex items-center justify-center shrink-0">
+            <div className="flex-1 min-w-0 pr-1 flex items-center gap-1.5 py-0.5">
+              <span className="w-5.5 h-5.5 sm:w-6.5 sm:h-6.5 rounded-lg bg-blue-100 text-blue-900 font-black text-[10px] sm:text-xs flex items-center justify-center shrink-0">
                 {match.pair1?.code || 'A1'}
               </span>
-              <div className="min-w-0">
-                <p className="text-xs sm:text-[13px] md:text-sm font-bold text-slate-700 italic truncate">
+              <div className="min-w-0 leading-none overflow-hidden whitespace-nowrap">
+                <p className="text-[11px] sm:text-[13px] md:text-sm font-bold text-slate-700 italic whitespace-nowrap">
                   {match.pair1?.name || 'Đội 1'}
                 </p>
-                <p className="text-[11px] text-slate-400 font-medium truncate">
+                <p className="text-[9px] sm:text-[11px] text-slate-400 font-medium whitespace-nowrap">
                   (Chờ xác định từ vòng trước)
                 </p>
               </div>
             </div>
           ) : (
             /* Pair 1: 2 dòng VĐV xếp dọc */
-            <div className="flex-1 min-w-0 pr-2 space-y-1.5">
+            <div className="flex-1 min-w-0 pr-1 space-y-1 sm:space-y-1.5">
               {/* Player 1 */}
-              <div className="flex items-center gap-2 min-w-0">
+              <div className="flex items-center gap-1 sm:gap-2 min-w-0">
                 <PlayerAvatar
                   name={match.pair1?.player1?.name || 'VĐV 1'}
                   avatarUrl={match.pair1?.player1?.avatarUrl}
                   size="xs"
-                  className="ring-1 ring-slate-200 shrink-0 sm:w-7 sm:h-7 sm:text-xs md:w-7.5 md:h-7.5"
+                  className="ring-1 ring-slate-200 shrink-0 w-5 h-5 sm:w-7 sm:h-7 text-[9px] sm:text-xs"
                 />
-                <span
-                  className={`text-xs sm:text-[13px] md:text-sm lg:text-[15px] leading-tight truncate ${
-                    isPair1Winner ? 'font-black text-slate-950' : 'font-bold text-slate-900'
-                  }`}
-                >
-                  {match.pair1?.player1?.name || 'Chưa xác định'}{' '}
-                  <span className="text-[11px] sm:text-xs md:text-xs lg:text-[13px] font-semibold text-slate-500">
+                <div className="min-w-0 flex items-center leading-none overflow-hidden whitespace-nowrap">
+                  <span
+                    className={`text-[11px] xs:text-xs sm:text-[13px] md:text-sm whitespace-nowrap ${
+                      isPair1Winner ? 'font-black text-slate-950' : 'font-bold text-slate-900'
+                    }`}
+                  >
+                    {match.pair1?.player1?.name || 'Chưa xác định'}
+                  </span>
+                  <span className="text-[9px] sm:text-xs text-slate-400 font-medium ml-1 whitespace-nowrap">
                     ({match.pair1?.player1?.club || match.pair1?.club || 'ISC'})
                   </span>
-                </span>
+                </div>
               </div>
 
               {/* Player 2 */}
-              <div className="flex items-center gap-2 min-w-0">
+              <div className="flex items-center gap-1 sm:gap-2 min-w-0">
                 <PlayerAvatar
                   name={match.pair1?.player2?.name || 'VĐV 2'}
                   avatarUrl={match.pair1?.player2?.avatarUrl}
                   size="xs"
-                  className="ring-1 ring-slate-200 shrink-0 sm:w-7 sm:h-7 sm:text-xs md:w-7.5 md:h-7.5"
+                  className="ring-1 ring-slate-200 shrink-0 w-5 h-5 sm:w-7 sm:h-7 text-[9px] sm:text-xs"
                 />
-                <span
-                  className={`text-xs sm:text-[13px] md:text-sm lg:text-[15px] leading-tight truncate ${
-                    isPair1Winner ? 'font-black text-slate-950' : 'font-bold text-slate-900'
-                  }`}
-                >
-                  {match.pair1?.player2?.name || 'Chưa xác định'}{' '}
-                  <span className="text-[11px] sm:text-xs md:text-xs lg:text-[13px] font-semibold text-slate-500">
+                <div className="min-w-0 flex items-center leading-none overflow-hidden whitespace-nowrap">
+                  <span
+                    className={`text-[11px] xs:text-xs sm:text-[13px] md:text-sm whitespace-nowrap ${
+                      isPair1Winner ? 'font-black text-slate-950' : 'font-bold text-slate-900'
+                    }`}
+                  >
+                    {match.pair1?.player2?.name || 'Chưa xác định'}
+                  </span>
+                  <span className="text-[9px] sm:text-xs text-slate-400 font-medium ml-1 whitespace-nowrap">
                     ({match.pair1?.player2?.club || match.pair1?.club || 'ISC'})
                   </span>
-                </span>
+                </div>
               </div>
             </div>
           )}
 
-          {/* Cúp vàng đánh dấu đội thắng ở vùng giữa */}
-          {isPair1Winner && (
-            <div className="px-2 sm:px-3 shrink-0 flex items-center justify-center self-center">
-              <span className="text-lg sm:text-xl select-none" title="Thắng trận">
-                🏆
-              </span>
-            </div>
-          )}
-
           {/* Scores Pair 1 */}
-          <div className="flex items-center gap-1.5 shrink-0 self-center">
+          <div className="flex items-center gap-1 shrink-0 self-center pl-0.5">
             {isBestOf3 ? (
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-0.5 sm:gap-1">
                 {(match.sets || []).map((set, idx) => (
                   <span
                     key={idx}
-                    className={`w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg text-xs sm:text-sm tabular-nums font-black ${
+                    className={`w-5.5 h-5.5 sm:w-7.5 sm:h-7.5 md:w-8 md:h-8 flex items-center justify-center rounded-md sm:rounded-lg text-[10px] sm:text-xs md:text-sm tabular-nums font-black ${
                       set.pair1Score > set.pair2Score && isFinished
                         ? 'bg-slate-950 text-white shadow-2xs'
                         : isFinished
@@ -165,111 +160,118 @@ export const MatchCard: React.FC<MatchCardProps> = ({ match, onClick, compact = 
                   </span>
                 ))}
                 {isFinished && (
-                  <span className="ml-1 text-xs sm:text-sm font-black text-blue-700 tabular-nums">
+                  <span className="ml-0.5 sm:ml-1 text-[11px] sm:text-sm font-black text-blue-700 tabular-nums">
                     ({pair1SetWins})
+                  </span>
+                )}
+                {isPair1Winner && (
+                  <span className="text-xs sm:text-base select-none ml-0.5" title="Thắng trận">
+                    🏆
                   </span>
                 )}
               </div>
             ) : (
-              <span
-                className={`min-w-[36px] sm:min-w-[42px] h-8 sm:h-9 px-2 flex items-center justify-center rounded-xl text-base sm:text-lg tabular-nums font-black ${
-                  isPair1Winner
-                    ? 'bg-slate-950 text-white shadow-xs'
-                    : isFinished
-                    ? 'bg-slate-100 text-slate-800 border border-slate-200'
-                    : 'bg-slate-100 text-slate-400'
-                }`}
-              >
-                {isFinished ? (match.sets?.[0]?.pair1Score ?? '-') : '-'}
-              </span>
+              <div className="flex items-center gap-1">
+                <span
+                  className={`min-w-[28px] sm:min-w-[40px] h-6 sm:h-8 px-1 flex items-center justify-center rounded-md sm:rounded-xl text-xs sm:text-base tabular-nums font-black ${
+                    isPair1Winner
+                      ? 'bg-slate-950 text-white shadow-xs'
+                      : isFinished
+                      ? 'bg-slate-100 text-slate-800 border border-slate-200'
+                      : 'bg-slate-100 text-slate-400'
+                  }`}
+                >
+                  {isFinished ? (match.sets?.[0]?.pair1Score ?? '-') : '-'}
+                </span>
+                {isPair1Winner && (
+                  <span className="text-xs sm:text-base select-none" title="Thắng trận">
+                    🏆
+                  </span>
+                )}
+              </div>
             )}
           </div>
         </div>
 
         {/* Pair 2 Row */}
         <div
-          className={`flex items-center justify-between p-2.5 sm:p-3 rounded-xl transition-all duration-200 ${
+          className={`flex items-center justify-between p-1.5 sm:p-2.5 rounded-xl transition-all duration-200 ${
             isPair2Winner
               ? 'bg-amber-50/70 border border-amber-300 shadow-2xs'
               : 'bg-slate-50/80 border border-slate-200/80 group-hover:bg-slate-50 group-hover:border-slate-300'
           }`}
         >
           {isPair2Placeholder ? (
-            <div className="flex-1 min-w-0 pr-2 flex items-center gap-2.5 py-1">
-              <span className="w-7 h-7 rounded-lg bg-amber-100 text-amber-900 font-black text-xs flex items-center justify-center shrink-0">
+            <div className="flex-1 min-w-0 pr-1 flex items-center gap-1.5 py-0.5">
+              <span className="w-5.5 h-5.5 sm:w-6.5 sm:h-6.5 rounded-lg bg-amber-100 text-amber-900 font-black text-[10px] sm:text-xs flex items-center justify-center shrink-0">
                 {match.pair2?.code || 'B2'}
               </span>
-              <div className="min-w-0">
-                <p className="text-xs sm:text-[13px] md:text-sm font-bold text-slate-700 italic truncate">
+              <div className="min-w-0 leading-none overflow-hidden whitespace-nowrap">
+                <p className="text-[11px] sm:text-[13px] md:text-sm font-bold text-slate-700 italic whitespace-nowrap">
                   {match.pair2?.name || 'Đội 2'}
                 </p>
-                <p className="text-[11px] text-slate-400 font-medium truncate">
+                <p className="text-[9px] sm:text-[11px] text-slate-400 font-medium whitespace-nowrap">
                   (Chờ xác định từ vòng trước)
                 </p>
               </div>
             </div>
           ) : (
             /* Pair 2: 2 dòng VĐV xếp dọc */
-            <div className="flex-1 min-w-0 pr-2 space-y-1.5">
+            <div className="flex-1 min-w-0 pr-1 space-y-1 sm:space-y-1.5">
               {/* Player 1 */}
-              <div className="flex items-center gap-2 min-w-0">
+              <div className="flex items-center gap-1 sm:gap-2 min-w-0">
                 <PlayerAvatar
                   name={match.pair2?.player1?.name || 'VĐV 1'}
                   avatarUrl={match.pair2?.player1?.avatarUrl}
                   size="xs"
-                  className="ring-1 ring-slate-200 shrink-0 sm:w-7 sm:h-7 sm:text-xs md:w-7.5 md:h-7.5"
+                  className="ring-1 ring-slate-200 shrink-0 w-5 h-5 sm:w-7 sm:h-7 text-[9px] sm:text-xs"
                 />
-                <span
-                  className={`text-xs sm:text-[13px] md:text-sm lg:text-[15px] leading-tight truncate ${
-                    isPair2Winner ? 'font-black text-slate-950' : 'font-bold text-slate-900'
-                  }`}
-                >
-                  {match.pair2?.player1?.name || 'Chưa xác định'}{' '}
-                  <span className="text-[11px] sm:text-xs md:text-xs lg:text-[13px] font-semibold text-slate-500">
+                <div className="min-w-0 flex items-center leading-none overflow-hidden whitespace-nowrap">
+                  <span
+                    className={`text-[11px] xs:text-xs sm:text-[13px] md:text-sm whitespace-nowrap ${
+                      isPair2Winner ? 'font-black text-slate-950' : 'font-bold text-slate-900'
+                    }`}
+                  >
+                    {match.pair2?.player1?.name || 'Chưa xác định'}
+                  </span>
+                  <span className="text-[9px] sm:text-xs text-slate-400 font-medium ml-1 whitespace-nowrap">
                     ({match.pair2?.player1?.club || match.pair2?.club || 'ISC'})
                   </span>
-                </span>
+                </div>
               </div>
 
               {/* Player 2 */}
-              <div className="flex items-center gap-2 min-w-0">
+              <div className="flex items-center gap-1 sm:gap-2 min-w-0">
                 <PlayerAvatar
                   name={match.pair2?.player2?.name || 'VĐV 2'}
                   avatarUrl={match.pair2?.player2?.avatarUrl}
                   size="xs"
-                  className="ring-1 ring-slate-200 shrink-0 sm:w-7 sm:h-7 sm:text-xs md:w-7.5 md:h-7.5"
+                  className="ring-1 ring-slate-200 shrink-0 w-5 h-5 sm:w-7 sm:h-7 text-[9px] sm:text-xs"
                 />
-                <span
-                  className={`text-xs sm:text-[13px] md:text-sm lg:text-[15px] leading-tight truncate ${
-                    isPair2Winner ? 'font-black text-slate-950' : 'font-bold text-slate-900'
-                  }`}
-                >
-                  {match.pair2?.player2?.name || 'Chưa xác định'}{' '}
-                  <span className="text-[11px] sm:text-xs md:text-xs lg:text-[13px] font-semibold text-slate-500">
+                <div className="min-w-0 flex items-center leading-none overflow-hidden whitespace-nowrap">
+                  <span
+                    className={`text-[11px] xs:text-xs sm:text-[13px] md:text-sm whitespace-nowrap ${
+                      isPair2Winner ? 'font-black text-slate-950' : 'font-bold text-slate-900'
+                    }`}
+                  >
+                    {match.pair2?.player2?.name || 'Chưa xác định'}
+                  </span>
+                  <span className="text-[9px] sm:text-xs text-slate-400 font-medium ml-1 whitespace-nowrap">
                     ({match.pair2?.player2?.club || match.pair2?.club || 'ISC'})
                   </span>
-                </span>
+                </div>
               </div>
             </div>
           )}
 
-          {/* Cúp vàng đánh dấu đội thắng ở vùng giữa */}
-          {isPair2Winner && (
-            <div className="px-2 sm:px-3 shrink-0 flex items-center justify-center self-center">
-              <span className="text-lg sm:text-xl select-none" title="Thắng trận">
-                🏆
-              </span>
-            </div>
-          )}
-
           {/* Scores Pair 2 */}
-          <div className="flex items-center gap-1.5 shrink-0 self-center">
+          <div className="flex items-center gap-1 shrink-0 self-center pl-0.5">
             {isBestOf3 ? (
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-0.5 sm:gap-1">
                 {(match.sets || []).map((set, idx) => (
                   <span
                     key={idx}
-                    className={`w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg text-xs sm:text-sm tabular-nums font-black ${
+                    className={`w-5.5 h-5.5 sm:w-7.5 sm:h-7.5 md:w-8 md:h-8 flex items-center justify-center rounded-md sm:rounded-lg text-[10px] sm:text-xs md:text-sm tabular-nums font-black ${
                       set.pair2Score > set.pair1Score && isFinished
                         ? 'bg-slate-950 text-white shadow-2xs'
                         : isFinished
@@ -281,23 +283,35 @@ export const MatchCard: React.FC<MatchCardProps> = ({ match, onClick, compact = 
                   </span>
                 ))}
                 {isFinished && (
-                  <span className="ml-1 text-xs sm:text-sm font-black text-blue-700 tabular-nums">
+                  <span className="ml-0.5 sm:ml-1 text-[11px] sm:text-sm font-black text-blue-700 tabular-nums">
                     ({pair2SetWins})
+                  </span>
+                )}
+                {isPair2Winner && (
+                  <span className="text-xs sm:text-base select-none ml-0.5" title="Thắng trận">
+                    🏆
                   </span>
                 )}
               </div>
             ) : (
-              <span
-                className={`min-w-[36px] sm:min-w-[42px] h-8 sm:h-9 px-2 flex items-center justify-center rounded-xl text-base sm:text-lg tabular-nums font-black ${
-                  isPair2Winner
-                    ? 'bg-slate-950 text-white shadow-xs'
-                    : isFinished
-                    ? 'bg-slate-100 text-slate-800 border border-slate-200'
-                    : 'bg-slate-100 text-slate-400'
-                }`}
-              >
-                {isFinished ? (match.sets?.[0]?.pair2Score ?? '-') : '-'}
-              </span>
+              <div className="flex items-center gap-1">
+                <span
+                  className={`min-w-[28px] sm:min-w-[40px] h-6 sm:h-8 px-1 flex items-center justify-center rounded-md sm:rounded-xl text-xs sm:text-base tabular-nums font-black ${
+                    isPair2Winner
+                      ? 'bg-slate-950 text-white shadow-xs'
+                      : isFinished
+                      ? 'bg-slate-100 text-slate-800 border border-slate-200'
+                      : 'bg-slate-100 text-slate-400'
+                  }`}
+                >
+                  {isFinished ? (match.sets?.[0]?.pair2Score ?? '-') : '-'}
+                </span>
+                {isPair2Winner && (
+                  <span className="text-xs sm:text-base select-none" title="Thắng trận">
+                    🏆
+                  </span>
+                )}
+              </div>
             )}
           </div>
         </div>

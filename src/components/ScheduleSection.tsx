@@ -17,6 +17,8 @@ interface ScheduleSectionProps {
   isScheduleAPublished?: boolean;
   isScheduleBPublished?: boolean;
   isScheduleKnockoutPublished?: boolean;
+  isKnockoutSFPublished?: boolean;
+  isKnockoutFinalPublished?: boolean;
 }
 
 export const ScheduleSection: React.FC<ScheduleSectionProps> = ({
@@ -25,6 +27,8 @@ export const ScheduleSection: React.FC<ScheduleSectionProps> = ({
   isScheduleAPublished = false,
   isScheduleBPublished = false,
   isScheduleKnockoutPublished = false,
+  isKnockoutSFPublished = false,
+  isKnockoutFinalPublished = false,
 }) => {
   const [selectedGroupFilter, setSelectedGroupFilter] = useState<'ALL' | 'A' | 'B' | 'KNOCKOUT'>('ALL');
   const [selectedStatusFilter, setSelectedStatusFilter] = useState<'ALL' | MatchStatus>('ALL');
@@ -35,10 +39,15 @@ export const ScheduleSection: React.FC<ScheduleSectionProps> = ({
     return matches.filter(m => {
       if (m.group === 'A') return isScheduleAPublished;
       if (m.group === 'B') return isScheduleBPublished;
-      if (m.round !== 'GROUP_STAGE') return isScheduleKnockoutPublished;
+      if (m.round === 'SEMI_FINAL') {
+        return isKnockoutSFPublished || isScheduleKnockoutPublished;
+      }
+      if (m.round === 'FINAL' || m.round === 'THIRD_PLACE') {
+        return isKnockoutFinalPublished || isScheduleKnockoutPublished;
+      }
       return false;
     });
-  }, [matches, isScheduleAPublished, isScheduleBPublished, isScheduleKnockoutPublished]);
+  }, [matches, isScheduleAPublished, isScheduleBPublished, isScheduleKnockoutPublished, isKnockoutSFPublished, isKnockoutFinalPublished]);
 
   const finishedCount = publicMatches.filter(m => m.status === 'FINISHED').length;
   const liveCount = publicMatches.filter(m => m.status === 'LIVE').length;
@@ -111,9 +120,6 @@ export const ScheduleSection: React.FC<ScheduleSectionProps> = ({
               <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 font-display">
                 Lịch Thi Đấu &amp; Kết Quả Trận Đấu
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500">
-                Toàn bộ lịch trình và kết quả chi tiết 24 trận đấu của giải (Cập nhật trực tiếp sau mỗi trận)
-              </p>
             </div>
           </div>
 

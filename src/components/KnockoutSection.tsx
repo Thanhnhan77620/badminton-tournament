@@ -129,77 +129,72 @@ const BracketMatchCard: React.FC<{
       </div>
 
       {/* Card Body with 2 Pair Boxes */}
-      <div className="p-3 sm:p-3.5 space-y-2.5 bg-white">
+      <div className="p-2 sm:p-3 space-y-1.5 sm:space-y-2 bg-white">
         {/* Pair 1 Box */}
         {isPair1Ready && effectivePair1 ? (
           <div
-            className={`flex items-center justify-between p-2.5 rounded-xl transition-colors ${
+            className={`flex items-center justify-between p-1.5 sm:p-2 rounded-xl transition-colors ${
               isPair1Winner
                 ? 'bg-amber-50/70 border border-amber-300 shadow-2xs'
                 : 'bg-slate-50/80 border border-slate-200/80'
             }`}
           >
-            <div className="flex-1 min-w-0 pr-2 space-y-1.5">
+            <div className="flex-1 min-w-0 pr-1.5 space-y-1">
               {/* Player 1 */}
-              <div className="flex items-center gap-2 min-w-0">
+              <div className="flex items-center gap-1 sm:gap-1.5 min-w-0">
                 <PlayerAvatar
                   name={effectivePair1.player1?.name || 'VĐV 1'}
                   avatarUrl={effectivePair1.player1?.avatarUrl}
-                  size="xs"
-                  className="ring-1 ring-slate-200 shrink-0 sm:w-7 sm:h-7 sm:text-xs md:w-7.5 md:h-7.5"
+                  className="ring-1 ring-slate-200 shrink-0 w-5 h-5 sm:w-6 sm:h-6 text-[9px] sm:text-[10px]"
                 />
-                <span
-                  className={`text-xs sm:text-[13px] md:text-sm lg:text-[15px] leading-tight truncate ${
-                    isPair1Winner ? 'font-black text-slate-950' : 'font-bold text-slate-900'
-                  }`}
-                >
-                  {effectivePair1.player1?.name || 'VĐV 1'}{' '}
-                  <span className="text-[11px] sm:text-xs md:text-xs lg:text-[13px] font-semibold text-slate-500">
+                <div className="min-w-0 flex-1 flex items-center leading-none overflow-hidden">
+                  <span
+                    className={`text-[11px] xs:text-xs sm:text-[12px] md:text-[13px] whitespace-nowrap truncate ${
+                      isPair1Winner ? 'font-black text-slate-950' : 'font-bold text-slate-900'
+                    }`}
+                    title={`${effectivePair1.player1?.name || 'VĐV 1'} (${effectivePair1.player1?.club || effectivePair1.club || 'ISC'})`}
+                  >
+                    {effectivePair1.player1?.name || 'VĐV 1'}
+                  </span>
+                  <span className="text-[9px] sm:text-[10px] text-slate-400 font-medium ml-1 whitespace-nowrap shrink-0">
                     ({effectivePair1.player1?.club || effectivePair1.club || 'ISC'})
                   </span>
-                </span>
+                </div>
               </div>
 
               {/* Player 2 */}
-              <div className="flex items-center gap-2 min-w-0">
+              <div className="flex items-center gap-1 sm:gap-1.5 min-w-0">
                 <PlayerAvatar
                   name={effectivePair1.player2?.name || 'VĐV 2'}
                   avatarUrl={effectivePair1.player2?.avatarUrl}
-                  size="xs"
-                  className="ring-1 ring-slate-200 shrink-0 sm:w-7 sm:h-7 sm:text-xs md:w-7.5 md:h-7.5"
+                  className="ring-1 ring-slate-200 shrink-0 w-5 h-5 sm:w-6 sm:h-6 text-[9px] sm:text-[10px]"
                 />
-                <span
-                  className={`text-xs sm:text-[13px] md:text-sm lg:text-[15px] leading-tight truncate ${
-                    isPair1Winner ? 'font-black text-slate-950' : 'font-bold text-slate-900'
-                  }`}
-                >
-                  {effectivePair1.player2?.name || 'VĐV 2'}{' '}
-                  <span className="text-[11px] sm:text-xs md:text-xs lg:text-[13px] font-semibold text-slate-500">
+                <div className="min-w-0 flex-1 flex items-center leading-none overflow-hidden">
+                  <span
+                    className={`text-[11px] xs:text-xs sm:text-[12px] md:text-[13px] whitespace-nowrap truncate ${
+                      isPair1Winner ? 'font-black text-slate-950' : 'font-bold text-slate-900'
+                    }`}
+                    title={`${effectivePair1.player2?.name || 'VĐV 2'} (${effectivePair1.player2?.club || effectivePair1.club || 'ISC'})`}
+                  >
+                    {effectivePair1.player2?.name || 'VĐV 2'}
+                  </span>
+                  <span className="text-[9px] sm:text-[10px] text-slate-400 font-medium ml-1 whitespace-nowrap shrink-0">
                     ({effectivePair1.player2?.club || effectivePair1.club || 'ISC'})
                   </span>
-                </span>
+                </div>
               </div>
             </div>
 
-            {/* Cúp vàng đánh dấu đội thắng */}
-            {isPair1Winner && (
-              <div className="px-2 sm:px-3 shrink-0 flex items-center justify-center self-center">
-                <span className="text-lg sm:text-xl select-none" title="Thắng trận">
-                  🏆
-                </span>
-              </div>
-            )}
-
-            {/* Scores */}
-            <div className="shrink-0 self-center">
+            {/* Scores & Winner */}
+            <div className="shrink-0 self-center pl-0.5">
               {isBestOf3 ? (
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-0.5 sm:gap-1">
                   {match.sets?.map((set, sIdx) => {
                     const wonSet = set.pair1Score > set.pair2Score;
                     return (
                       <div
                         key={sIdx}
-                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-xs font-black tabular-nums ${
+                        className={`w-5 h-5 sm:w-6 sm:h-6 md:w-6.5 md:h-6.5 rounded-md flex items-center justify-center text-[10px] sm:text-[11px] md:text-xs font-black tabular-nums ${
                           wonSet
                             ? 'bg-slate-950 text-white shadow-2xs'
                             : 'bg-white text-slate-700 border border-slate-200/80'
@@ -209,110 +204,117 @@ const BracketMatchCard: React.FC<{
                       </div>
                     );
                   })}
-                  <span className="text-xs sm:text-sm font-black text-blue-700 ml-1">
+                  <span className="text-[10px] sm:text-xs font-black text-blue-700 ml-0.5 tabular-nums shrink-0">
                     ({pair1SetWins})
                   </span>
+                  {isPair1Winner && (
+                    <span className="text-xs select-none ml-0.5 shrink-0" title="Thắng trận">
+                      🏆
+                    </span>
+                  )}
                 </div>
               ) : (
-                <div
-                  className={`min-w-[36px] sm:min-w-[42px] h-8 sm:h-9 px-2 rounded-xl flex items-center justify-center font-black text-base tabular-nums ${
-                    isPair1Winner
-                      ? 'bg-slate-950 text-white shadow-xs'
-                      : 'bg-slate-100 text-slate-800 border border-slate-200'
-                  }`}
-                >
-                  {match.sets?.[0]?.pair1Score ?? '-'}
+                <div className="flex items-center gap-1">
+                  <div
+                    className={`min-w-[26px] sm:min-w-[32px] h-6 sm:h-7 px-1 rounded-md sm:rounded-lg flex items-center justify-center font-black text-xs sm:text-sm tabular-nums ${
+                      isPair1Winner
+                        ? 'bg-slate-950 text-white shadow-xs'
+                        : 'bg-slate-100 text-slate-800 border border-slate-200'
+                    }`}
+                  >
+                    {match.sets?.[0]?.pair1Score ?? '-'}
+                  </div>
+                  {isPair1Winner && (
+                    <span className="text-xs select-none shrink-0" title="Thắng trận">
+                      🏆
+                    </span>
+                  )}
                 </div>
               )}
             </div>
           </div>
         ) : (
-          <div className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl bg-slate-50/70 border border-dashed border-slate-200">
-            <div className="flex items-center gap-2.5 min-w-0">
-              <div className="w-6 h-6 rounded-lg bg-slate-200/70 text-slate-500 text-[10px] font-black flex items-center justify-center shrink-0">
-                <Users className="w-3.5 h-3.5" />
+          <div className="flex items-center justify-between p-1.5 sm:p-2 rounded-xl bg-slate-50/70 border border-dashed border-slate-200">
+            <div className="flex items-center gap-1.5 min-w-0 flex-1">
+              <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-lg bg-slate-200/70 text-slate-500 text-[10px] font-black flex items-center justify-center shrink-0">
+                <Users className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
               </div>
-              <div className="min-w-0">
-                <span className="text-xs font-bold text-slate-700 block truncate">
+              <div className="min-w-0 flex-1 leading-none">
+                <span className="text-[11px] sm:text-xs font-bold text-slate-700 block whitespace-nowrap truncate">
                   {defaultPair1Label}
                 </span>
-                <span className="text-[10px] text-slate-400 font-medium">Chờ hoàn tất bảng đấu</span>
+                <span className="text-[9px] text-slate-400 font-medium whitespace-nowrap block mt-0.5">Chờ hoàn tất bảng đấu</span>
               </div>
             </div>
-            <span className="text-xs text-slate-400 font-bold px-2">-</span>
+            <span className="text-xs text-slate-400 font-bold px-1.5 shrink-0">-</span>
           </div>
         )}
 
         {/* Pair 2 Box */}
         {isPair2Ready && effectivePair2 ? (
           <div
-            className={`flex items-center justify-between p-2.5 rounded-xl transition-colors ${
+            className={`flex items-center justify-between p-1.5 sm:p-2 rounded-xl transition-colors ${
               isPair2Winner
                 ? 'bg-amber-50/70 border border-amber-300 shadow-2xs'
                 : 'bg-slate-50/80 border border-slate-200/80'
             }`}
           >
-            <div className="flex-1 min-w-0 pr-2 space-y-1.5">
+            <div className="flex-1 min-w-0 pr-1.5 space-y-1">
               {/* Player 1 */}
-              <div className="flex items-center gap-2 min-w-0">
+              <div className="flex items-center gap-1 sm:gap-1.5 min-w-0">
                 <PlayerAvatar
                   name={effectivePair2.player1?.name || 'VĐV 1'}
                   avatarUrl={effectivePair2.player1?.avatarUrl}
-                  size="xs"
-                  className="ring-1 ring-slate-200 shrink-0 sm:w-7 sm:h-7 sm:text-xs md:w-7.5 md:h-7.5"
+                  className="ring-1 ring-slate-200 shrink-0 w-5 h-5 sm:w-6 sm:h-6 text-[9px] sm:text-[10px]"
                 />
-                <span
-                  className={`text-xs sm:text-[13px] md:text-sm lg:text-[15px] leading-tight truncate ${
-                    isPair2Winner ? 'font-black text-slate-950' : 'font-bold text-slate-900'
-                  }`}
-                >
-                  {effectivePair2.player1?.name || 'VĐV 1'}{' '}
-                  <span className="text-[11px] sm:text-xs md:text-xs lg:text-[13px] font-semibold text-slate-500">
+                <div className="min-w-0 flex-1 flex items-center leading-none overflow-hidden">
+                  <span
+                    className={`text-[11px] xs:text-xs sm:text-[12px] md:text-[13px] whitespace-nowrap truncate ${
+                      isPair2Winner ? 'font-black text-slate-950' : 'font-bold text-slate-900'
+                    }`}
+                    title={`${effectivePair2.player1?.name || 'VĐV 1'} (${effectivePair2.player1?.club || effectivePair2.club || 'ISC'})`}
+                  >
+                    {effectivePair2.player1?.name || 'VĐV 1'}
+                  </span>
+                  <span className="text-[9px] sm:text-[10px] text-slate-400 font-medium ml-1 whitespace-nowrap shrink-0">
                     ({effectivePair2.player1?.club || effectivePair2.club || 'ISC'})
                   </span>
-                </span>
+                </div>
               </div>
 
               {/* Player 2 */}
-              <div className="flex items-center gap-2 min-w-0">
+              <div className="flex items-center gap-1 sm:gap-1.5 min-w-0">
                 <PlayerAvatar
                   name={effectivePair2.player2?.name || 'VĐV 2'}
                   avatarUrl={effectivePair2.player2?.avatarUrl}
-                  size="xs"
-                  className="ring-1 ring-slate-200 shrink-0 sm:w-7 sm:h-7 sm:text-xs md:w-7.5 md:h-7.5"
+                  className="ring-1 ring-slate-200 shrink-0 w-5 h-5 sm:w-6 sm:h-6 text-[9px] sm:text-[10px]"
                 />
-                <span
-                  className={`text-xs sm:text-[13px] md:text-sm lg:text-[15px] leading-tight truncate ${
-                    isPair2Winner ? 'font-black text-slate-950' : 'font-bold text-slate-900'
-                  }`}
-                >
-                  {effectivePair2.player2?.name || 'VĐV 2'}{' '}
-                  <span className="text-[11px] sm:text-xs md:text-xs lg:text-[13px] font-semibold text-slate-500">
+                <div className="min-w-0 flex-1 flex items-center leading-none overflow-hidden">
+                  <span
+                    className={`text-[11px] xs:text-xs sm:text-[12px] md:text-[13px] whitespace-nowrap truncate ${
+                      isPair2Winner ? 'font-black text-slate-950' : 'font-bold text-slate-900'
+                    }`}
+                    title={`${effectivePair2.player2?.name || 'VĐV 2'} (${effectivePair2.player2?.club || effectivePair2.club || 'ISC'})`}
+                  >
+                    {effectivePair2.player2?.name || 'VĐV 2'}
+                  </span>
+                  <span className="text-[9px] sm:text-[10px] text-slate-400 font-medium ml-1 whitespace-nowrap shrink-0">
                     ({effectivePair2.player2?.club || effectivePair2.club || 'ISC'})
                   </span>
-                </span>
+                </div>
               </div>
             </div>
 
-            {/* Cúp vàng đánh dấu đội thắng */}
-            {isPair2Winner && (
-              <div className="px-2 sm:px-3 shrink-0 flex items-center justify-center self-center">
-                <span className="text-lg sm:text-xl select-none" title="Thắng trận">
-                  🏆
-                </span>
-              </div>
-            )}
-
-            {/* Scores */}
-            <div className="shrink-0 self-center">
+            {/* Scores & Winner */}
+            <div className="shrink-0 self-center pl-0.5">
               {isBestOf3 ? (
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-0.5 sm:gap-1">
                   {match.sets?.map((set, sIdx) => {
                     const wonSet = set.pair2Score > set.pair1Score;
                     return (
                       <div
                         key={sIdx}
-                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-xs font-black tabular-nums ${
+                        className={`w-5 h-5 sm:w-6 sm:h-6 md:w-6.5 md:h-6.5 rounded-md flex items-center justify-center text-[10px] sm:text-[11px] md:text-xs font-black tabular-nums ${
                           wonSet
                             ? 'bg-slate-950 text-white shadow-2xs'
                             : 'bg-white text-slate-700 border border-slate-200/80'
@@ -322,37 +324,49 @@ const BracketMatchCard: React.FC<{
                       </div>
                     );
                   })}
-                  <span className="text-xs sm:text-sm font-black text-blue-700 ml-1">
+                  <span className="text-[10px] sm:text-xs font-black text-blue-700 ml-0.5 tabular-nums shrink-0">
                     ({pair2SetWins})
                   </span>
+                  {isPair2Winner && (
+                    <span className="text-xs select-none ml-0.5 shrink-0" title="Thắng trận">
+                      🏆
+                    </span>
+                  )}
                 </div>
               ) : (
-                <div
-                  className={`min-w-[36px] sm:min-w-[42px] h-8 sm:h-9 px-2 rounded-xl flex items-center justify-center font-black text-base tabular-nums ${
-                    isPair2Winner
-                      ? 'bg-slate-950 text-white shadow-xs'
-                      : 'bg-slate-100 text-slate-800 border border-slate-200'
-                  }`}
-                >
-                  {match.sets?.[0]?.pair2Score ?? '-'}
+                <div className="flex items-center gap-1">
+                  <div
+                    className={`min-w-[26px] sm:min-w-[32px] h-6 sm:h-7 px-1 rounded-md sm:rounded-lg flex items-center justify-center font-black text-xs sm:text-sm tabular-nums ${
+                      isPair2Winner
+                        ? 'bg-slate-950 text-white shadow-xs'
+                        : 'bg-slate-100 text-slate-800 border border-slate-200'
+                    }`}
+                  >
+                    {match.sets?.[0]?.pair2Score ?? '-'}
+                  </div>
+                  {isPair2Winner && (
+                    <span className="text-xs select-none shrink-0" title="Thắng trận">
+                      🏆
+                    </span>
+                  )}
                 </div>
               )}
             </div>
           </div>
         ) : (
-          <div className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl bg-slate-50/70 border border-dashed border-slate-200">
-            <div className="flex items-center gap-2.5 min-w-0">
-              <div className="w-6 h-6 rounded-lg bg-slate-200/70 text-slate-500 text-[10px] font-black flex items-center justify-center shrink-0">
-                <Users className="w-3.5 h-3.5" />
+          <div className="flex items-center justify-between p-1.5 sm:p-2 rounded-xl bg-slate-50/70 border border-dashed border-slate-200">
+            <div className="flex items-center gap-1.5 min-w-0 flex-1">
+              <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-lg bg-slate-200/70 text-slate-500 text-[10px] font-black flex items-center justify-center shrink-0">
+                <Users className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
               </div>
-              <div className="min-w-0">
-                <span className="text-xs font-bold text-slate-700 block truncate">
+              <div className="min-w-0 flex-1 leading-none">
+                <span className="text-[11px] sm:text-xs font-bold text-slate-700 block whitespace-nowrap truncate">
                   {defaultPair2Label}
                 </span>
-                <span className="text-[10px] text-slate-400 font-medium">Chờ hoàn tất bảng đấu</span>
+                <span className="text-[9px] text-slate-400 font-medium whitespace-nowrap block mt-0.5">Chờ hoàn tất bảng đấu</span>
               </div>
             </div>
-            <span className="text-xs text-slate-400 font-bold px-2">-</span>
+            <span className="text-xs text-slate-400 font-bold px-1.5 shrink-0">-</span>
           </div>
         )}
       </div>
@@ -398,35 +412,38 @@ export const KnockoutSection: React.FC<KnockoutSectionProps> = ({
   const isGroupAFinished = matchesGroupA.length > 0 && matchesGroupA.every(m => m.status === 'FINISHED');
   const isGroupBFinished = matchesGroupB.length > 0 && matchesGroupB.every(m => m.status === 'FINISHED');
 
-  // Semi Finals readiness and qualified pairs
-  const sf1Pair1 = isGroupAFinished && standingsA.length >= 1 ? standingsA[0].pair : null;
-  const sf1Pair2 = isGroupBFinished && standingsB.length >= 2 ? standingsB[1].pair : null;
-  const isSF1Ready = isGroupAFinished && isGroupBFinished;
+  // Semi Finals readiness and qualified pairs (Check publication flags)
+  const isSFPublished = tournament.isKnockoutSFPublished || tournament.isScheduleKnockoutPublished;
+  const isFinalPublished = tournament.isKnockoutFinalPublished || tournament.isScheduleKnockoutPublished;
 
-  const sf2Pair1 = isGroupBFinished && standingsB.length >= 1 ? standingsB[0].pair : null;
-  const sf2Pair2 = isGroupAFinished && standingsA.length >= 2 ? standingsA[1].pair : null;
-  const isSF2Ready = isGroupAFinished && isGroupBFinished;
+  const sf1Pair1 = isSFPublished && isGroupAFinished && standingsA.length >= 1 ? standingsA[0].pair : null;
+  const sf1Pair2 = isSFPublished && isGroupBFinished && standingsB.length >= 2 ? standingsB[1].pair : null;
+  const isSF1Ready = isSFPublished && isGroupAFinished && isGroupBFinished;
+
+  const sf2Pair1 = isSFPublished && isGroupBFinished && standingsB.length >= 1 ? standingsB[0].pair : null;
+  const sf2Pair2 = isSFPublished && isGroupAFinished && standingsA.length >= 2 ? standingsA[1].pair : null;
+  const isSF2Ready = isSFPublished && isGroupAFinished && isGroupBFinished;
 
   // Semi-Final completed checks
   const isSF1Finished = semiFinal1?.status === 'FINISHED' && !!semiFinal1.winnerId;
   const isSF2Finished = semiFinal2?.status === 'FINISHED' && !!semiFinal2.winnerId;
 
   // Final & 3rd place pairs
-  const finalPair1 = isSF1Finished
+  const finalPair1 = isFinalPublished && isSF1Finished
     ? (semiFinal1.winnerId === semiFinal1.pair1?.id ? (isGroupAFinished ? standingsA[0]?.pair : semiFinal1.pair1) : (isGroupBFinished ? standingsB[1]?.pair : semiFinal1.pair2))
     : null;
-  const finalPair2 = isSF2Finished
+  const finalPair2 = isFinalPublished && isSF2Finished
     ? (semiFinal2.winnerId === semiFinal2.pair1?.id ? (isGroupBFinished ? standingsB[0]?.pair : semiFinal2.pair1) : (isGroupAFinished ? standingsA[1]?.pair : semiFinal2.pair2))
     : null;
-  const isFinalReady = isSF1Finished && isSF2Finished;
+  const isFinalReady = isFinalPublished && isSF1Finished && isSF2Finished;
 
-  const thirdPair1 = isSF1Finished
+  const thirdPair1 = isFinalPublished && isSF1Finished
     ? (semiFinal1.winnerId === semiFinal1.pair1?.id ? (isGroupBFinished ? standingsB[1]?.pair : semiFinal1.pair2) : (isGroupAFinished ? standingsA[0]?.pair : semiFinal1.pair1))
     : null;
-  const thirdPair2 = isSF2Finished
+  const thirdPair2 = isFinalPublished && isSF2Finished
     ? (semiFinal2.winnerId === semiFinal2.pair1?.id ? (isGroupAFinished ? standingsA[1]?.pair : semiFinal2.pair2) : (isGroupBFinished ? standingsB[0]?.pair : semiFinal2.pair1))
     : null;
-  const isThirdReady = isSF1Finished && isSF2Finished;
+  const isThirdReady = isFinalPublished && isSF1Finished && isSF2Finished;
 
   // Dynamic ranking from finalMatch and thirdPlaceMatch (only when matches are actually finished)
   const firstPair = isFinalFinished && finalMatch?.winnerId
@@ -443,8 +460,8 @@ export const KnockoutSection: React.FC<KnockoutSectionProps> = ({
     : null;
 
   return (
-    <section className="py-8 bg-white border-b border-slate-200">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-8">
+    <section className="py-6 sm:py-8 bg-white border-b border-slate-200">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 space-y-6 sm:space-y-8">
         {/* Section Title */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div className="flex items-center gap-3">
@@ -510,35 +527,35 @@ export const KnockoutSection: React.FC<KnockoutSectionProps> = ({
               <div className="space-y-2 pt-1 border-t border-amber-500/30">
                 {isFinalFinished && firstPair ? (
                   <>
-                    <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-2">
                       <PlayerAvatar
                         name={firstPair.player1?.name || 'VĐV 1'}
                         avatarUrl={firstPair.player1?.avatarUrl}
                         size="sm"
-                        className="ring-2 ring-amber-400 shrink-0"
+                        className="ring-2 ring-amber-400 shrink-0 w-6 h-6 sm:w-7 sm:h-7"
                       />
-                      <div className="min-w-0">
-                        <p className="text-xs sm:text-sm font-bold text-white truncate">
+                      <div className="min-w-0 flex items-center leading-none overflow-hidden whitespace-nowrap">
+                        <span className="text-xs sm:text-sm font-bold text-white whitespace-nowrap">
                           {firstPair.player1?.name || 'VĐV 1'}
-                        </p>
-                        <span className="text-[11px] text-amber-200/80 font-medium">
+                        </span>
+                        <span className="text-[10px] sm:text-xs text-amber-200/80 font-medium ml-1 whitespace-nowrap">
                           ({firstPair.player1?.club || firstPair.club || 'ISC'})
                         </span>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-2">
                       <PlayerAvatar
                         name={firstPair.player2?.name || 'VĐV 2'}
                         avatarUrl={firstPair.player2?.avatarUrl}
                         size="sm"
-                        className="ring-2 ring-amber-400 shrink-0"
+                        className="ring-2 ring-amber-400 shrink-0 w-6 h-6 sm:w-7 sm:h-7"
                       />
-                      <div className="min-w-0">
-                        <p className="text-xs sm:text-sm font-bold text-white truncate">
+                      <div className="min-w-0 flex items-center leading-none overflow-hidden whitespace-nowrap">
+                        <span className="text-xs sm:text-sm font-bold text-white whitespace-nowrap">
                           {firstPair.player2?.name || 'VĐV 2'}
-                        </p>
-                        <span className="text-[11px] text-amber-200/80 font-medium">
+                        </span>
+                        <span className="text-[10px] sm:text-xs text-amber-200/80 font-medium ml-1 whitespace-nowrap">
                           ({firstPair.player2?.club || firstPair.club || 'ISC'})
                         </span>
                       </div>
@@ -571,35 +588,35 @@ export const KnockoutSection: React.FC<KnockoutSectionProps> = ({
               <div className="space-y-2 pt-1 border-t border-slate-800">
                 {isFinalFinished && secondPair ? (
                   <>
-                    <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-2">
                       <PlayerAvatar
                         name={secondPair.player1?.name || 'VĐV 1'}
                         avatarUrl={secondPair.player1?.avatarUrl}
                         size="sm"
-                        className="ring-1 ring-slate-400 shrink-0"
+                        className="ring-1 ring-slate-400 shrink-0 w-6 h-6 sm:w-7 sm:h-7"
                       />
-                      <div className="min-w-0">
-                        <p className="text-xs sm:text-sm font-bold text-white truncate">
+                      <div className="min-w-0 flex items-center leading-none overflow-hidden whitespace-nowrap">
+                        <span className="text-xs sm:text-sm font-bold text-white whitespace-nowrap">
                           {secondPair.player1?.name || 'VĐV 1'}
-                        </p>
-                        <span className="text-[11px] text-slate-400 font-medium">
+                        </span>
+                        <span className="text-[10px] sm:text-xs text-slate-400 font-medium ml-1 whitespace-nowrap">
                           ({secondPair.player1?.club || secondPair.club || 'ISC'})
                         </span>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-2">
                       <PlayerAvatar
                         name={secondPair.player2?.name || 'VĐV 2'}
                         avatarUrl={secondPair.player2?.avatarUrl}
                         size="sm"
-                        className="ring-1 ring-slate-400 shrink-0"
+                        className="ring-1 ring-slate-400 shrink-0 w-6 h-6 sm:w-7 sm:h-7"
                       />
-                      <div className="min-w-0">
-                        <p className="text-xs sm:text-sm font-bold text-white truncate">
+                      <div className="min-w-0 flex items-center leading-none overflow-hidden whitespace-nowrap">
+                        <span className="text-xs sm:text-sm font-bold text-white whitespace-nowrap">
                           {secondPair.player2?.name || 'VĐV 2'}
-                        </p>
-                        <span className="text-[11px] text-slate-400 font-medium">
+                        </span>
+                        <span className="text-[10px] sm:text-xs text-slate-400 font-medium ml-1 whitespace-nowrap">
                           ({secondPair.player2?.club || secondPair.club || 'ISC'})
                         </span>
                       </div>
@@ -632,35 +649,35 @@ export const KnockoutSection: React.FC<KnockoutSectionProps> = ({
               <div className="space-y-2 pt-1 border-t border-amber-900/40">
                 {isThirdPlaceFinished && thirdPair ? (
                   <>
-                    <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-2">
                       <PlayerAvatar
                         name={thirdPair.player1?.name || 'VĐV 1'}
                         avatarUrl={thirdPair.player1?.avatarUrl}
                         size="sm"
-                        className="ring-1 ring-amber-600 shrink-0"
+                        className="ring-1 ring-amber-600 shrink-0 w-6 h-6 sm:w-7 sm:h-7"
                       />
-                      <div className="min-w-0">
-                        <p className="text-xs sm:text-sm font-bold text-white truncate">
+                      <div className="min-w-0 flex items-center leading-none overflow-hidden whitespace-nowrap">
+                        <span className="text-xs sm:text-sm font-bold text-white whitespace-nowrap">
                           {thirdPair.player1?.name || 'VĐV 1'}
-                        </p>
-                        <span className="text-[11px] text-slate-400 font-medium">
+                        </span>
+                        <span className="text-[10px] sm:text-xs text-slate-400 font-medium ml-1 whitespace-nowrap">
                           ({thirdPair.player1?.club || thirdPair.club || 'ISC'})
                         </span>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-2">
                       <PlayerAvatar
                         name={thirdPair.player2?.name || 'VĐV 2'}
                         avatarUrl={thirdPair.player2?.avatarUrl}
                         size="sm"
-                        className="ring-1 ring-amber-600 shrink-0"
+                        className="ring-1 ring-amber-600 shrink-0 w-6 h-6 sm:w-7 sm:h-7"
                       />
-                      <div className="min-w-0">
-                        <p className="text-xs sm:text-sm font-bold text-white truncate">
+                      <div className="min-w-0 flex items-center leading-none overflow-hidden whitespace-nowrap">
+                        <span className="text-xs sm:text-sm font-bold text-white whitespace-nowrap">
                           {thirdPair.player2?.name || 'VĐV 2'}
-                        </p>
-                        <span className="text-[11px] text-slate-400 font-medium">
+                        </span>
+                        <span className="text-[10px] sm:text-xs text-slate-400 font-medium ml-1 whitespace-nowrap">
                           ({thirdPair.player2?.club || thirdPair.club || 'ISC'})
                         </span>
                       </div>
@@ -693,35 +710,35 @@ export const KnockoutSection: React.FC<KnockoutSectionProps> = ({
               <div className="space-y-2 pt-1 border-t border-slate-800">
                 {isThirdPlaceFinished && fourthPair ? (
                   <>
-                    <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-2">
                       <PlayerAvatar
                         name={fourthPair.player1?.name || 'VĐV 1'}
                         avatarUrl={fourthPair.player1?.avatarUrl}
                         size="sm"
-                        className="ring-1 ring-slate-600 shrink-0"
+                        className="ring-1 ring-slate-600 shrink-0 w-6 h-6 sm:w-7 sm:h-7"
                       />
-                      <div className="min-w-0">
-                        <p className="text-xs sm:text-sm font-bold text-white truncate">
+                      <div className="min-w-0 flex items-center leading-none overflow-hidden whitespace-nowrap">
+                        <span className="text-xs sm:text-sm font-bold text-white whitespace-nowrap">
                           {fourthPair.player1?.name || 'VĐV 1'}
-                        </p>
-                        <span className="text-[11px] text-slate-400 font-medium">
+                        </span>
+                        <span className="text-[10px] sm:text-xs text-slate-400 font-medium ml-1 whitespace-nowrap">
                           ({fourthPair.player1?.club || fourthPair.club || 'ISC'})
                         </span>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-2">
                       <PlayerAvatar
                         name={fourthPair.player2?.name || 'VĐV 2'}
                         avatarUrl={fourthPair.player2?.avatarUrl}
                         size="sm"
-                        className="ring-1 ring-slate-600 shrink-0"
+                        className="ring-1 ring-slate-600 shrink-0 w-6 h-6 sm:w-7 sm:h-7"
                       />
-                      <div className="min-w-0">
-                        <p className="text-xs sm:text-sm font-bold text-white truncate">
+                      <div className="min-w-0 flex items-center leading-none overflow-hidden whitespace-nowrap">
+                        <span className="text-xs sm:text-sm font-bold text-white whitespace-nowrap">
                           {fourthPair.player2?.name || 'VĐV 2'}
-                        </p>
-                        <span className="text-[11px] text-slate-400 font-medium">
+                        </span>
+                        <span className="text-[10px] sm:text-xs text-slate-400 font-medium ml-1 whitespace-nowrap">
                           ({fourthPair.player2?.club || fourthPair.club || 'ISC'})
                         </span>
                       </div>
@@ -739,7 +756,7 @@ export const KnockoutSection: React.FC<KnockoutSectionProps> = ({
         </div>
 
         {/* VISUAL TOURNAMENT BRACKET TREE */}
-        <div className="bg-white p-5 sm:p-7 rounded-3xl border border-slate-200/90 shadow-xs space-y-6">
+        <div className="bg-white p-3 sm:p-5 lg:p-7 rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-xs space-y-4 sm:space-y-6">
           {/* Top Bar with Shield Title Only */}
           <div className="pb-3 border-b border-slate-100">
             <h3 className="text-lg sm:text-xl font-black text-slate-900 uppercase tracking-wide font-display flex items-center gap-2">

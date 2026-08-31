@@ -108,12 +108,11 @@ export const DEFAULT_RULES: TournamentRuleItem[] = [
   },
   {
     stage: 'Chung Kết & Tranh Hạng Ba',
-    formatDescription: `• **Trận Tranh Hạng Ba**: 2 cặp thua ở vòng Bán Kết gặp nhau, thi đấu **1 set 21 điểm** (chạm 21) để xác định **Cặp Hạng Ba** (Huy chương Đồng) và **Cặp Hạng Tư**.
+    formatDescription: `• **Trận Tranh Hạng Ba**: 2 cặp thua ở vòng Bán Kết gặp nhau, thi đấu **3 set thắng 2 (Best of 3 15 điểm)** để xác định **Cặp Hạng Ba** (Huy chương Đồng) và **Cặp Hạng Tư**.
 • **Trận Chung Kết Tranh Cúp**: 2 cặp thắng ở Bán Kết tranh tài, thi đấu **3 set thắng 2 (Best of 3 15 điểm)** xác định **Nhà Vô Địch** (Cúp + Huy chương Vàng) và **Á Quân** (Huy chương Bạc).
 • **Lễ trao giải & Bế mạc**: Trao cúp lưu niệm, huy chương danh giá và tiền thưởng cho Top 4 cặp VĐV xuất sắc nhất giải đấu ngay sau khi trận Chung Kết kết thúc.`,
     scoringRules: [
-      'Chung Kết: Thi đấu 3 set thắng 2 (Best of 3 15 điểm)',
-      'Tranh Hạng Ba: Thi đấu 1 set 21 điểm chạm 21',
+      'Chung Kết & Tranh Hạng Ba: Thi đấu 3 set thắng 2 (Best of 3 15 điểm)',
       'Trao Cúp, Huy chương & Tiền thưởng cho Top 4 chung cuộc'
     ],
     advancement: 'Xác định thứ hạng chung cuộc: Quán Quân (Vàng), Á Quân (Bạc), Hạng Ba (Đồng) và Hạng Tư.',
@@ -140,6 +139,8 @@ export const tournamentInfo: TournamentInfo = {
   isScheduleAPublished: false,
   isScheduleBPublished: false,
   isScheduleKnockoutPublished: false,
+  isKnockoutSFPublished: false,
+  isKnockoutFinalPublished: false,
   supplementaryRegulations: DEFAULT_SUPPLEMENTARY_REGULATIONS,
   prizes: [
     {
@@ -763,8 +764,12 @@ export const initialMatches: Match[] = [
     status: 'UPCOMING',
     pair1: PLACEHOLDER_PAIRS.SF1_LOSER,
     pair2: PLACEHOLDER_PAIRS.SF2_LOSER,
-    sets: [{ setNumber: 1, pair1Score: 0, pair2Score: 0, isFinished: false }],
-    format: 'ONE_SET_21',
+    sets: [
+      { setNumber: 1, pair1Score: 0, pair2Score: 0, isFinished: false },
+      { setNumber: 2, pair1Score: 0, pair2Score: 0, isFinished: false },
+      { setNumber: 3, pair1Score: 0, pair2Score: 0, isFinished: false },
+    ],
+    format: 'BEST_OF_3_15',
     notes: 'Tranh giải Ba (500.000đ) và giải Tư (300.000đ).',
   },
   {
@@ -1356,10 +1361,14 @@ export const completedMatchesDemo: Match[] = [
     status: 'FINISHED',
     pair1: getPair('pair-07'),
     pair2: getPair('pair-02'),
-    sets: [{ setNumber: 1, pair1Score: 21, pair2Score: 17, isFinished: true }],
+    sets: [
+      { setNumber: 1, pair1Score: 15, pair2Score: 12, isFinished: true },
+      { setNumber: 2, pair1Score: 15, pair2Score: 13, isFinished: true },
+      { setNumber: 3, pair1Score: 0, pair2Score: 0, isFinished: false },
+    ],
     winnerId: 'pair-07',
-    format: 'ONE_SET_21',
-    durationMinutes: 22,
+    format: 'BEST_OF_3_15',
+    durationMinutes: 28,
   },
   {
     id: 'm-final',

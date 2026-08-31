@@ -155,35 +155,39 @@ export const StandingsSection: React.FC<StandingsSectionProps> = ({
                     </td>
 
                     {/* Pair Info with 2 Players (2 dòng 2 VĐV) */}
-                    <td className="py-3 md:py-4 px-4 md:px-6">
-                      <div className="flex flex-col gap-2 md:gap-3 min-w-0">
-                        <div className="flex items-center gap-2.5 md:gap-3">
+                    <td className="py-3 md:py-4 px-3 sm:px-4 md:px-6">
+                      <div className="flex flex-col gap-1.5 sm:gap-2 md:gap-3 min-w-0">
+                        <div className="flex items-center gap-1.5 sm:gap-2.5 md:gap-3">
                           <PlayerAvatar
                             name={item.pair?.player1?.name || 'VĐV 1'}
                             avatarUrl={item.pair?.player1?.avatarUrl}
                             size="xs"
-                            className="ring-1 ring-slate-200 shrink-0 sm:w-7 sm:h-7 sm:text-xs md:w-8 md:h-8 md:text-sm"
+                            className="ring-1 ring-slate-200 shrink-0 w-5 h-5 sm:w-7 sm:h-7 sm:text-xs md:w-8 md:h-8 md:text-sm"
                           />
-                          <span className="font-bold text-slate-900 text-xs sm:text-sm md:text-base lg:text-[17px] truncate">
-                            {item.pair?.player1?.name || 'Chưa có VĐV'}{' '}
-                            <span className="text-[11px] sm:text-xs md:text-sm font-semibold text-slate-500">
+                          <div className="min-w-0 flex items-center leading-none overflow-hidden whitespace-nowrap">
+                            <span className="font-bold text-slate-900 text-xs sm:text-sm md:text-base lg:text-[17px] whitespace-nowrap">
+                              {item.pair?.player1?.name || 'Chưa có VĐV'}
+                            </span>
+                            <span className="text-[10px] sm:text-xs md:text-sm font-semibold text-slate-500 ml-1 whitespace-nowrap">
                               ({item.pair?.player1?.club || item.pair?.club || 'ISC'})
                             </span>
-                          </span>
+                          </div>
                         </div>
-                        <div className="flex items-center gap-2.5 md:gap-3">
+                        <div className="flex items-center gap-1.5 sm:gap-2.5 md:gap-3">
                           <PlayerAvatar
                             name={item.pair?.player2?.name || 'VĐV 2'}
                             avatarUrl={item.pair?.player2?.avatarUrl}
                             size="xs"
-                            className="ring-1 ring-slate-200 shrink-0 sm:w-7 sm:h-7 sm:text-xs md:w-8 md:h-8 md:text-sm"
+                            className="ring-1 ring-slate-200 shrink-0 w-5 h-5 sm:w-7 sm:h-7 sm:text-xs md:w-8 md:h-8 md:text-sm"
                           />
-                          <span className="font-bold text-slate-900 text-xs sm:text-sm md:text-base lg:text-[17px] truncate">
-                            {item.pair?.player2?.name || 'Chưa có VĐV'}{' '}
-                            <span className="text-[11px] sm:text-xs md:text-sm font-semibold text-slate-500">
+                          <div className="min-w-0 flex items-center leading-none overflow-hidden whitespace-nowrap">
+                            <span className="font-bold text-slate-900 text-xs sm:text-sm md:text-base lg:text-[17px] whitespace-nowrap">
+                              {item.pair?.player2?.name || 'Chưa có VĐV'}
+                            </span>
+                            <span className="text-[10px] sm:text-xs md:text-sm font-semibold text-slate-500 ml-1 whitespace-nowrap">
                               ({item.pair?.player2?.club || item.pair?.club || 'ISC'})
                             </span>
-                          </span>
+                          </div>
                         </div>
                       </div>
                     </td>

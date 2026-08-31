@@ -118,9 +118,6 @@ function PublicAppContent() {
                 <h1 className="text-2xl sm:text-3xl font-extrabold font-display">
                   Lịch Thi Đấu &amp; Kết Quả Trực Tiếp
                 </h1>
-                <p className="text-xs sm:text-sm text-slate-400 mt-1">
-                  Xem toàn bộ {matches.length} trận đấu: Vòng Bảng, Bán Kết, Tranh Hạng Ba và Chung Kết.
-                </p>
               </div>
             </div>
             <ScheduleSection
@@ -129,6 +126,8 @@ function PublicAppContent() {
               isScheduleAPublished={tournament.isScheduleAPublished}
               isScheduleBPublished={tournament.isScheduleBPublished}
               isScheduleKnockoutPublished={tournament.isScheduleKnockoutPublished}
+              isKnockoutSFPublished={tournament.isKnockoutSFPublished}
+              isKnockoutFinalPublished={tournament.isKnockoutFinalPublished}
             />
           </div>
         )}
