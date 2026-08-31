@@ -111,9 +111,6 @@ export const ScheduleSection: React.FC<ScheduleSectionProps> = ({
               <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 font-display">
                 Lịch Thi Đấu &amp; Kết Quả Trận Đấu
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500">
-                Toàn bộ lịch trình và kết quả chi tiết 24 trận đấu của giải (Cập nhật trực tiếp sau mỗi trận)
-              </p>
             </div>
           </div>
 
