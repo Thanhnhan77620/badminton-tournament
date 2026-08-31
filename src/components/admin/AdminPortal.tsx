@@ -67,7 +67,7 @@ export const AdminPortal: React.FC = () => {
   const [statusError, setStatusError] = useState('');
 
   const navItems: NavItem[] = [
-    { id: 'dashboard', label: 'Bảng Điều Khiển (Dashboard)', icon: LayoutDashboard },
+    { id: 'dashboard', label: 'Bảng Điều Khiển', icon: LayoutDashboard },
     { id: 'tournament', label: 'Thông Tin Giải Đấu', icon: FileText },
     { id: 'rules', label: 'Điều Lệ & Giải Thưởng', icon: BookOpen },
     { id: 'players', label: 'Vận Động Viên', icon: Users, badge: `${players.length}` },
