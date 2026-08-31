@@ -177,7 +177,7 @@ export const AdminKnockoutManager: React.FC = () => {
           </div>
           <div>
             <h2 className="text-base sm:text-lg font-extrabold text-slate-900 font-display">
-              Quản Lý Vòng Bán Kết &amp; Chung Kết (Knockout)
+              Quản Lý Vòng Bán Kết &amp; Chung Kết
             </h2>
             <p className="text-xs text-slate-500">
               Kiểm tra thông tin cặp đấu được tự động tính toán, duyệt công khai để mở bảng điểm cho Trọng tài.

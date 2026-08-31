@@ -236,9 +236,6 @@ export const RulesSection: React.FC<RulesSectionProps> = ({ rules, supplementary
             <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 font-display tracking-tight">
               Điều Lệ &amp; Thể Thức Thi Đấu
             </h2>
-            <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-              Quy định chi tiết về thể thức tính điểm, luật đánh lại và xử lý bỏ cuộc
-            </p>
           </div>
         </div>
 

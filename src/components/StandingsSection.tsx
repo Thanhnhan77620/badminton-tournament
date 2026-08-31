@@ -296,9 +296,6 @@ export const StandingsSection: React.FC<StandingsSectionProps> = ({
               <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 font-display tracking-tight">
                 Bảng Đấu &amp; Xếp Hạng Vòng Bảng
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-                Cập nhật điểm số, hiệu số phụ và thứ hạng tranh vé vào Vòng Bán Kết
-              </p>
             </div>
           </div>
 
