@@ -33,6 +33,7 @@ export const AdminPairsAndGroups: React.FC = () => {
     addPair,
     updatePair,
     deletePair,
+    deleteGroupPairs,
     assignPairGroup,
     randomizeGroups,
     generateRoundRobinMatches,
@@ -321,6 +322,47 @@ Phan Tấn Hưng, ISC, Phạm Viết Thiện, ISC`;
     setTimeout(() => setIsSuccessMsg(''), 3000);
   };
 
+  const handleClearGroupPairs = (target: 'A' | 'B' | 'ALL') => {
+    const targetLabel = target === 'ALL' ? 'cả 2 bảng (Bảng A & B)' : `Bảng ${target}`;
+    const targetCount = target === 'ALL' ? pairs.length : target === 'A' ? pairsA.length : pairsB.length;
+
+    if (targetCount === 0) {
+      setIsErrorMsg(`Không có cặp đấu nào trong ${targetLabel} để xóa.`);
+      setTimeout(() => setIsErrorMsg(''), 3000);
+      return;
+    }
+
+    setConfirmModal({
+      isOpen: true,
+      title: `Xóa Tất Cả Cặp Đấu - ${targetLabel}`,
+      actionType: 'danger',
+      confirmLabel: `Xác Nhận Xóa (${targetCount} cặp)`,
+      description: (
+        <div className="space-y-2">
+          <p className="text-slate-700">
+            Bạn có chắc chắn muốn xóa <strong>tất cả {targetCount} cặp đấu</strong> trong <strong>{targetLabel}</strong> không?
+          </p>
+          <p className="text-xs text-rose-600 font-medium">
+            ⚠️ Thao tác này sẽ xóa toàn bộ các cặp đấu và lịch thi đấu vòng bảng tương ứng để bạn có thể import hoặc ghép cặp mới lại từ đầu.
+          </p>
+        </div>
+      ),
+      details: [
+        { label: 'Phạm vi xóa', value: targetLabel },
+        { label: 'Số cặp bị xóa', value: `${targetCount} cặp` },
+        { label: 'Dữ liệu VĐV gốc', value: 'Vẫn được lưu trữ' },
+      ],
+      onConfirm: () => {
+        const res = deleteGroupPairs(target);
+        setConfirmModal(prev => ({ ...prev, isOpen: false }));
+        if (res.success) {
+          setIsSuccessMsg(`Đã xóa thành công ${res.count} cặp đấu trong ${targetLabel}! Bạn có thể import lại ngay.`);
+          setTimeout(() => setIsSuccessMsg(''), 4000);
+        }
+      },
+    });
+  };
+
   return (
     <div className="space-y-3">
       {/* Top Header with Quick Actions */}
@@ -333,36 +375,41 @@ Phan Tấn Hưng, ISC, Phạm Viết Thiện, ISC`;
         </div>
 
         <div className="flex flex-wrap items-center gap-1.5">
-          <button
-            onClick={() => {
-              setImportError('');
-              setIsImportModalOpen(true);
-            }}
-            disabled={!isEditable}
-            className={`px-2.5 py-1.5 rounded-lg text-xs font-bold border transition-all flex items-center gap-1 ${
-              !isEditable
-                ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed opacity-60'
-                : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border-emerald-200 shadow-xs cursor-pointer'
-            }`}
-            title={!isEditable ? 'Đã khóa import khi giải đang diễn ra hoặc đã bế mạc' : 'Import danh sách cặp đấu'}
-          >
-            <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Import Danh Sách Cặp</span>
-          </button>
+          {isEditable && (
+            <>
+              {pairs.length > 0 && (
+                <button
+                  onClick={() => handleClearGroupPairs('ALL')}
+                  className="px-2.5 py-1.5 rounded-lg text-xs font-bold border transition-all flex items-center gap-1 bg-rose-50 hover:bg-rose-100 text-rose-800 border-rose-200 shadow-xs cursor-pointer"
+                  title="Xóa tất cả cặp đấu ở cả Bảng A và Bảng B để nhập lại"
+                >
+                  <Trash2 className="w-3.5 h-3.5 text-rose-600" />
+                  <span>Xóa Tất Cả Cặp (2 Bảng)</span>
+                </button>
+              )}
 
-          <button
-            onClick={handleOpenAdd}
-            disabled={!isEditable}
-            className={`px-3 py-1.5 rounded-lg text-white font-bold text-xs shadow-xs transition-all flex items-center gap-1 ${
-              !isEditable
-                ? 'bg-slate-400 cursor-not-allowed opacity-60 shadow-none'
-                : 'bg-blue-600 hover:bg-blue-700 shadow-blue-600/25 cursor-pointer'
-            }`}
-            title={!isEditable ? 'Đã khóa ghép thêm cặp khi giải đang diễn ra hoặc đã bế mạc' : 'Ghép cặp mới'}
-          >
-            <Plus className="w-3.5 h-3.5" />
-            <span>Ghép Cặp Mới</span>
-          </button>
+              <button
+                onClick={() => {
+                  setImportError('');
+                  setIsImportModalOpen(true);
+                }}
+                className="px-2.5 py-1.5 rounded-lg text-xs font-bold border transition-all flex items-center gap-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border-emerald-200 shadow-xs cursor-pointer"
+                title="Import danh sách cặp đấu"
+              >
+                <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Import Danh Sách Cặp</span>
+              </button>
+
+              <button
+                onClick={handleOpenAdd}
+                className="px-3 py-1.5 rounded-lg text-white font-bold text-xs shadow-xs transition-all flex items-center gap-1 bg-blue-600 hover:bg-blue-700 shadow-blue-600/25 cursor-pointer"
+                title="Ghép cặp mới"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                <span>Ghép Cặp Mới</span>
+              </button>
+            </>
+          )}
         </div>
       </div>
 
@@ -416,9 +463,22 @@ Phan Tấn Hưng, ISC, Phạm Viết Thiện, ISC`;
                 BẢNG A ({pairsA.length} Cặp)
               </h3>
             </div>
-            <span className="text-[10px] font-semibold text-blue-600 bg-blue-50 px-1.5 py-0.2 rounded">
-              Top 2 vào Bán Kết
-            </span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-semibold text-blue-600 bg-blue-50 px-1.5 py-0.2 rounded">
+                Top 2 vào Bán Kết
+              </span>
+              {pairsA.length > 0 && isEditable && (
+                <button
+                  type="button"
+                  onClick={() => handleClearGroupPairs('A')}
+                  className="px-1.5 py-0.5 rounded text-[10px] font-bold transition-all flex items-center gap-0.5 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 cursor-pointer"
+                  title="Xóa tất cả cặp đấu trong Bảng A để nhập lại"
+                >
+                  <Trash2 className="w-2.5 h-2.5" />
+                  <span>Xóa Tất Cả</span>
+                </button>
+              )}
+            </div>
           </div>
 
           {pairsA.length === 0 ? (
@@ -442,51 +502,38 @@ Phan Tấn Hưng, ISC, Phạm Viết Thiện, ISC`;
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-1 shrink-0">
-                    {/* Switch to B */}
-                    <button
-                      type="button"
-                      onClick={() => handleSwitchGroup(pair, 'B')}
-                      disabled={!isEditable}
-                      className={`px-1.5 py-0.5 rounded text-[10px] font-bold transition-colors flex items-center gap-0.5 ${
-                        !isEditable
-                          ? 'bg-slate-100 text-slate-400 cursor-not-allowed opacity-50'
-                          : 'bg-slate-200 hover:bg-amber-100 text-slate-700 hover:text-amber-800 cursor-pointer'
-                      }`}
-                      title={!isEditable ? 'Đã khóa đổi bảng' : 'Chuyển sang Bảng B'}
-                    >
-                      <ArrowRightLeft className="w-2.5 h-2.5" />
-                      <span>Sang B</span>
-                    </button>
+                  {isEditable && (
+                    <div className="flex items-center gap-1 shrink-0">
+                      {/* Switch to B */}
+                      <button
+                        type="button"
+                        onClick={() => handleSwitchGroup(pair, 'B')}
+                        className="px-1.5 py-0.5 rounded text-[10px] font-bold transition-colors flex items-center gap-0.5 bg-slate-200 hover:bg-amber-100 text-slate-700 hover:text-amber-800 cursor-pointer"
+                        title="Chuyển sang Bảng B"
+                      >
+                        <ArrowRightLeft className="w-2.5 h-2.5" />
+                        <span>Sang B</span>
+                      </button>
 
-                    <button
-                      type="button"
-                      onClick={() => handleOpenEdit(pair)}
-                      disabled={!isEditable}
-                      className={`p-1 rounded transition-colors ${
-                        !isEditable
-                          ? 'text-slate-300 cursor-not-allowed opacity-50'
-                          : 'text-slate-500 hover:text-blue-600 hover:bg-white cursor-pointer'
-                      }`}
-                      title={!isEditable ? 'Đã khóa sửa cặp' : 'Sửa cặp đấu'}
-                    >
-                      <Edit2 className="w-3 h-3" />
-                    </button>
+                      <button
+                        type="button"
+                        onClick={() => handleOpenEdit(pair)}
+                        className="p-1 rounded transition-colors text-slate-500 hover:text-blue-600 hover:bg-white cursor-pointer"
+                        title="Sửa cặp đấu"
+                      >
+                        <Edit2 className="w-3 h-3" />
+                      </button>
 
-                    <button
-                      type="button"
-                      onClick={() => setPairToDelete(pair)}
-                      disabled={!isEditable}
-                      className={`p-1 rounded transition-colors ${
-                        !isEditable
-                          ? 'text-slate-300 cursor-not-allowed opacity-50'
-                          : 'text-slate-500 hover:text-rose-600 hover:bg-rose-50 cursor-pointer'
-                      }`}
-                      title={!isEditable ? 'Đã khóa xóa cặp' : 'Xóa cặp đấu khỏi bảng'}
-                    >
-                      <Trash2 className="w-3 h-3" />
-                    </button>
-                  </div>
+                      <button
+                        type="button"
+                        onClick={() => setPairToDelete(pair)}
+                        className="p-1 rounded transition-colors text-slate-500 hover:text-rose-600 hover:bg-rose-50 cursor-pointer"
+                        title="Xóa cặp đấu khỏi bảng"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                      </button>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -508,55 +555,57 @@ Phan Tấn Hưng, ISC, Phạm Viết Thiện, ISC`;
               </span>
             </div>
 
-            <button
-              type="button"
-              onClick={() => {
-                const isPub = tournament.isGroupAPublished ?? false;
-                setConfirmModal({
-                  isOpen: true,
-                  title: isPub ? 'Ẩn Danh Sách Cặp Bảng A (Về Nháp)' : 'Công Khai Danh Sách Cặp Bảng A',
-                  actionType: isPub ? 'unpublish' : 'publish',
-                  confirmLabel: isPub ? 'Chuyển Về Bản Nháp' : 'Công Khai Ngay',
-                  description: isPub ? (
-                    <p>
-                      Bạn có chắc chắn muốn <strong>ẨN</strong> danh sách cặp đấu Bảng A khỏi trang Public?
-                    </p>
-                  ) : (
-                    <p>
-                      Sau khi xác nhận, toàn bộ <strong>{pairsA.length} cặp đấu</strong> của Bảng A sẽ được công khai và cập nhật tức thì trên trang Public.
-                    </p>
-                  ),
-                  details: [
-                    { label: 'Bảng Đấu', value: 'Bảng A' },
-                    { label: 'Số Cặp Đấu', value: `${pairsA.length} cặp` },
-                    { label: 'Trạng Thái Mới', value: isPub ? 'Bản Nháp (Draft)' : 'Công Khai (Public)' },
-                  ],
-                  onConfirm: () => {
-                    togglePublishGroup('A', !isPub);
-                    setConfirmModal(prev => ({ ...prev, isOpen: false }));
-                    setIsSuccessMsg(isPub ? 'Đã chuyển danh sách Bảng A về Bản Nháp.' : 'Đã công khai danh sách Bảng A lên trang Public!');
-                    setTimeout(() => setIsSuccessMsg(''), 4000);
-                  },
-                });
-              }}
-              className={`px-2.5 py-1 rounded-lg text-xs font-bold shadow-xs transition-all cursor-pointer flex items-center gap-1 self-start sm:self-auto ${
-                (tournament.isGroupAPublished ?? false)
-                  ? 'bg-slate-100 hover:bg-amber-100 text-slate-700 hover:text-amber-900 border border-slate-200'
-                  : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-600/20'
-              }`}
-            >
-              {(tournament.isGroupAPublished ?? false) ? (
-                <>
-                  <EyeOff className="w-3 h-3 text-amber-600" />
-                  <span>Ẩn Bảng A (Về Nháp)</span>
-                </>
-              ) : (
-                <>
-                  <Globe className="w-3 h-3" />
-                  <span>Public Bảng A</span>
-                </>
-              )}
-            </button>
+            {isEditable && (
+              <button
+                type="button"
+                onClick={() => {
+                  const isPub = tournament.isGroupAPublished ?? false;
+                  setConfirmModal({
+                    isOpen: true,
+                    title: isPub ? 'Ẩn Danh Sách Cặp Bảng A (Về Nháp)' : 'Công Khai Danh Sách Cặp Bảng A',
+                    actionType: isPub ? 'unpublish' : 'publish',
+                    confirmLabel: isPub ? 'Chuyển Về Bản Nháp' : 'Công Khai Ngay',
+                    description: isPub ? (
+                      <p>
+                        Bạn có chắc chắn muốn <strong>ẨN</strong> danh sách cặp đấu Bảng A khỏi trang Public?
+                      </p>
+                    ) : (
+                      <p>
+                        Sau khi xác nhận, toàn bộ <strong>{pairsA.length} cặp đấu</strong> của Bảng A sẽ được công khai và cập nhật tức thì trên trang Public.
+                      </p>
+                    ),
+                    details: [
+                      { label: 'Bảng Đấu', value: 'Bảng A' },
+                      { label: 'Số Cặp Đấu', value: `${pairsA.length} cặp` },
+                      { label: 'Trạng Thái Mới', value: isPub ? 'Bản Nháp (Draft)' : 'Công Khai (Public)' },
+                    ],
+                    onConfirm: () => {
+                      togglePublishGroup('A', !isPub);
+                      setConfirmModal(prev => ({ ...prev, isOpen: false }));
+                      setIsSuccessMsg(isPub ? 'Đã chuyển danh sách Bảng A về Bản Nháp.' : 'Đã công khai danh sách Bảng A lên trang Public!');
+                      setTimeout(() => setIsSuccessMsg(''), 4000);
+                    },
+                  });
+                }}
+                className={`px-2.5 py-1 rounded-lg text-xs font-bold shadow-xs transition-all cursor-pointer flex items-center gap-1 self-start sm:self-auto ${
+                  (tournament.isGroupAPublished ?? false)
+                    ? 'bg-slate-100 hover:bg-amber-100 text-slate-700 hover:text-amber-900 border border-slate-200'
+                    : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-600/20'
+                }`}
+              >
+                {(tournament.isGroupAPublished ?? false) ? (
+                  <>
+                    <EyeOff className="w-3 h-3 text-amber-600" />
+                    <span>Ẩn Bảng A (Về Nháp)</span>
+                  </>
+                ) : (
+                  <>
+                    <Globe className="w-3 h-3" />
+                    <span>Public Bảng A</span>
+                  </>
+                )}
+              </button>
+            )}
           </div>
 
           {/* Group Schedule Manager Component */}
@@ -574,9 +623,22 @@ Phan Tấn Hưng, ISC, Phạm Viết Thiện, ISC`;
                 BẢNG B ({pairsB.length} Cặp)
               </h3>
             </div>
-            <span className="text-[10px] font-semibold text-amber-700 bg-amber-50 px-1.5 py-0.2 rounded">
-              Top 2 vào Bán Kết
-            </span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-semibold text-amber-700 bg-amber-50 px-1.5 py-0.2 rounded">
+                Top 2 vào Bán Kết
+              </span>
+              {pairsB.length > 0 && isEditable && (
+                <button
+                  type="button"
+                  onClick={() => handleClearGroupPairs('B')}
+                  className="px-1.5 py-0.5 rounded text-[10px] font-bold transition-all flex items-center gap-0.5 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 cursor-pointer"
+                  title="Xóa tất cả cặp đấu trong Bảng B để nhập lại"
+                >
+                  <Trash2 className="w-2.5 h-2.5" />
+                  <span>Xóa Tất Cả</span>
+                </button>
+              )}
+            </div>
           </div>
 
           {pairsB.length === 0 ? (
@@ -600,51 +662,38 @@ Phan Tấn Hưng, ISC, Phạm Viết Thiện, ISC`;
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-1 shrink-0">
-                    {/* Switch to A */}
-                    <button
-                      type="button"
-                      onClick={() => handleSwitchGroup(pair, 'A')}
-                      disabled={!isEditable}
-                      className={`px-1.5 py-0.5 rounded text-[10px] font-bold transition-colors flex items-center gap-0.5 ${
-                        !isEditable
-                          ? 'bg-slate-100 text-slate-400 cursor-not-allowed opacity-50'
-                          : 'bg-slate-200 hover:bg-blue-100 text-slate-700 hover:text-blue-800 cursor-pointer'
-                      }`}
-                      title={!isEditable ? 'Đã khóa đổi bảng' : 'Chuyển sang Bảng A'}
-                    >
-                      <ArrowRightLeft className="w-2.5 h-2.5" />
-                      <span>Sang A</span>
-                    </button>
+                  {isEditable && (
+                    <div className="flex items-center gap-1 shrink-0">
+                      {/* Switch to A */}
+                      <button
+                        type="button"
+                        onClick={() => handleSwitchGroup(pair, 'A')}
+                        className="px-1.5 py-0.5 rounded text-[10px] font-bold transition-colors flex items-center gap-0.5 bg-slate-200 hover:bg-blue-100 text-slate-700 hover:text-blue-800 cursor-pointer"
+                        title="Chuyển sang Bảng A"
+                      >
+                        <ArrowRightLeft className="w-2.5 h-2.5" />
+                        <span>Sang A</span>
+                      </button>
 
-                    <button
-                      type="button"
-                      onClick={() => handleOpenEdit(pair)}
-                      disabled={!isEditable}
-                      className={`p-1 rounded transition-colors ${
-                        !isEditable
-                          ? 'text-slate-300 cursor-not-allowed opacity-50'
-                          : 'text-slate-500 hover:text-blue-600 hover:bg-white cursor-pointer'
-                      }`}
-                      title={!isEditable ? 'Đã khóa sửa cặp' : 'Sửa cặp đấu'}
-                    >
-                      <Edit2 className="w-3 h-3" />
-                    </button>
+                      <button
+                        type="button"
+                        onClick={() => handleOpenEdit(pair)}
+                        className="p-1 rounded transition-colors text-slate-500 hover:text-blue-600 hover:bg-white cursor-pointer"
+                        title="Sửa cặp đấu"
+                      >
+                        <Edit2 className="w-3 h-3" />
+                      </button>
 
-                    <button
-                      type="button"
-                      onClick={() => setPairToDelete(pair)}
-                      disabled={!isEditable}
-                      className={`p-1 rounded transition-colors ${
-                        !isEditable
-                          ? 'text-slate-300 cursor-not-allowed opacity-50'
-                          : 'text-slate-500 hover:text-rose-600 hover:bg-rose-50 cursor-pointer'
-                      }`}
-                      title={!isEditable ? 'Đã khóa xóa cặp' : 'Xóa cặp đấu khỏi bảng'}
-                    >
-                      <Trash2 className="w-3 h-3" />
-                    </button>
-                  </div>
+                      <button
+                        type="button"
+                        onClick={() => setPairToDelete(pair)}
+                        className="p-1 rounded transition-colors text-slate-500 hover:text-rose-600 hover:bg-rose-50 cursor-pointer"
+                        title="Xóa cặp đấu khỏi bảng"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                      </button>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -666,55 +715,57 @@ Phan Tấn Hưng, ISC, Phạm Viết Thiện, ISC`;
               </span>
             </div>
 
-            <button
-              type="button"
-              onClick={() => {
-                const isPub = tournament.isGroupBPublished ?? false;
-                setConfirmModal({
-                  isOpen: true,
-                  title: isPub ? 'Ẩn Danh Sách Cặp Bảng B (Về Nháp)' : 'Công Khai Danh Sách Cặp Bảng B',
-                  actionType: isPub ? 'unpublish' : 'publish',
-                  confirmLabel: isPub ? 'Chuyển Về Bản Nháp' : 'Công Khai Ngay',
-                  description: isPub ? (
-                    <p>
-                      Bạn có chắc chắn muốn <strong>ẨN</strong> danh sách cặp đấu Bảng B khỏi trang Public?
-                    </p>
-                  ) : (
-                    <p>
-                      Sau khi xác nhận, toàn bộ <strong>{pairsB.length} cặp đấu</strong> của Bảng B sẽ được công khai và cập nhật tức thì trên trang Public.
-                    </p>
-                  ),
-                  details: [
-                    { label: 'Bảng Đấu', value: 'Bảng B' },
-                    { label: 'Số Cặp Đấu', value: `${pairsB.length} cặp` },
-                    { label: 'Trạng Thái Mới', value: isPub ? 'Bản Nháp (Draft)' : 'Công Khai (Public)' },
-                  ],
-                  onConfirm: () => {
-                    togglePublishGroup('B', !isPub);
-                    setConfirmModal(prev => ({ ...prev, isOpen: false }));
-                    setIsSuccessMsg(isPub ? 'Đã chuyển danh sách Bảng B về Bản Nháp.' : 'Đã công khai danh sách Bảng B lên trang Public!');
-                    setTimeout(() => setIsSuccessMsg(''), 4000);
-                  },
-                });
-              }}
-              className={`px-2.5 py-1 rounded-lg text-xs font-bold shadow-xs transition-all cursor-pointer flex items-center gap-1 self-start sm:self-auto ${
-                (tournament.isGroupBPublished ?? false)
-                  ? 'bg-slate-100 hover:bg-amber-100 text-slate-700 hover:text-amber-900 border border-slate-200'
-                  : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-600/20'
-              }`}
-            >
-              {(tournament.isGroupBPublished ?? false) ? (
-                <>
-                  <EyeOff className="w-3 h-3 text-amber-600" />
-                  <span>Ẩn Bảng B (Về Nháp)</span>
-                </>
-              ) : (
-                <>
-                  <Globe className="w-3 h-3" />
-                  <span>Public Bảng B</span>
-                </>
-              )}
-            </button>
+            {isEditable && (
+              <button
+                type="button"
+                onClick={() => {
+                  const isPub = tournament.isGroupBPublished ?? false;
+                  setConfirmModal({
+                    isOpen: true,
+                    title: isPub ? 'Ẩn Danh Sách Cặp Bảng B (Về Nháp)' : 'Công Khai Danh Sách Cặp Bảng B',
+                    actionType: isPub ? 'unpublish' : 'publish',
+                    confirmLabel: isPub ? 'Chuyển Về Bản Nháp' : 'Công Khai Ngay',
+                    description: isPub ? (
+                      <p>
+                        Bạn có chắc chắn muốn <strong>ẨN</strong> danh sách cặp đấu Bảng B khỏi trang Public?
+                      </p>
+                    ) : (
+                      <p>
+                        Sau khi xác nhận, toàn bộ <strong>{pairsB.length} cặp đấu</strong> của Bảng B sẽ được công khai và cập nhật tức thì trên trang Public.
+                      </p>
+                    ),
+                    details: [
+                      { label: 'Bảng Đấu', value: 'Bảng B' },
+                      { label: 'Số Cặp Đấu', value: `${pairsB.length} cặp` },
+                      { label: 'Trạng Thái Mới', value: isPub ? 'Bản Nháp (Draft)' : 'Công Khai (Public)' },
+                    ],
+                    onConfirm: () => {
+                      togglePublishGroup('B', !isPub);
+                      setConfirmModal(prev => ({ ...prev, isOpen: false }));
+                      setIsSuccessMsg(isPub ? 'Đã chuyển danh sách Bảng B về Bản Nháp.' : 'Đã công khai danh sách Bảng B lên trang Public!');
+                      setTimeout(() => setIsSuccessMsg(''), 4000);
+                    },
+                  });
+                }}
+                className={`px-2.5 py-1 rounded-lg text-xs font-bold shadow-xs transition-all cursor-pointer flex items-center gap-1 self-start sm:self-auto ${
+                  (tournament.isGroupBPublished ?? false)
+                    ? 'bg-slate-100 hover:bg-amber-100 text-slate-700 hover:text-amber-900 border border-slate-200'
+                    : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-600/20'
+                }`}
+              >
+                {(tournament.isGroupBPublished ?? false) ? (
+                  <>
+                    <EyeOff className="w-3 h-3 text-amber-600" />
+                    <span>Ẩn Bảng B (Về Nháp)</span>
+                  </>
+                ) : (
+                  <>
+                    <Globe className="w-3 h-3" />
+                    <span>Public Bảng B</span>
+                  </>
+                )}
+              </button>
+            )}
           </div>
 
           {/* Group Schedule Manager Component */}
