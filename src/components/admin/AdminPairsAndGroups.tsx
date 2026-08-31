@@ -33,6 +33,7 @@ export const AdminPairsAndGroups: React.FC = () => {
     addPair,
     updatePair,
     deletePair,
+    deleteGroupPairs,
     assignPairGroup,
     randomizeGroups,
     generateRoundRobinMatches,
@@ -321,6 +322,47 @@ Phan Tấn Hưng, ISC, Phạm Viết Thiện, ISC`;
     setTimeout(() => setIsSuccessMsg(''), 3000);
   };
 
+  const handleClearGroupPairs = (target: 'A' | 'B' | 'ALL') => {
+    const targetLabel = target === 'ALL' ? 'cả 2 bảng (Bảng A & B)' : `Bảng ${target}`;
+    const targetCount = target === 'ALL' ? pairs.length : target === 'A' ? pairsA.length : pairsB.length;
+
+    if (targetCount === 0) {
+      setIsErrorMsg(`Không có cặp đấu nào trong ${targetLabel} để xóa.`);
+      setTimeout(() => setIsErrorMsg(''), 3000);
+      return;
+    }
+
+    setConfirmModal({
+      isOpen: true,
+      title: `Xóa Tất Cả Cặp Đấu - ${targetLabel}`,
+      actionType: 'danger',
+      confirmLabel: `Xác Nhận Xóa (${targetCount} cặp)`,
+      description: (
+        <div className="space-y-2">
+          <p className="text-slate-700">
+            Bạn có chắc chắn muốn xóa <strong>tất cả {targetCount} cặp đấu</strong> trong <strong>{targetLabel}</strong> không?
+          </p>
+          <p className="text-xs text-rose-600 font-medium">
+            ⚠️ Thao tác này sẽ xóa toàn bộ các cặp đấu và lịch thi đấu vòng bảng tương ứng để bạn có thể import hoặc ghép cặp mới lại từ đầu.
+          </p>
+        </div>
+      ),
+      details: [
+        { label: 'Phạm vi xóa', value: targetLabel },
+        { label: 'Số cặp bị xóa', value: `${targetCount} cặp` },
+        { label: 'Dữ liệu VĐV gốc', value: 'Vẫn được lưu trữ' },
+      ],
+      onConfirm: () => {
+        const res = deleteGroupPairs(target);
+        setConfirmModal(prev => ({ ...prev, isOpen: false }));
+        if (res.success) {
+          setIsSuccessMsg(`Đã xóa thành công ${res.count} cặp đấu trong ${targetLabel}! Bạn có thể import lại ngay.`);
+          setTimeout(() => setIsSuccessMsg(''), 4000);
+        }
+      },
+    });
+  };
+
   return (
     <div className="space-y-3">
       {/* Top Header with Quick Actions */}
@@ -333,6 +375,17 @@ Phan Tấn Hưng, ISC, Phạm Viết Thiện, ISC`;
         </div>
 
         <div className="flex flex-wrap items-center gap-1.5">
+          {pairs.length > 0 && isEditable && (
+            <button
+              onClick={() => handleClearGroupPairs('ALL')}
+              className="px-2.5 py-1.5 rounded-lg text-xs font-bold border transition-all flex items-center gap-1 bg-rose-50 hover:bg-rose-100 text-rose-800 border-rose-200 shadow-xs cursor-pointer"
+              title="Xóa tất cả cặp đấu ở cả Bảng A và Bảng B để nhập lại"
+            >
+              <Trash2 className="w-3.5 h-3.5 text-rose-600" />
+              <span>Xóa Tất Cả Cặp (2 Bảng)</span>
+            </button>
+          )}
+
           <button
             onClick={() => {
               setImportError('');
@@ -416,9 +469,22 @@ Phan Tấn Hưng, ISC, Phạm Viết Thiện, ISC`;
                 BẢNG A ({pairsA.length} Cặp)
               </h3>
             </div>
-            <span className="text-[10px] font-semibold text-blue-600 bg-blue-50 px-1.5 py-0.2 rounded">
-              Top 2 vào Bán Kết
-            </span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-semibold text-blue-600 bg-blue-50 px-1.5 py-0.2 rounded">
+                Top 2 vào Bán Kết
+              </span>
+              {pairsA.length > 0 && isEditable && (
+                <button
+                  type="button"
+                  onClick={() => handleClearGroupPairs('A')}
+                  className="px-1.5 py-0.5 rounded text-[10px] font-bold transition-all flex items-center gap-0.5 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 cursor-pointer"
+                  title="Xóa tất cả cặp đấu trong Bảng A để nhập lại"
+                >
+                  <Trash2 className="w-2.5 h-2.5" />
+                  <span>Xóa Tất Cả</span>
+                </button>
+              )}
+            </div>
           </div>
 
           {pairsA.length === 0 ? (
@@ -574,9 +640,22 @@ Phan Tấn Hưng, ISC, Phạm Viết Thiện, ISC`;
                 BẢNG B ({pairsB.length} Cặp)
               </h3>
             </div>
-            <span className="text-[10px] font-semibold text-amber-700 bg-amber-50 px-1.5 py-0.2 rounded">
-              Top 2 vào Bán Kết
-            </span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-semibold text-amber-700 bg-amber-50 px-1.5 py-0.2 rounded">
+                Top 2 vào Bán Kết
+              </span>
+              {pairsB.length > 0 && isEditable && (
+                <button
+                  type="button"
+                  onClick={() => handleClearGroupPairs('B')}
+                  className="px-1.5 py-0.5 rounded text-[10px] font-bold transition-all flex items-center gap-0.5 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 cursor-pointer"
+                  title="Xóa tất cả cặp đấu trong Bảng B để nhập lại"
+                >
+                  <Trash2 className="w-2.5 h-2.5" />
+                  <span>Xóa Tất Cả</span>
+                </button>
+              )}
+            </div>
           </div>
 
           {pairsB.length === 0 ? (

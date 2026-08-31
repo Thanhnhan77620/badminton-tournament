@@ -66,6 +66,7 @@ export interface TournamentContextType {
   addPair: (pair: Pair) => { success: boolean; error?: string };
   updatePair: (pair: Pair) => { success: boolean; error?: string };
   deletePair: (pairId: string) => void;
+  deleteGroupPairs: (group: 'A' | 'B' | 'ALL') => { success: boolean; count: number };
   assignPairGroup: (pairId: string, group: 'A' | 'B') => { success: boolean; error?: string };
   randomizeGroups: () => void;
   importPairsList: (
@@ -691,6 +692,25 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     setPairs(updatedPairs);
     setMatches(updatedMatches);
     syncToCloud(tournament, updatedPairs, updatedMatches, players);
+  };
+
+  const deleteGroupPairs = (group: 'A' | 'B' | 'ALL'): { success: boolean; count: number } => {
+    const pairsToRemove = pairs.filter(p => group === 'ALL' || p.group === group);
+    const count = pairsToRemove.length;
+    if (count === 0) return { success: true, count: 0 };
+
+    const remainingPairs = pairs.filter(p => group !== 'ALL' && p.group !== group);
+    const removedPairIds = new Set(pairsToRemove.map(p => p.id));
+
+    // Also remove matches involving deleted pairs
+    const remainingMatches = matches.filter(
+      m => !removedPairIds.has(m.pair1?.id) && !removedPairIds.has(m.pair2?.id)
+    );
+
+    setPairs(remainingPairs);
+    setMatches(remainingMatches);
+    syncToCloud(tournament, remainingPairs, remainingMatches, players);
+    return { success: true, count };
   };
 
   const assignPairGroup = (pairId: string, group: 'A' | 'B'): { success: boolean; error?: string } => {
@@ -1535,6 +1555,7 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         addPair,
         updatePair,
         deletePair,
+        deleteGroupPairs,
         assignPairGroup,
         randomizeGroups,
         importPairsList,
