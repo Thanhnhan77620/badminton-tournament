@@ -470,11 +470,8 @@ export const KnockoutSection: React.FC<KnockoutSectionProps> = ({
             </div>
             <div>
               <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 font-display tracking-tight">
-                Vòng Chung Kết &amp; Nhánh Đấu (Knockout)
+                Vòng Chung Kết &amp; Nhánh Đấu
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-                Sơ đồ thi đấu trực tiếp Bán Kết, Tranh Hạng Ba và Chung Kết tranh cúp vô địch
-              </p>
             </div>
           </div>
 

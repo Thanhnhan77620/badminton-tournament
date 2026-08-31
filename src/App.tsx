@@ -139,9 +139,6 @@ function PublicAppContent() {
                 <h1 className="text-2xl sm:text-3xl font-extrabold font-display">
                   Bảng Đấu &amp; Xếp Hạng Vòng Tròn
                 </h1>
-                <p className="text-xs sm:text-sm text-slate-400 mt-1">
-                  Chi tiết thứ hạng, điểm thắng/thua, hiệu số và danh sách trận đấu Bảng A &amp; B.
-                </p>
               </div>
             </div>
             <StandingsSection
@@ -165,9 +162,6 @@ function PublicAppContent() {
                 <h1 className="text-2xl sm:text-3xl font-extrabold font-display">
                   Vòng Chung Kết &amp; Trao Giải
                 </h1>
-                <p className="text-xs sm:text-sm text-slate-400 mt-1">
-                  Nhánh đấu bán kết, trận tranh hạng ba, chung kết và bục vinh quang giải thưởng.
-                </p>
               </div>
             </div>
             <KnockoutSection
@@ -188,9 +182,6 @@ function PublicAppContent() {
                 <h1 className="text-2xl sm:text-3xl font-extrabold font-display">
                   Điều Lệ &amp; Thể Thức Giải Đấu
                 </h1>
-                <p className="text-xs sm:text-sm text-slate-400 mt-1">
-                  Quy định chi tiết về cách tính điểm vòng bảng, bán kết, chung kết và tiến trình thi đấu.
-                </p>
               </div>
             </div>
             <RulesSection

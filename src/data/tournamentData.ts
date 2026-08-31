@@ -92,7 +92,7 @@ export const DEFAULT_RULES: TournamentRuleItem[] = [
   },
   {
     stage: 'Bán Kết',
-    formatDescription: `• **Thể thức thi đấu**: Đấu loại trực tiếp (Knockout) theo sơ đồ phân nhánh bắt chéo:
+    formatDescription: `• **Thể thức thi đấu**: Đấu loại trực tiếp theo sơ đồ phân nhánh bắt chéo:
   - **Bán Kết 1 (BK1)**: Nhất Bảng A gặp Nhì Bảng B
   - **Bán Kết 2 (BK2)**: Nhất Bảng B gặp Nhì Bảng A
 • **Quy định set đấu**: Thi đấu **3 set thắng 2 (Best of 3)**, mỗi set đánh đến **15 điểm** (chạm 15 điểm trước là thắng set).
