@@ -147,22 +147,22 @@ export const ParticipantsSection: React.FC<ParticipantsSectionProps> = ({
                   {/* Doubles Players Row */}
                   <div className="space-y-2">
                     {/* Player 1 */}
-                    <div className="flex items-center gap-3 bg-slate-50/80 p-2.5 rounded-xl border border-slate-100">
+                    <div className="flex items-center gap-2.5 sm:gap-3 bg-slate-50/80 p-2 sm:p-2.5 rounded-xl border border-slate-100">
                       <PlayerAvatar
                         name={pair.player1?.name || 'VĐV 1'}
                         avatarUrl={pair.player1?.avatarUrl}
                         size="md"
-                        className="ring-1 ring-slate-200 shrink-0"
+                        className="ring-1 ring-slate-200 shrink-0 w-8 h-8 sm:w-10 sm:h-10"
                       />
-                      <div className="min-w-0">
-                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                      <div className="min-w-0 flex-1">
+                        <span className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
                           VĐV 1
                         </span>
-                        <div className="flex items-center gap-1.5 flex-wrap">
-                          <p className="text-xs sm:text-sm font-bold text-slate-900 truncate">
+                        <div className="flex items-center leading-none overflow-hidden whitespace-nowrap mt-0.5">
+                          <p className="text-xs sm:text-sm font-bold text-slate-900 whitespace-nowrap">
                             {pair.player1?.name || 'Chưa đặt tên'}
                           </p>
-                          <span className="text-[11px] font-medium text-slate-500">
+                          <span className="text-[10px] sm:text-[11px] font-medium text-slate-500 ml-1 whitespace-nowrap">
                             ({pair.player1?.club || pair.club || 'ISC'})
                           </span>
                         </div>
@@ -170,22 +170,22 @@ export const ParticipantsSection: React.FC<ParticipantsSectionProps> = ({
                     </div>
 
                     {/* Player 2 */}
-                    <div className="flex items-center gap-3 bg-slate-50/80 p-2.5 rounded-xl border border-slate-100">
+                    <div className="flex items-center gap-2.5 sm:gap-3 bg-slate-50/80 p-2 sm:p-2.5 rounded-xl border border-slate-100">
                       <PlayerAvatar
                         name={pair.player2?.name || 'VĐV 2'}
                         avatarUrl={pair.player2?.avatarUrl}
                         size="md"
-                        className="ring-1 ring-slate-200 shrink-0"
+                        className="ring-1 ring-slate-200 shrink-0 w-8 h-8 sm:w-10 sm:h-10"
                       />
-                      <div className="min-w-0">
-                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                      <div className="min-w-0 flex-1">
+                        <span className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
                           VĐV 2
                         </span>
-                        <div className="flex items-center gap-1.5 flex-wrap">
-                          <p className="text-xs sm:text-sm font-bold text-slate-900 truncate">
+                        <div className="flex items-center leading-none overflow-hidden whitespace-nowrap mt-0.5">
+                          <p className="text-xs sm:text-sm font-bold text-slate-900 whitespace-nowrap">
                             {pair.player2?.name || 'Chưa đặt tên'}
                           </p>
-                          <span className="text-[11px] font-medium text-slate-500">
+                          <span className="text-[10px] sm:text-[11px] font-medium text-slate-500 ml-1 whitespace-nowrap">
                             ({pair.player2?.club || pair.club || 'ISC'})
                           </span>
                         </div>

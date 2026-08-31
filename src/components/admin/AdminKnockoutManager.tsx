@@ -108,33 +108,37 @@ export const AdminKnockoutManager: React.FC = () => {
           }`}
         >
           <div className="min-w-0 flex-1 space-y-1">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 min-w-0">
               <PlayerAvatar
                 name={pair.player1?.name || 'VĐV 1'}
                 avatarUrl={pair.player1?.avatarUrl}
                 size="xs"
-                className="shrink-0"
+                className="shrink-0 w-5 h-5"
               />
-              <span className="text-xs font-bold truncate">
-                {pair.player1?.name || 'VĐV 1'}{' '}
-                <span className="text-[11px] font-normal text-slate-500">
+              <div className="min-w-0 flex items-center leading-none overflow-hidden whitespace-nowrap">
+                <span className="text-xs font-bold whitespace-nowrap">
+                  {pair.player1?.name || 'VĐV 1'}
+                </span>
+                <span className="text-[10px] font-normal text-slate-500 ml-1 whitespace-nowrap">
                   ({pair.player1?.club || pair.club || 'ISC'})
                 </span>
-              </span>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 min-w-0">
               <PlayerAvatar
                 name={pair.player2?.name || 'VĐV 2'}
                 avatarUrl={pair.player2?.avatarUrl}
                 size="xs"
-                className="shrink-0"
+                className="shrink-0 w-5 h-5"
               />
-              <span className="text-xs font-bold truncate">
-                {pair.player2?.name || 'VĐV 2'}{' '}
-                <span className="text-[11px] font-normal text-slate-500">
+              <div className="min-w-0 flex items-center leading-none overflow-hidden whitespace-nowrap">
+                <span className="text-xs font-bold whitespace-nowrap">
+                  {pair.player2?.name || 'VĐV 2'}
+                </span>
+                <span className="text-[10px] font-normal text-slate-500 ml-1 whitespace-nowrap">
                   ({pair.player2?.club || pair.club || 'ISC'})
                 </span>
-              </span>
+              </div>
             </div>
           </div>
           {isWinner && <span className="text-base ml-2 select-none" title="Thắng trận">🏆</span>}
