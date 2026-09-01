@@ -88,6 +88,11 @@ export interface TournamentContextType {
   togglePublishGroup: (group: 'A' | 'B', publish?: boolean) => void;
   togglePublishSchedule: (group: 'A' | 'B' | 'KNOCKOUT', publish?: boolean) => void;
   togglePublishKnockoutStage: (stage: 'SF' | 'FINAL', publish?: boolean) => void;
+  setKnockoutPair: (
+    matchId: string,
+    slot: 'pair1' | 'pair2',
+    pairId: string | 'AUTO'
+  ) => { success: boolean; error?: string };
   createManualMatch: (matchData: {
     group: 'A' | 'B';
     pair1Id: string;
@@ -235,8 +240,10 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         m.matchNumber === 21 ||
         (m.round === 'SEMI_FINAL' && (m.roundLabel?.includes('1') || m.roundLabel?.includes('Nhất A')))
       ) {
-        const targetP1 = isGroupAFinished && topA1 ? topA1 : (topA1 && groupAMatches.some(gm => gm.status === 'FINISHED') ? topA1 : PLACEHOLDER_PAIRS.A1);
-        const targetP2 = isGroupBFinished && topB2 ? topB2 : (topB2 && groupBMatches.some(gm => gm.status === 'FINISHED') ? topB2 : PLACEHOLDER_PAIRS.B2);
+        const autoP1 = isGroupAFinished && topA1 ? topA1 : (topA1 && groupAMatches.some(gm => gm.status === 'FINISHED') ? topA1 : PLACEHOLDER_PAIRS.A1);
+        const autoP2 = isGroupBFinished && topB2 ? topB2 : (topB2 && groupBMatches.some(gm => gm.status === 'FINISHED') ? topB2 : PLACEHOLDER_PAIRS.B2);
+        const targetP1 = m.pair1IsManual && m.pair1 ? m.pair1 : autoP1;
+        const targetP2 = m.pair2IsManual && m.pair2 ? m.pair2 : autoP2;
 
         if (m.pair1?.id !== targetP1.id || m.pair2?.id !== targetP2.id || m.format !== 'BEST_OF_3_15') {
           return {
@@ -255,8 +262,10 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         m.matchNumber === 22 ||
         (m.round === 'SEMI_FINAL' && (m.roundLabel?.includes('2') || m.roundLabel?.includes('Nhất B')))
       ) {
-        const targetP1 = isGroupBFinished && topB1 ? topB1 : (topB1 && groupBMatches.some(gm => gm.status === 'FINISHED') ? topB1 : PLACEHOLDER_PAIRS.B1);
-        const targetP2 = isGroupAFinished && topA2 ? topA2 : (topA2 && groupAMatches.some(gm => gm.status === 'FINISHED') ? topA2 : PLACEHOLDER_PAIRS.A2);
+        const autoP1 = isGroupBFinished && topB1 ? topB1 : (topB1 && groupBMatches.some(gm => gm.status === 'FINISHED') ? topB1 : PLACEHOLDER_PAIRS.B1);
+        const autoP2 = isGroupAFinished && topA2 ? topA2 : (topA2 && groupAMatches.some(gm => gm.status === 'FINISHED') ? topA2 : PLACEHOLDER_PAIRS.A2);
+        const targetP1 = m.pair1IsManual && m.pair1 ? m.pair1 : autoP1;
+        const targetP2 = m.pair2IsManual && m.pair2 ? m.pair2 : autoP2;
 
         if (m.pair1?.id !== targetP1.id || m.pair2?.id !== targetP2.id || m.format !== 'BEST_OF_3_15') {
           return {
@@ -301,8 +310,10 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     updated = updated.map(m => {
       // Final match (#24) - Thắng BK1 vs Thắng BK2
       if (m.id === 'm-final' || m.round === 'FINAL' || m.matchNumber === 24) {
-        const targetP1 = sf1Winner || PLACEHOLDER_PAIRS.SF1_WINNER;
-        const targetP2 = sf2Winner || PLACEHOLDER_PAIRS.SF2_WINNER;
+        const autoP1 = sf1Winner || PLACEHOLDER_PAIRS.SF1_WINNER;
+        const autoP2 = sf2Winner || PLACEHOLDER_PAIRS.SF2_WINNER;
+        const targetP1 = m.pair1IsManual && m.pair1 ? m.pair1 : autoP1;
+        const targetP2 = m.pair2IsManual && m.pair2 ? m.pair2 : autoP2;
 
         if (m.pair1?.id !== targetP1.id || m.pair2?.id !== targetP2.id) {
           return {
@@ -316,8 +327,10 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
       // Third Place match (#23) - Thua BK1 vs Thua BK2
       if (m.id === 'm-third' || m.round === 'THIRD_PLACE' || m.matchNumber === 23) {
-        const targetP1 = sf1Loser || PLACEHOLDER_PAIRS.SF1_LOSER;
-        const targetP2 = sf2Loser || PLACEHOLDER_PAIRS.SF2_LOSER;
+        const autoP1 = sf1Loser || PLACEHOLDER_PAIRS.SF1_LOSER;
+        const autoP2 = sf2Loser || PLACEHOLDER_PAIRS.SF2_LOSER;
+        const targetP1 = m.pair1IsManual && m.pair1 ? m.pair1 : autoP1;
+        const targetP2 = m.pair2IsManual && m.pair2 ? m.pair2 : autoP2;
 
         let matchUpdated = m;
         // Normalize format to BEST_OF_3_15 if it was previously ONE_SET_21 and not yet played
@@ -1048,6 +1061,52 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     syncToCloud(updated, pairs, matches, players);
   };
 
+  const setKnockoutPair = (
+    matchId: string,
+    slot: 'pair1' | 'pair2',
+    pairId: string | 'AUTO'
+  ): { success: boolean; error?: string } => {
+    const targetMatchIndex = matches.findIndex(
+      m => m.id === matchId || m.matchNumber === Number(matchId)
+    );
+    if (targetMatchIndex === -1) {
+      return { success: false, error: 'Không tìm thấy thông tin trận đấu knockout.' };
+    }
+
+    const targetMatch = matches[targetMatchIndex];
+    const updatedMatches = [...matches];
+
+    if (pairId === 'AUTO') {
+      const updatedMatch: Match = {
+        ...targetMatch,
+        ...(slot === 'pair1' ? { pair1IsManual: false } : { pair2IsManual: false }),
+      };
+      updatedMatches[targetMatchIndex] = updatedMatch;
+      const synced = syncKnockoutProgression(updatedMatches, pairs);
+      setMatches(synced);
+      syncToCloud(tournament, pairs, synced, players);
+      return { success: true };
+    }
+
+    const selectedPair = pairs.find(p => p.id === pairId);
+    if (!selectedPair) {
+      return { success: false, error: 'Không tìm thấy thông tin cặp đấu được chọn.' };
+    }
+
+    const updatedMatch: Match = {
+      ...targetMatch,
+      ...(slot === 'pair1'
+        ? { pair1: selectedPair, pair1IsManual: true }
+        : { pair2: selectedPair, pair2IsManual: true }),
+    };
+
+    updatedMatches[targetMatchIndex] = updatedMatch;
+    const synced = syncKnockoutProgression(updatedMatches, pairs);
+    setMatches(synced);
+    syncToCloud(tournament, pairs, synced, players);
+    return { success: true };
+  };
+
   // Manual Match Creation for a Group
   const createManualMatch = (matchData: {
     group: 'A' | 'B';
@@ -1562,6 +1621,7 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         togglePublishGroup,
         togglePublishSchedule,
         togglePublishKnockoutStage,
+        setKnockoutPair,
         createManualMatch,
         importCustomGroupSchedule,
         reorderGroupMatches,
