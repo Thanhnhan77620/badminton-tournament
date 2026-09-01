@@ -12,20 +12,37 @@ import {
   Clock,
   ArrowRight,
   Medal,
+  Edit3,
+  RotateCcw,
+  X,
+  Search,
 } from 'lucide-react';
 import { Match, Pair } from '../../types/tournament';
 import { PlayerAvatar } from '../common/PlayerAvatar';
 
+interface EditingKnockoutSlot {
+  match: Match;
+  slot: 'pair1' | 'pair2';
+  placeholderLabel: string;
+  currentPair: Pair | null;
+  isManual: boolean;
+}
+
 export const AdminKnockoutManager: React.FC = () => {
   const {
     tournament,
+    pairs,
     matches,
     standingsA,
     standingsB,
     togglePublishKnockoutStage,
+    setKnockoutPair,
   } = useTournament();
 
   const [notification, setNotification] = useState<string>('');
+  const [editingSlot, setEditingSlot] = useState<EditingKnockoutSlot | null>(null);
+  const [selectedPairId, setSelectedPairId] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   const showToast = (msg: string) => {
     setNotification(msg);
@@ -97,64 +114,140 @@ export const AdminKnockoutManager: React.FC = () => {
     showToast(nextVal ? 'Đã CÔNG KHAI Trận Chung Kết & Tranh Hạng Ba!' : 'Đã chuyển Chung Kết & Tranh Hạng Ba về BẢN NHÁP!');
   };
 
-  const renderPairBox = (pair: Pair | null | undefined, placeholderLabel: string, isWinner?: boolean) => {
-    if (pair && !pair.id.startsWith('placeholder')) {
-      return (
-        <div
-          className={`flex items-center justify-between p-2.5 rounded-xl border transition-all ${
-            isWinner
-              ? 'bg-amber-500/10 border-amber-400 text-slate-900 shadow-2xs'
-              : 'bg-slate-50 border-slate-200 text-slate-800'
-          }`}
-        >
-          <div className="min-w-0 flex-1 space-y-1">
-            <div className="flex items-center gap-1.5 min-w-0">
-              <PlayerAvatar
-                name={pair.player1?.name || 'VĐV 1'}
-                avatarUrl={pair.player1?.avatarUrl}
-                size="xs"
-                className="shrink-0 w-5 h-5"
-              />
-              <div className="min-w-0 flex items-center leading-none overflow-hidden whitespace-nowrap">
-                <span className="text-xs font-bold whitespace-nowrap">
-                  {pair.player1?.name || 'VĐV 1'}
-                </span>
-                <span className="text-[10px] font-normal text-slate-500 ml-1 whitespace-nowrap">
-                  ({pair.player1?.club || pair.club || 'ISC'})
-                </span>
-              </div>
-            </div>
-            <div className="flex items-center gap-1.5 min-w-0">
-              <PlayerAvatar
-                name={pair.player2?.name || 'VĐV 2'}
-                avatarUrl={pair.player2?.avatarUrl}
-                size="xs"
-                className="shrink-0 w-5 h-5"
-              />
-              <div className="min-w-0 flex items-center leading-none overflow-hidden whitespace-nowrap">
-                <span className="text-xs font-bold whitespace-nowrap">
-                  {pair.player2?.name || 'VĐV 2'}
-                </span>
-                <span className="text-[10px] font-normal text-slate-500 ml-1 whitespace-nowrap">
-                  ({pair.player2?.club || pair.club || 'ISC'})
-                </span>
-              </div>
-            </div>
-          </div>
-          {isWinner && <span className="text-base ml-2 select-none" title="Thắng trận">🏆</span>}
-        </div>
-      );
+  const openEditModal = (
+    match: Match,
+    slot: 'pair1' | 'pair2',
+    pair: Pair | null | undefined,
+    placeholderLabel: string,
+    isManual: boolean
+  ) => {
+    setEditingSlot({
+      match,
+      slot,
+      placeholderLabel,
+      currentPair: pair && !pair.id.startsWith('placeholder') ? pair : null,
+      isManual,
+    });
+    setSelectedPairId(pair && !pair.id.startsWith('placeholder') ? pair.id : '');
+    setSearchTerm('');
+  };
+
+  const handleSavePairOverride = () => {
+    if (!editingSlot) return;
+    if (!selectedPairId) {
+      showToast('Vui lòng chọn 1 cặp đấu từ danh sách.');
+      return;
     }
+    const res = setKnockoutPair(editingSlot.match.id, editingSlot.slot, selectedPairId);
+    if (res.success) {
+      showToast('Đã cập nhật cặp đấu thành công!');
+      setEditingSlot(null);
+    } else {
+      showToast(res.error || 'Có lỗi xảy ra khi cập nhật.');
+    }
+  };
+
+  const handleResetToAuto = () => {
+    if (!editingSlot) return;
+    const res = setKnockoutPair(editingSlot.match.id, editingSlot.slot, 'AUTO');
+    if (res.success) {
+      showToast('Đã khôi phục cặp đấu theo kết quả tự động!');
+      setEditingSlot(null);
+    } else {
+      showToast(res.error || 'Có lỗi xảy ra.');
+    }
+  };
+
+  const renderPairBox = (
+    match: Match | undefined,
+    slot: 'pair1' | 'pair2',
+    pair: Pair | null | undefined,
+    placeholderLabel: string,
+    isWinner?: boolean
+  ) => {
+    if (!match) return null;
+    const isManual = slot === 'pair1' ? Boolean(match.pair1IsManual) : Boolean(match.pair2IsManual);
+    const hasRealPair = Boolean(pair && !pair.id.startsWith('placeholder'));
 
     return (
-      <div className="p-2.5 rounded-xl bg-slate-50/70 border border-dashed border-slate-200 flex items-center justify-between text-xs text-slate-400">
-        <div className="flex items-center gap-2">
-          <div className="w-5 h-5 rounded bg-slate-200 text-slate-500 flex items-center justify-center text-[10px] font-bold">
-            <Users className="w-3 h-3" />
-          </div>
-          <span className="font-semibold text-slate-600">{placeholderLabel}</span>
+      <div
+        className={`flex items-center justify-between p-2.5 rounded-xl border transition-all ${
+          isWinner
+            ? 'bg-amber-500/10 border-amber-400 text-slate-900 shadow-2xs'
+            : hasRealPair
+            ? isManual
+              ? 'bg-blue-50/60 border-blue-200 text-slate-800'
+              : 'bg-slate-50 border-slate-200 text-slate-800'
+            : 'bg-slate-50/70 border-dashed border-slate-200 text-slate-400'
+        }`}
+      >
+        <div className="min-w-0 flex-1 space-y-1 pr-2">
+          {hasRealPair && pair ? (
+            <>
+              <div className="flex items-center gap-1.5 min-w-0">
+                <PlayerAvatar
+                  name={pair.player1?.name || 'VĐV 1'}
+                  avatarUrl={pair.player1?.avatarUrl}
+                  size="xs"
+                  className="shrink-0 w-5 h-5"
+                />
+                <div className="min-w-0 flex items-center leading-none overflow-hidden whitespace-nowrap">
+                  <span className="text-xs font-bold whitespace-nowrap">
+                    {pair.player1?.name || 'VĐV 1'}
+                  </span>
+                  <span className="text-[10px] font-normal text-slate-500 ml-1 whitespace-nowrap">
+                    ({pair.player1?.club || pair.club || 'ISC'})
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center gap-1.5 min-w-0">
+                <PlayerAvatar
+                  name={pair.player2?.name || 'VĐV 2'}
+                  avatarUrl={pair.player2?.avatarUrl}
+                  size="xs"
+                  className="shrink-0 w-5 h-5"
+                />
+                <div className="min-w-0 flex items-center leading-none overflow-hidden whitespace-nowrap">
+                  <span className="text-xs font-bold whitespace-nowrap">
+                    {pair.player2?.name || 'VĐV 2'}
+                  </span>
+                  <span className="text-[10px] font-normal text-slate-500 ml-1 whitespace-nowrap">
+                    ({pair.player2?.club || pair.club || 'ISC'})
+                  </span>
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="flex items-center gap-2">
+              <div className="w-5 h-5 rounded bg-slate-200 text-slate-500 flex items-center justify-center text-[10px] font-bold">
+                <Users className="w-3 h-3" />
+              </div>
+              <span className="font-semibold text-slate-600 text-xs">{placeholderLabel}</span>
+              <span className="text-[10px] text-slate-400 italic">(Chờ xác định)</span>
+            </div>
+          )}
+
+          {isManual && (
+            <div className="pt-0.5">
+              <span className="inline-flex items-center gap-1 text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-300">
+                Chỉ định thủ công
+              </span>
+            </div>
+          )}
         </div>
-        <span className="text-[11px] italic">Chờ xác định</span>
+
+        <div className="flex items-center gap-1 shrink-0">
+          {isWinner && <span className="text-base mr-1 select-none" title="Thắng trận">🏆</span>}
+          <button
+            type="button"
+            onClick={() => openEditModal(match, slot, pair, placeholderLabel, isManual)}
+            title="Đổi cặp đấu này"
+            className="px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-white hover:bg-blue-50 text-blue-700 hover:text-blue-800 border border-slate-200 hover:border-blue-300 shadow-2xs flex items-center gap-1 transition-colors cursor-pointer"
+          >
+            <Edit3 className="w-3 h-3" />
+            <span>Đổi cặp</span>
+          </button>
+        </div>
       </div>
     );
   };
@@ -370,12 +463,16 @@ export const AdminKnockoutManager: React.FC = () => {
               </div>
               <div className="p-3 space-y-2">
                 {renderPairBox(
-                  topA1 || semiFinal1?.pair1,
+                  semiFinal1,
+                  'pair1',
+                  semiFinal1?.pair1,
                   'Nhất Bảng A',
                   semiFinal1?.status === 'FINISHED' && semiFinal1.winnerId === semiFinal1.pair1?.id
                 )}
                 {renderPairBox(
-                  topB2 || semiFinal1?.pair2,
+                  semiFinal1,
+                  'pair2',
+                  semiFinal1?.pair2,
                   'Nhì Bảng B',
                   semiFinal1?.status === 'FINISHED' && semiFinal1.winnerId === semiFinal1.pair2?.id
                 )}
@@ -401,12 +498,16 @@ export const AdminKnockoutManager: React.FC = () => {
               </div>
               <div className="p-3 space-y-2">
                 {renderPairBox(
-                  topB1 || semiFinal2?.pair1,
+                  semiFinal2,
+                  'pair1',
+                  semiFinal2?.pair1,
                   'Nhất Bảng B',
                   semiFinal2?.status === 'FINISHED' && semiFinal2.winnerId === semiFinal2.pair1?.id
                 )}
                 {renderPairBox(
-                  topA2 || semiFinal2?.pair2,
+                  semiFinal2,
+                  'pair2',
+                  semiFinal2?.pair2,
                   'Nhì Bảng A',
                   semiFinal2?.status === 'FINISHED' && semiFinal2.winnerId === semiFinal2.pair2?.id
                 )}
@@ -434,12 +535,16 @@ export const AdminKnockoutManager: React.FC = () => {
               </div>
               <div className="p-3 space-y-2">
                 {renderPairBox(
-                  sf1Loser || thirdPlaceMatch?.pair1,
+                  thirdPlaceMatch,
+                  'pair1',
+                  thirdPlaceMatch?.pair1,
                   'Thua Bán Kết 1',
                   thirdPlaceMatch?.status === 'FINISHED' && thirdPlaceMatch.winnerId === thirdPlaceMatch.pair1?.id
                 )}
                 {renderPairBox(
-                  sf2Loser || thirdPlaceMatch?.pair2,
+                  thirdPlaceMatch,
+                  'pair2',
+                  thirdPlaceMatch?.pair2,
                   'Thua Bán Kết 2',
                   thirdPlaceMatch?.status === 'FINISHED' && thirdPlaceMatch.winnerId === thirdPlaceMatch.pair2?.id
                 )}
@@ -467,12 +572,16 @@ export const AdminKnockoutManager: React.FC = () => {
               </div>
               <div className="p-3 space-y-2">
                 {renderPairBox(
-                  sf1Winner || finalMatch?.pair1,
+                  finalMatch,
+                  'pair1',
+                  finalMatch?.pair1,
                   'Thắng Bán Kết 1',
                   finalMatch?.status === 'FINISHED' && finalMatch.winnerId === finalMatch.pair1?.id
                 )}
                 {renderPairBox(
-                  sf2Winner || finalMatch?.pair2,
+                  finalMatch,
+                  'pair2',
+                  finalMatch?.pair2,
                   'Thắng Bán Kết 2',
                   finalMatch?.status === 'FINISHED' && finalMatch.winnerId === finalMatch.pair2?.id
                 )}
@@ -496,6 +605,175 @@ export const AdminKnockoutManager: React.FC = () => {
           </div>
         )}
       </div>
+
+      {/* EDIT KNOCKOUT PAIR MODAL */}
+      {editingSlot && (
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[90vh]">
+            {/* Header */}
+            <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/80 shrink-0">
+              <div>
+                <h3 className="text-sm sm:text-base font-extrabold text-slate-900 flex items-center gap-2">
+                  <Edit3 className="w-4 h-4 text-blue-600" />
+                  Đổi Cặp Đấu - Trận #{editingSlot.match.matchNumber}
+                </h3>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Vị trí: <span className="font-bold text-slate-700">{editingSlot.placeholderLabel}</span>
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setEditingSlot(null)}
+                className="w-8 h-8 rounded-lg hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Body */}
+            <div className="p-4 sm:p-5 overflow-y-auto space-y-4 flex-1">
+              {/* Current Status Info */}
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-500 font-medium">Trạng thái gán hiện tại:</span>
+                  {editingSlot.isManual ? (
+                    <span className="font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                      Chỉ định thủ công
+                    </span>
+                  ) : (
+                    <span className="font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                      Tự động theo thứ hạng
+                    </span>
+                  )}
+                </div>
+
+                {editingSlot.isManual && (
+                  <div className="pt-2 border-t border-slate-200/80 flex items-center justify-between gap-2">
+                    <span className="text-[11px] text-slate-500">
+                      Khôi phục cặp đấu theo bảng xếp hạng tự động:
+                    </span>
+                    <button
+                      type="button"
+                      onClick={handleResetToAuto}
+                      className="px-2.5 py-1 rounded-lg text-xs font-bold bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 flex items-center gap-1 transition-colors cursor-pointer"
+                    >
+                      <RotateCcw className="w-3 h-3" />
+                      Khôi phục Tự Động
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* Search Bar */}
+              <div className="relative">
+                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                <input
+                  type="text"
+                  placeholder="Tìm theo tên VĐV hoặc CLB..."
+                  value={searchTerm}
+                  onChange={e => setSearchTerm(e.target.value)}
+                  className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 bg-white"
+                />
+              </div>
+
+              {/* Pairs List grouped by Group A / Group B */}
+              <div className="space-y-3">
+                <label className="block text-xs font-extrabold text-slate-700 uppercase tracking-wider">
+                  Chọn cặp đấu tham gia:
+                </label>
+
+                {pairs.length === 0 ? (
+                  <div className="p-4 text-center text-xs text-slate-400 bg-slate-50 rounded-xl">
+                    Chưa có cặp đấu nào trong giải. Vui lòng import danh sách cặp đấu ở mục Quản lý.
+                  </div>
+                ) : (
+                  <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
+                    {pairs
+                      .filter(p => {
+                        if (!searchTerm.trim()) return true;
+                        const term = searchTerm.toLowerCase();
+                        return (
+                          p.name.toLowerCase().includes(term) ||
+                          p.code.toLowerCase().includes(term) ||
+                          p.player1?.name.toLowerCase().includes(term) ||
+                          p.player2?.name.toLowerCase().includes(term) ||
+                          p.club?.toLowerCase().includes(term) ||
+                          p.player1?.club?.toLowerCase().includes(term) ||
+                          p.player2?.club?.toLowerCase().includes(term)
+                        );
+                      })
+                      .map(p => {
+                        const isSelected = selectedPairId === p.id;
+                        return (
+                          <div
+                            key={p.id}
+                            onClick={() => setSelectedPairId(p.id)}
+                            className={`p-2.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between ${
+                              isSelected
+                                ? 'bg-blue-50/80 border-blue-500 ring-2 ring-blue-500/20'
+                                : 'bg-white hover:bg-slate-50 border-slate-200'
+                            }`}
+                          >
+                            <div className="min-w-0 flex-1 space-y-1">
+                              <div className="flex items-center gap-2">
+                                <span
+                                  className={`text-[10px] font-black px-1.5 py-0.5 rounded ${
+                                    p.group === 'A'
+                                      ? 'bg-blue-100 text-blue-800'
+                                      : 'bg-indigo-100 text-indigo-800'
+                                  }`}
+                                >
+                                  {p.code || `Bảng ${p.group}`}
+                                </span>
+                                <span className="text-xs font-bold text-slate-900 truncate">
+                                  {p.player1?.name} &amp; {p.player2?.name}
+                                </span>
+                              </div>
+                              <p className="text-[11px] text-slate-500 truncate">
+                                CLB: {p.club || p.player1?.club || p.player2?.club || 'ISC'}
+                              </p>
+                            </div>
+
+                            <div className="shrink-0 ml-2">
+                              <div
+                                className={`w-4 h-4 rounded-full border flex items-center justify-center transition-all ${
+                                  isSelected
+                                    ? 'border-blue-600 bg-blue-600 text-white'
+                                    : 'border-slate-300 bg-white'
+                                }`}
+                              >
+                                {isSelected && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="px-5 py-3.5 border-t border-slate-100 bg-slate-50/80 flex items-center justify-end gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={() => setEditingSlot(null)}
+                className="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer"
+              >
+                Hủy
+              </button>
+              <button
+                type="button"
+                onClick={handleSavePairOverride}
+                disabled={!selectedPairId}
+                className="px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white shadow-xs transition-all cursor-pointer"
+              >
+                Xác Nhận &amp; Lưu
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

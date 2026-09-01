@@ -52,6 +52,8 @@ export interface Match {
   format: ScoringFormat;
   durationMinutes?: number;
   notes?: string;
+  pair1IsManual?: boolean;
+  pair2IsManual?: boolean;
 }
 
 export interface Standing {

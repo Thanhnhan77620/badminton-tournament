@@ -199,7 +199,7 @@ export const ParticipantsSection: React.FC<ParticipantsSectionProps> = ({
         ) : (
           <div className="p-8 text-center bg-slate-50 rounded-2xl border border-slate-200">
             <p className="text-xs font-bold text-slate-500">
-              Chưa có thông tin cặp đấu được công bố
+              Chưa có thông tin
             </p>
           </div>
         )}

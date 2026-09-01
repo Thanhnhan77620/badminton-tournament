@@ -53,14 +53,7 @@ export const StandingsSection: React.FC<StandingsSectionProps> = ({
               </span>
               <div>
                 <h3 className="text-base font-bold font-display">BẢNG {groupName}</h3>
-                <p className="text-[11px] text-amber-300">Bản nháp • Chưa công bố chính thức</p>
               </div>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                Đang Chuẩn Bị
-              </span>
             </div>
           </div>
 
@@ -243,8 +236,8 @@ export const StandingsSection: React.FC<StandingsSectionProps> = ({
               })
             ) : (
               <tr>
-                <td colSpan={9} className="py-8 px-4 text-center text-xs sm:text-sm text-slate-500 font-medium">
-                  Chưa có dữ liệu bảng đấu.
+                <td colSpan={9} className="py-8 px-4 text-center text-xs sm:text-sm text-slate-500 font-bold">
+                  Chưa có thông tin
                 </td>
               </tr>
             )}
@@ -347,11 +340,6 @@ export const StandingsSection: React.FC<StandingsSectionProps> = ({
               >
                 <span className="flex items-center gap-2">
                   <span>DANH SÁCH {isScheduleAPublished ? matchesA.length : 0} TRẬN ĐẤU BẢNG A</span>
-                  {!isScheduleAPublished && (
-                    <span className="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-md">
-                      Chưa công bố
-                    </span>
-                  )}
                 </span>
                 <span className="flex items-center gap-1 text-blue-600 font-semibold">
                   {showMatchesA ? 'Thu gọn' : 'Xem chi tiết'}
@@ -399,11 +387,6 @@ export const StandingsSection: React.FC<StandingsSectionProps> = ({
               >
                 <span className="flex items-center gap-2">
                   <span>DANH SÁCH {isScheduleBPublished ? matchesB.length : 0} TRẬN ĐẤU BẢNG B</span>
-                  {!isScheduleBPublished && (
-                    <span className="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-md">
-                      Chưa công bố
-                    </span>
-                  )}
                 </span>
                 <span className="flex items-center gap-1 text-blue-600 font-semibold">
                   {showMatchesB ? 'Thu gọn' : 'Xem chi tiết'}

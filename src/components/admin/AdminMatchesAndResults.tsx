@@ -779,21 +779,22 @@ export const AdminMatchesAndResults: React.FC = () => {
             </div>
 
             <form onSubmit={handleSaveScore} className="space-y-4">
-              {/* Teams Presentation */}
-              <div className="grid grid-cols-2 gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-200 text-center">
-                <div>
-                  <span className="text-[11px] font-black text-blue-600 block">
-                    CẶP 1 ({scoringMatch.pair1?.code || 'Cặp 1'})
+              {/* Teams Presentation - 2 Rows for Full Name & Mobile First */}
+              <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
+                <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-2">
+                  <span className="text-[11px] font-black text-blue-600 shrink-0 uppercase tracking-wide">
+                    CẶP 1 ({scoringMatch.pair1?.code || 'A'}):
                   </span>
-                  <p className="text-xs font-bold text-slate-900 truncate mt-0.5">
+                  <p className="text-xs font-bold text-slate-900 leading-snug break-words">
                     {scoringMatch.pair1?.name || 'Cặp 1'}
                   </p>
                 </div>
-                <div>
-                  <span className="text-[11px] font-black text-amber-600 block">
-                    CẶP 2 ({scoringMatch.pair2?.code || 'Cặp 2'})
+                
+                <div className="border-t border-slate-200/80 pt-2 flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-2">
+                  <span className="text-[11px] font-black text-amber-600 shrink-0 uppercase tracking-wide">
+                    CẶP 2 ({scoringMatch.pair2?.code || 'B'}):
                   </span>
-                  <p className="text-xs font-bold text-slate-900 truncate mt-0.5">
+                  <p className="text-xs font-bold text-slate-900 leading-snug break-words">
                     {scoringMatch.pair2?.name || 'Cặp 2'}
                   </p>
                 </div>
