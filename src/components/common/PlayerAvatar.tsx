@@ -22,27 +22,41 @@ export const PlayerAvatar: React.FC<PlayerAvatarProps> = ({
     lg: 'w-14 h-14 text-base font-bold',
   };
 
-  // Generate clean initials (e.g. "Nguyễn Văn An" -> "NA")
+  // Generate clean initials from the last 2 words (e.g. "Nguyễn Sỹ Thành" -> "ST", "Phạm Mạnh Hà" -> "MH")
   const getInitials = (fullName: string) => {
-    const parts = fullName.trim().split(/\s+/);
-    if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
-    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    const clean = fullName.trim();
+    if (!clean) return 'VD';
+    const parts = clean.split(/\s+/);
+    if (parts.length === 1) {
+      return parts[0].substring(0, 2).toUpperCase();
+    }
+    const secondLast = parts[parts.length - 2];
+    const last = parts[parts.length - 1];
+    return ((secondLast[0] || '') + (last[0] || '')).toUpperCase();
   };
 
-  // Consistent color palette based on name hash
+  // Consistent color palette based on name hash (vibrant & modern)
   const colors = [
     'bg-blue-600 text-white',
     'bg-indigo-600 text-white',
-    'bg-sky-700 text-white',
-    'bg-slate-700 text-white',
-    'bg-teal-700 text-white',
-    'bg-cyan-700 text-white',
+    'bg-sky-600 text-white',
+    'bg-cyan-600 text-white',
+    'bg-teal-600 text-white',
+    'bg-emerald-600 text-white',
+    'bg-violet-600 text-white',
+    'bg-purple-600 text-white',
+    'bg-fuchsia-600 text-white',
+    'bg-rose-600 text-white',
+    'bg-amber-600 text-white',
+    'bg-orange-600 text-white',
   ];
 
   const colorIndex = name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % colors.length;
   const bgColor = colors[colorIndex];
 
-  if (!avatarUrl || imageError) {
+  const hasValidImage = Boolean(avatarUrl && avatarUrl.trim() !== '');
+
+  if (!hasValidImage || imageError) {
     return (
       <div
         className={`rounded-full flex items-center justify-center font-medium shrink-0 border border-white shadow-xs ${bgColor} ${sizeClasses[size]} ${className}`}

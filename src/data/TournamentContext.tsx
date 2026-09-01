@@ -789,7 +789,7 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         id: `p-imp-${Date.now()}-${Math.floor(Math.random() * 10000)}`,
         name: cleanName,
         club: cleanClub,
-        avatarUrl: `https://images.unsplash.com/photo-${1500000000000 + Math.floor(Math.random() * 900000000)}?w=150&auto=format&fit=crop&q=80`,
+        avatarUrl: '',
         role: 'VĐV',
       };
       newPlayersMap.set(key, newPlayer);

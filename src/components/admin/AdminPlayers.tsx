@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useTournament } from '../../data/TournamentContext';
 import { Player } from '../../types/tournament';
+import { PlayerAvatar } from '../common/PlayerAvatar';
 import {
   Users,
   UserPlus,
@@ -123,9 +124,7 @@ export const AdminPlayers: React.FC = () => {
         id: newId,
         name: formData.name.trim(),
         club: formData.club?.trim() || 'ISC',
-        avatarUrl:
-          formData.avatarUrl?.trim() ||
-          'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+        avatarUrl: formData.avatarUrl?.trim() || '',
         role: formData.role?.trim() || 'Vận Động Viên',
       };
       addPlayer(newPlayer);
@@ -152,7 +151,7 @@ export const AdminPlayers: React.FC = () => {
           id: `p-imp-${Date.now()}-${idx}`,
           name,
           club,
-          avatarUrl: `https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80`,
+          avatarUrl: '',
           role: 'VĐV',
         });
       }
@@ -362,11 +361,11 @@ export const AdminPlayers: React.FC = () => {
                     </td>
                     <td className="py-1.5 px-3">
                       <div className="flex items-center gap-2">
-                        <img
-                          src={player.avatarUrl}
-                          alt={player.name}
-                          referrerPolicy="no-referrer"
-                          className="w-7 h-7 rounded-full object-cover border border-slate-200 shrink-0"
+                        <PlayerAvatar
+                          name={player.name}
+                          avatarUrl={player.avatarUrl}
+                          size="sm"
+                          className="w-7 h-7 shrink-0"
                         />
                         <div className="min-w-0">
                           <span className="font-bold text-slate-900 block text-xs truncate">{player.name}</span>
