@@ -123,9 +123,7 @@ export const AdminPlayers: React.FC = () => {
         id: newId,
         name: formData.name.trim(),
         club: formData.club?.trim() || 'ISC',
-        avatarUrl:
-          formData.avatarUrl?.trim() ||
-          'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+        avatarUrl: formData.avatarUrl?.trim() || '',
         role: formData.role?.trim() || 'Vận Động Viên',
       };
       addPlayer(newPlayer);
@@ -152,7 +150,7 @@ export const AdminPlayers: React.FC = () => {
           id: `p-imp-${Date.now()}-${idx}`,
           name,
           club,
-          avatarUrl: `https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80`,
+          avatarUrl: '',
           role: 'VĐV',
         });
       }
