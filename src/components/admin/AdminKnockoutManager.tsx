@@ -189,13 +189,13 @@ export const AdminKnockoutManager: React.FC = () => {
                   name={pair.player1?.name || 'VĐV 1'}
                   avatarUrl={pair.player1?.avatarUrl}
                   size="xs"
-                  className="shrink-0 w-5 h-5"
+                  className="shrink-0 w-4.5 h-4.5"
                 />
-                <div className="min-w-0 flex items-center leading-none overflow-hidden whitespace-nowrap">
-                  <span className="text-xs font-bold whitespace-nowrap">
+                <div className="min-w-0 flex-1 flex items-baseline leading-tight">
+                  <span className="text-[11px] sm:text-xs font-bold text-slate-900 break-words line-clamp-1">
                     {pair.player1?.name || 'VĐV 1'}
                   </span>
-                  <span className="text-[10px] font-normal text-slate-500 ml-1 whitespace-nowrap">
+                  <span className="text-[9px] font-normal text-slate-500 ml-1 shrink-0 whitespace-nowrap">
                     ({pair.player1?.club || pair.club || 'ISC'})
                   </span>
                 </div>
@@ -205,13 +205,13 @@ export const AdminKnockoutManager: React.FC = () => {
                   name={pair.player2?.name || 'VĐV 2'}
                   avatarUrl={pair.player2?.avatarUrl}
                   size="xs"
-                  className="shrink-0 w-5 h-5"
+                  className="shrink-0 w-4.5 h-4.5"
                 />
-                <div className="min-w-0 flex items-center leading-none overflow-hidden whitespace-nowrap">
-                  <span className="text-xs font-bold whitespace-nowrap">
+                <div className="min-w-0 flex-1 flex items-baseline leading-tight">
+                  <span className="text-[11px] sm:text-xs font-bold text-slate-900 break-words line-clamp-1">
                     {pair.player2?.name || 'VĐV 2'}
                   </span>
-                  <span className="text-[10px] font-normal text-slate-500 ml-1 whitespace-nowrap">
+                  <span className="text-[9px] font-normal text-slate-500 ml-1 shrink-0 whitespace-nowrap">
                     ({pair.player2?.club || pair.club || 'ISC'})
                   </span>
                 </div>

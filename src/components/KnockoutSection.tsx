@@ -145,18 +145,18 @@ const BracketMatchCard: React.FC<{
                 <PlayerAvatar
                   name={effectivePair1.player1?.name || 'VĐV 1'}
                   avatarUrl={effectivePair1.player1?.avatarUrl}
-                  className="ring-1 ring-slate-200 shrink-0 w-5 h-5 sm:w-6 sm:h-6 text-[9px] sm:text-[10px]"
+                  className="ring-1 ring-slate-200 shrink-0 w-4.5 h-4.5 sm:w-5 sm:h-5 text-[8.5px] sm:text-[9px]"
                 />
-                <div className="min-w-0 flex-1 flex items-center leading-none overflow-hidden">
+                <div className="min-w-0 flex-1 flex items-baseline leading-tight">
                   <span
-                    className={`text-[11px] xs:text-xs sm:text-[12px] md:text-[13px] whitespace-nowrap truncate ${
-                      isPair1Winner ? 'font-black text-slate-950' : 'font-bold text-slate-900'
+                    className={`text-[10.5px] sm:text-[11.5px] lg:text-[12px] font-bold break-words line-clamp-1 ${
+                      isPair1Winner ? 'text-slate-950 font-black' : 'text-slate-900'
                     }`}
                     title={`${effectivePair1.player1?.name || 'VĐV 1'} (${effectivePair1.player1?.club || effectivePair1.club || 'ISC'})`}
                   >
                     {effectivePair1.player1?.name || 'VĐV 1'}
                   </span>
-                  <span className="text-[9px] sm:text-[10px] text-slate-400 font-medium ml-1 whitespace-nowrap shrink-0">
+                  <span className="text-[8.5px] sm:text-[9.5px] text-slate-400 font-medium ml-1 shrink-0 whitespace-nowrap">
                     ({effectivePair1.player1?.club || effectivePair1.club || 'ISC'})
                   </span>
                 </div>
@@ -167,18 +167,18 @@ const BracketMatchCard: React.FC<{
                 <PlayerAvatar
                   name={effectivePair1.player2?.name || 'VĐV 2'}
                   avatarUrl={effectivePair1.player2?.avatarUrl}
-                  className="ring-1 ring-slate-200 shrink-0 w-5 h-5 sm:w-6 sm:h-6 text-[9px] sm:text-[10px]"
+                  className="ring-1 ring-slate-200 shrink-0 w-4.5 h-4.5 sm:w-5 sm:h-5 text-[8.5px] sm:text-[9px]"
                 />
-                <div className="min-w-0 flex-1 flex items-center leading-none overflow-hidden">
+                <div className="min-w-0 flex-1 flex items-baseline leading-tight">
                   <span
-                    className={`text-[11px] xs:text-xs sm:text-[12px] md:text-[13px] whitespace-nowrap truncate ${
-                      isPair1Winner ? 'font-black text-slate-950' : 'font-bold text-slate-900'
+                    className={`text-[10.5px] sm:text-[11.5px] lg:text-[12px] font-bold break-words line-clamp-1 ${
+                      isPair1Winner ? 'text-slate-950 font-black' : 'text-slate-900'
                     }`}
                     title={`${effectivePair1.player2?.name || 'VĐV 2'} (${effectivePair1.player2?.club || effectivePair1.club || 'ISC'})`}
                   >
                     {effectivePair1.player2?.name || 'VĐV 2'}
                   </span>
-                  <span className="text-[9px] sm:text-[10px] text-slate-400 font-medium ml-1 whitespace-nowrap shrink-0">
+                  <span className="text-[8.5px] sm:text-[9.5px] text-slate-400 font-medium ml-1 shrink-0 whitespace-nowrap">
                     ({effectivePair1.player2?.club || effectivePair1.club || 'ISC'})
                   </span>
                 </div>
@@ -265,18 +265,18 @@ const BracketMatchCard: React.FC<{
                 <PlayerAvatar
                   name={effectivePair2.player1?.name || 'VĐV 1'}
                   avatarUrl={effectivePair2.player1?.avatarUrl}
-                  className="ring-1 ring-slate-200 shrink-0 w-5 h-5 sm:w-6 sm:h-6 text-[9px] sm:text-[10px]"
+                  className="ring-1 ring-slate-200 shrink-0 w-4.5 h-4.5 sm:w-5 sm:h-5 text-[8.5px] sm:text-[9px]"
                 />
-                <div className="min-w-0 flex-1 flex items-center leading-none overflow-hidden">
+                <div className="min-w-0 flex-1 flex items-baseline leading-tight">
                   <span
-                    className={`text-[11px] xs:text-xs sm:text-[12px] md:text-[13px] whitespace-nowrap truncate ${
-                      isPair2Winner ? 'font-black text-slate-950' : 'font-bold text-slate-900'
+                    className={`text-[10.5px] sm:text-[11.5px] lg:text-[12px] font-bold break-words line-clamp-1 ${
+                      isPair2Winner ? 'text-slate-950 font-black' : 'text-slate-900'
                     }`}
                     title={`${effectivePair2.player1?.name || 'VĐV 1'} (${effectivePair2.player1?.club || effectivePair2.club || 'ISC'})`}
                   >
                     {effectivePair2.player1?.name || 'VĐV 1'}
                   </span>
-                  <span className="text-[9px] sm:text-[10px] text-slate-400 font-medium ml-1 whitespace-nowrap shrink-0">
+                  <span className="text-[8.5px] sm:text-[9.5px] text-slate-400 font-medium ml-1 shrink-0 whitespace-nowrap">
                     ({effectivePair2.player1?.club || effectivePair2.club || 'ISC'})
                   </span>
                 </div>
@@ -287,18 +287,18 @@ const BracketMatchCard: React.FC<{
                 <PlayerAvatar
                   name={effectivePair2.player2?.name || 'VĐV 2'}
                   avatarUrl={effectivePair2.player2?.avatarUrl}
-                  className="ring-1 ring-slate-200 shrink-0 w-5 h-5 sm:w-6 sm:h-6 text-[9px] sm:text-[10px]"
+                  className="ring-1 ring-slate-200 shrink-0 w-4.5 h-4.5 sm:w-5 sm:h-5 text-[8.5px] sm:text-[9px]"
                 />
-                <div className="min-w-0 flex-1 flex items-center leading-none overflow-hidden">
+                <div className="min-w-0 flex-1 flex items-baseline leading-tight">
                   <span
-                    className={`text-[11px] xs:text-xs sm:text-[12px] md:text-[13px] whitespace-nowrap truncate ${
-                      isPair2Winner ? 'font-black text-slate-950' : 'font-bold text-slate-900'
+                    className={`text-[10.5px] sm:text-[11.5px] lg:text-[12px] font-bold break-words line-clamp-1 ${
+                      isPair2Winner ? 'text-slate-950 font-black' : 'text-slate-900'
                     }`}
                     title={`${effectivePair2.player2?.name || 'VĐV 2'} (${effectivePair2.player2?.club || effectivePair2.club || 'ISC'})`}
                   >
                     {effectivePair2.player2?.name || 'VĐV 2'}
                   </span>
-                  <span className="text-[9px] sm:text-[10px] text-slate-400 font-medium ml-1 whitespace-nowrap shrink-0">
+                  <span className="text-[8.5px] sm:text-[9.5px] text-slate-400 font-medium ml-1 shrink-0 whitespace-nowrap">
                     ({effectivePair2.player2?.club || effectivePair2.club || 'ISC'})
                   </span>
                 </div>
