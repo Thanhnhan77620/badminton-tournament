@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useTournament } from '../../data/TournamentContext';
 import { Player } from '../../types/tournament';
+import { PlayerAvatar } from '../common/PlayerAvatar';
 import {
   Users,
   UserPlus,
@@ -360,11 +361,11 @@ export const AdminPlayers: React.FC = () => {
                     </td>
                     <td className="py-1.5 px-3">
                       <div className="flex items-center gap-2">
-                        <img
-                          src={player.avatarUrl}
-                          alt={player.name}
-                          referrerPolicy="no-referrer"
-                          className="w-7 h-7 rounded-full object-cover border border-slate-200 shrink-0"
+                        <PlayerAvatar
+                          name={player.name}
+                          avatarUrl={player.avatarUrl}
+                          size="sm"
+                          className="w-7 h-7 shrink-0"
                         />
                         <div className="min-w-0">
                           <span className="font-bold text-slate-900 block text-xs truncate">{player.name}</span>

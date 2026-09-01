@@ -54,7 +54,9 @@ export const PlayerAvatar: React.FC<PlayerAvatarProps> = ({
   const colorIndex = name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % colors.length;
   const bgColor = colors[colorIndex];
 
-  if (!avatarUrl || imageError) {
+  const hasValidImage = Boolean(avatarUrl && avatarUrl.trim() !== '');
+
+  if (!hasValidImage || imageError) {
     return (
       <div
         className={`rounded-full flex items-center justify-center font-medium shrink-0 border border-white shadow-xs ${bgColor} ${sizeClasses[size]} ${className}`}
