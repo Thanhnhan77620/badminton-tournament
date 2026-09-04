@@ -16,6 +16,7 @@ import {
   getTournamentFromCloud,
   TournamentCloudState,
 } from '../lib/firestoreService';
+import { isFirebaseConfigured } from '../lib/firebase';
 import { authService } from '../lib/authService';
 import { verifyLoginPasscode } from '../lib/authConfigService';
 
@@ -132,9 +133,9 @@ const TournamentContext = createContext<TournamentContextType | undefined>(undef
 
 // Helper to sanitize and ensure rules and supplementary regulations are always populated
 const sanitizeTournamentInfo = (tour: TournamentInfo): TournamentInfo => {
-  if (!tour) return { ...defaultTournamentInfo, status: 'IN_PROGRESS' };
+  if (!tour) return { ...defaultTournamentInfo, status: 'IN_PROGRESS', rulesVersion: 3 };
   const rules =
-    tour.rules && Array.isArray(tour.rules) && tour.rules.length > 0
+    tour.rulesVersion === 3 && tour.rules && Array.isArray(tour.rules) && tour.rules.length > 0
       ? tour.rules.map((r, i) => {
           if (!r || !r.formatDescription || r.formatDescription.trim() === '') {
             return DEFAULT_RULES[i] || r;
@@ -146,6 +147,7 @@ const sanitizeTournamentInfo = (tour: TournamentInfo): TournamentInfo => {
   return {
     ...tour,
     rules,
+    rulesVersion: 3,
     supplementaryRegulations:
       tour.supplementaryRegulations && tour.supplementaryRegulations.length > 0
         ? tour.supplementaryRegulations
@@ -413,6 +415,12 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       const ts = Date.now();
       localUpdateTimestampRef.current = ts;
       saveToLocalStorage(newTournament, newPairs, newMatches, newPlayers);
+
+      if (!isFirebaseConfigured) {
+        setCloudSyncStatus('offline');
+        return;
+      }
+
       try {
         setCloudSyncStatus('syncing');
         const success = await saveTournamentToCloud(
@@ -439,6 +447,12 @@ export const TournamentProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
   // Initialize Firestore Real-time Listener on Mount
   useEffect(() => {
+    if (!isFirebaseConfigured) {
+      setCloudSyncStatus('offline');
+      setIsRealtimeConnected(false);
+      return;
+    }
+
     let isSubscribed = true;
 
     const unsubscribe = subscribeTournamentFromCloud(

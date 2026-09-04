@@ -254,10 +254,6 @@ export const StandingsSection: React.FC<StandingsSectionProps> = ({
               </span>
               <span className="text-slate-300">•</span>
               <span>1 Trận Thắng = 1 Điểm</span>
-              <span className="text-slate-300">•</span>
-              <span className="text-amber-900 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
-                Đ.Thua (TT): Tổng điểm thua ở những trận thua (ít điểm thua hơn xếp trên, VD: thua 19-21, 18-21 &rarr; 2 + 3 = 5 điểm)
-              </span>
             </div>
           </div>
         </div>

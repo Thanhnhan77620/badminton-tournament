@@ -15,6 +15,10 @@ export const authService = {
    * Listen to auth state changes
    */
   onAuthStateChanged(callback: (user: User | null) => void) {
+    if (!auth) {
+      callback(null);
+      return () => {};
+    }
     return onAuthStateChanged(auth, callback);
   },
 
@@ -22,6 +26,7 @@ export const authService = {
    * Get current authenticated user
    */
   getCurrentUser(): User | null {
+    if (!auth) return null;
     return auth.currentUser;
   },
 
@@ -29,6 +34,9 @@ export const authService = {
    * Authenticate admin via Email / Password
    */
   async loginWithEmail(email: string, pass: string): Promise<{ success: boolean; user?: User; error?: string }> {
+    if (!auth) {
+      return { success: false, error: 'Dịch vụ Firebase Auth chưa được cấu hình.' };
+    }
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email.trim(), pass);
       return { success: true, user: userCredential.user };
@@ -43,6 +51,9 @@ export const authService = {
    * Authenticate admin via BTC Passcode mapped securely to admin account or anonymous token
    */
   async loginWithPasscode(passcode: string): Promise<{ success: boolean; user?: User; error?: string }> {
+    if (!auth) {
+      return { success: false, error: 'Dịch vụ Firebase Auth chưa được cấu hình.' };
+    }
     const trimmed = passcode.trim();
     // Allow BTC to login with passcode by authenticating with Firebase
     const adminEmail = `btc_${trimmed.toLowerCase()}@badminton.local`;
@@ -66,6 +77,9 @@ export const authService = {
    * Anonymous login for authorized sessions or referees
    */
   async loginAnonymously(): Promise<{ success: boolean; user?: User; error?: string }> {
+    if (!auth) {
+      return { success: false, error: 'Dịch vụ Firebase Auth chưa được cấu hình.' };
+    }
     try {
       const userCredential = await signInAnonymously(auth);
       return { success: true, user: userCredential.user };
@@ -80,6 +94,7 @@ export const authService = {
    * Sign out current user
    */
   async logout(): Promise<void> {
+    if (!auth) return;
     try {
       await signOut(auth);
     } catch (err) {

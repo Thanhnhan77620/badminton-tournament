@@ -72,48 +72,50 @@ export const DEFAULT_SUPPLEMENTARY_REGULATIONS: SupplementaryRegulation[] = [
 export const DEFAULT_RULES: TournamentRuleItem[] = [
   {
     stage: 'Vòng Bảng',
-    formatDescription: `• **Thể thức thi đấu**: Chia làm 2 bảng (Bảng A & Bảng B), mỗi bảng gồm 5 cặp đôi thi đấu vòng tròn tính điểm 1 lượt (tổng cộng 10 trận/bảng).
-• **Quy định set đấu**: Thi đấu **1 set 21 điểm** chạm 21 (đội nào đạt 21 điểm trước sẽ giành chiến thắng trong trận đấu đó).
-• **Quy tắc xếp hạng & Tính điểm**:
-  1) **Số trận thắng**: Mỗi trận thắng được tính **1 điểm**.
-  2) **Nếu đồng số trận thắng**: Xét **hệ số điểm bị thua trên trận thua** (\`Đ.THUA TT\` - đội bị thua ít điểm hơn xếp trên. Ví dụ: Thua 19–21 [-2 điểm] xếp trên Thua 17–21 [-4 điểm]).
-  3) **Điểm ghi được trong trận thua**: Đội ghi được nhiều điểm hơn trong các trận thua xếp trên.
-  4) **Hiệu số điểm**: Toàn giải (Điểm thắng - Điểm thua).
-  5) **Tổng điểm thắng**: Toàn giải.
-  6) **Đối đầu trực tiếp**: Xét kết quả đối đầu nếu các chỉ số trên hoàn toàn bằng nhau.
-• **Điều kiện đi tiếp**: **Top 2 cặp đấu** có thành tích tốt nhất mỗi bảng (Nhất Bảng & Nhì Bảng) giành quyền vào vòng Bán Kết.`,
+    formatDescription: `• **Thể thức**: 2 bảng (A & B), 5 cặp/bảng, đấu vòng tròn 1 lượt (10 trận/bảng).
+• **Quy định trận**: Thi đấu **1 set 21 điểm** (cách biệt 2 điểm, chạm tối đa 30 điểm - tới 30 là dừng).
+• **Tính điểm**: Thắng = **1 điểm** | Thua = **0 điểm**.
+• **Xếp hạng khi bằng điểm** (xét lần lượt):
+  1) **Hệ số thua ở trận thua** (\`Đ.THUA TT\`): Thua ít điểm hơn xếp trên (VD: thua 19–21 [-2] xếp trên thua 17–21 [-4]).
+  2) **Điểm ghi trong trận thua**: Ghi nhiều điểm hơn xếp trên.
+  3) **Hiệu số điểm toàn giải** (Điểm ghi - Điểm mất): Cao hơn xếp trên.
+  4) **Tổng điểm thắng toàn giải**: Ghi nhiều điểm hơn xếp trên.
+  5) **Đối đầu trực tiếp**: Thắng đối đầu xếp trên.
+  6) **Tổng điểm thua toàn giải**: Để thua ít điểm hơn xếp trên.
+• **Vé đi tiếp**: **Top 2 mỗi bảng** (Nhất & Nhì bảng) vào vòng Bán Kết.`,
     scoringRules: [
-      'Thi đấu 1 set 21 điểm chạm 21 (không áp dụng cách biệt 2 điểm)',
+      'Thi đấu 1 set 21 điểm (cách biệt 2 điểm, tối đa 30 điểm - tới 30 là dừng)',
       'Mỗi trận thắng được tính 1 điểm trên bảng xếp hạng',
-      'Đồng điểm: Ưu tiên xét đội có hệ số điểm bị thua ít hơn ở các trận thua',
-      'Top 2 cặp dẫn đầu mỗi bảng giành vé vào vòng Bán Kết'
+      'Đồng điểm: Ưu tiên đội có hệ số điểm bị thua ít hơn ở các trận thua',
+      'Top 2 mỗi bảng giành vé vào vòng Bán Kết',
     ],
     advancement: 'Top 2 mỗi bảng (Nhất & Nhì Bảng A, B) giành quyền bước vào vòng Bán Kết.',
   },
   {
     stage: 'Bán Kết',
-    formatDescription: `• **Thể thức thi đấu**: Đấu loại trực tiếp theo sơ đồ phân nhánh bắt chéo:
-  - **Bán Kết 1 (BK1)**: Nhất Bảng A gặp Nhì Bảng B
-  - **Bán Kết 2 (BK2)**: Nhất Bảng B gặp Nhì Bảng A
-• **Quy định set đấu**: Thi đấu **3 set thắng 2 (Best of 3)**, mỗi set đánh đến **15 điểm** (chạm 15 điểm trước là thắng set).
-• **Phân nhánh kết quả sau trận**:
-  - **2 cặp đôi giành chiến thắng**: Tiến thẳng vào trận **Chung Kết** tranh Cúp Vô Địch.
-  - **2 cặp đôi dừng bước**: Bước vào trận **Tranh Hạng Ba**.`,
+    formatDescription: `• **Thể thức**: Đấu loại trực tiếp theo sơ đồ bắt chéo:
+  - **BK1**: Nhất Bảng A vs Nhì Bảng B
+  - **BK2**: Nhất Bảng B vs Nhì Bảng A
+• **Quy định trận**: Thi đấu **3 set thắng 2** (Best of 3), mỗi set **15 điểm** chạm 15.
+• **Phân nhánh sau trận**:
+  - 2 cặp **Thắng** ➔ Vào trận **Chung Kết** tranh Cúp Vô Địch.
+  - 2 cặp **Thua** ➔ Vào trận **Tranh Hạng Ba**.`,
     scoringRules: [
       'Thi đấu 3 set thắng 2 (Best of 3), mỗi set 15 điểm chạm 15',
       'Sơ đồ bắt chéo: Nhất A vs Nhì B | Nhất B vs Nhì A',
-      '2 cặp thắng vào Chung Kết, 2 cặp thua thi đấu Tranh Hạng Ba'
+      '2 cặp thắng vào Chung Kết, 2 cặp thua thi đấu Tranh Hạng Ba',
     ],
     advancement: '2 cặp thắng vào Chung Kết tranh Cúp Vô Địch, 2 cặp thua thi đấu Tranh Hạng Ba.',
   },
   {
     stage: 'Chung Kết & Tranh Hạng Ba',
-    formatDescription: `• **Trận Tranh Hạng Ba**: 2 cặp thua ở vòng Bán Kết gặp nhau, thi đấu **3 set thắng 2 (Best of 3 15 điểm)** để xác định **Cặp Hạng Ba** (Huy chương Đồng) và **Cặp Hạng Tư**.
-• **Trận Chung Kết Tranh Cúp**: 2 cặp thắng ở Bán Kết tranh tài, thi đấu **3 set thắng 2 (Best of 3 15 điểm)** xác định **Nhà Vô Địch** (Cúp + Huy chương Vàng) và **Á Quân** (Huy chương Bạc).
-• **Lễ trao giải & Bế mạc**: Trao cúp lưu niệm, huy chương danh giá và tiền thưởng cho Top 4 cặp VĐV xuất sắc nhất giải đấu ngay sau khi trận Chung Kết kết thúc.`,
+    formatDescription: `• **Trận Tranh Hạng Ba**: 2 cặp thua Bán Kết gặp nhau ➔ Tranh **Huy chương Đồng** (Hạng 3) & Hạng 4.
+• **Trận Chung Kết**: 2 cặp thắng Bán Kết tranh tài ➔ Tranh **Cúp Vô Địch** (Huy chương Vàng) & **Á Quân** (Huy chương Bạc).
+• **Quy định trận**: Thi đấu **3 set thắng 2** (Best of 3), mỗi set **15 điểm** chạm 15.
+• **Bế mạc & Trao thưởng**: Trao cúp, huy chương và tiền thưởng cho **Top 4** ngay sau trận Chung Kết.`,
     scoringRules: [
       'Chung Kết & Tranh Hạng Ba: Thi đấu 3 set thắng 2 (Best of 3 15 điểm)',
-      'Trao Cúp, Huy chương & Tiền thưởng cho Top 4 chung cuộc'
+      'Trao Cúp, Huy chương & Tiền thưởng cho Top 4 chung cuộc',
     ],
     advancement: 'Xác định thứ hạng chung cuộc: Quán Quân (Vàng), Á Quân (Bạc), Hạng Ba (Đồng) và Hạng Tư.',
   },
@@ -177,6 +179,7 @@ export const tournamentInfo: TournamentInfo = {
     },
   ],
   rules: DEFAULT_RULES,
+  rulesVersion: 3,
 };
 
 export const PLACEHOLDER_PAIRS: Record<string, Pair> = {

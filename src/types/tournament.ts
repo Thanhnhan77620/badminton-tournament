@@ -122,6 +122,7 @@ export interface TournamentInfo {
   status: TournamentStatus;
   prizes: Prize[];
   rules: TournamentRuleItem[];
+  rulesVersion?: number;
   supplementaryRegulations?: SupplementaryRegulation[];
   // Publish status for Groups & Schedules (Draft vs Public)
   isGroupAPublished?: boolean;
