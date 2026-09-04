@@ -223,10 +223,45 @@ export const AdminMatchesAndResults: React.FC = () => {
           }
         }
       } else {
-        // ONE_SET_21
+        // ONE_SET_21 (21 điểm, cách biệt 2 điểm, chạm tối đa 30 điểm - tới 30 là dừng)
         if (valS1P1 === valS1P2) {
-          setScoreError('Trong thi đấu cầu lông, kết thúc trận đấu không thể hòa điểm (ví dụ 21 - 21). Vui lòng nhập điểm chính xác!');
+          setScoreError('Trong thi đấu cầu lông, kết thúc trận đấu không thể hòa điểm. Vui lòng nhập điểm chính xác!');
           return;
+        }
+
+        const maxScore = Math.max(valS1P1, valS1P2);
+        const minScore = Math.min(valS1P1, valS1P2);
+        const diff = maxScore - minScore;
+
+        if (maxScore > 30) {
+          setScoreError('Điểm số tối đa là 30 điểm (chạm 30 là kết thúc trận). Không thể nhập điểm lớn hơn 30!');
+          return;
+        }
+
+        if (maxScore < 21) {
+          setScoreError('Đội thắng phải đạt tối thiểu 21 điểm để kết thúc trận (hoặc dùng Xử Thắng Walkover nếu bỏ cuộc)!');
+          return;
+        }
+
+        if (maxScore === 21) {
+          if (diff < 2) {
+            setScoreError('Khi hòa 20 - 20, hai đội phải thi đấu tiếp để tạo cách biệt 2 điểm (ví dụ: 22 - 20) hoặc chạm 30 điểm!');
+            return;
+          }
+        } else if (maxScore < 30) {
+          if (diff < 2) {
+            setScoreError(`Khi vượt mốc 20 điểm, đội thắng phải tạo cách biệt 2 điểm (ví dụ: ${maxScore} - ${maxScore - 2}) hoặc chạm 30 điểm!`);
+            return;
+          }
+          if (diff > 2) {
+            setScoreError(`Tỷ số không hợp lệ: Trận đấu đã phải kết thúc khi đạt cách biệt 2 điểm (ví dụ: ${minScore + 2} - ${minScore})!`);
+            return;
+          }
+        } else if (maxScore === 30) {
+          if (minScore < 28) {
+            setScoreError('Tỷ số không hợp lệ: Trận đấu đã phải kết thúc khi đạt cách biệt 2 điểm trước đó hoặc chạm 30 khi hòa 28-28 / 29-29!');
+            return;
+          }
         }
       }
     }
@@ -803,7 +838,7 @@ export const AdminMatchesAndResults: React.FC = () => {
               {/* Set 1 Inputs */}
               <div className="p-3.5 rounded-xl border border-slate-200 space-y-2">
                 <div className="flex items-center justify-between text-xs font-bold text-slate-700">
-                  <span>SET 1 {scoringMatch.format === 'ONE_SET_21' ? '(Chạm 21 điểm)' : '(Chạm 15 điểm)'}</span>
+                  <span>SET 1 {scoringMatch.format === 'ONE_SET_21' ? '(21 điểm • Cách biệt 2đ • Tối đa 30đ)' : '(Chạm 15 điểm)'}</span>
                   <span className="text-slate-400 text-[11px]">Tỷ số chính</span>
                 </div>
                 <div className="grid grid-cols-2 gap-4 items-center">

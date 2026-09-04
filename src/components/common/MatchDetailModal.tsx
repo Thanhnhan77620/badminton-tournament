@@ -75,7 +75,7 @@ export const MatchDetailModal: React.FC<MatchDetailModalProps> = ({ match, onClo
               )}
             </div>
             <span className="text-[11px] font-medium text-slate-500">
-              {isBestOf3 ? 'Chạm 15 điểm (Best of 3)' : '1 set chạm 21 điểm'}
+              {isBestOf3 ? 'Chạm 15 điểm (Best of 3)' : '1 set 21 điểm'}
             </span>
           </div>
 

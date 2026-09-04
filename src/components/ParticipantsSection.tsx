@@ -55,9 +55,6 @@ export const ParticipantsSection: React.FC<ParticipantsSectionProps> = ({
               <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 font-display tracking-tight">
                 Danh Sách Cặp Đấu
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-                Các cặp vận động viên tham gia tranh tài tại hai Bảng A và B
-              </p>
             </div>
           </div>
 

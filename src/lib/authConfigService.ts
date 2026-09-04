@@ -1,5 +1,5 @@
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { db } from './firebase';
+import { db, isFirebaseConfigured } from './firebase';
 import { hashWithSalt, recordFailedAttempt, resetRateLimit, getRateLimitStatus } from './cryptoUtils';
 
 export interface AdminSecurityConfig {
@@ -16,6 +16,9 @@ const CONFIG_DOC_ID = 'admin_security';
  * Fetch security config purely from Firestore DB
  */
 export async function getAdminSecurityConfig(): Promise<AdminSecurityConfig | null> {
+  if (!isFirebaseConfigured || !db) {
+    return null;
+  }
   try {
     const docRef = doc(db, CONFIG_COLLECTION, CONFIG_DOC_ID);
     const snap = await getDoc(docRef);
