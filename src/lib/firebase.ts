@@ -10,6 +10,7 @@ const firebaseConfig = {
   authDomain: env.VITE_FIREBASE_AUTH_DOMAIN || '',
   projectId: env.VITE_FIREBASE_PROJECT_ID || '',
   appId: env.VITE_FIREBASE_APP_ID || '',
+  firestoreDatabaseId: env.VITE_FIREBASE_FIRESTORE_DATABASE_ID || '',
 };
 
 // Auto-fill fallback in dev environment if local json is present
@@ -22,6 +23,9 @@ if (localFile) {
   if (!firebaseConfig.authDomain) firebaseConfig.authDomain = localFile.authDomain || '';
   if (!firebaseConfig.projectId) firebaseConfig.projectId = localFile.projectId || '';
   if (!firebaseConfig.appId) firebaseConfig.appId = localFile.appId || '';
+  if (!firebaseConfig.firestoreDatabaseId && localFile.firestoreDatabaseId) {
+    firebaseConfig.firestoreDatabaseId = localFile.firestoreDatabaseId;
+  }
 }
 
 export const isFirebaseConfigured = Boolean(
@@ -46,7 +50,11 @@ const app: FirebaseApp | null = isFirebaseConfigured
 export const auth: Auth | null = app ? getAuth(app) : null;
 
 // Initialize Firestore
-export const db: Firestore | null = app ? getFirestore(app) : null;
+export const db: Firestore | null = app
+  ? (firebaseConfig.firestoreDatabaseId && firebaseConfig.firestoreDatabaseId !== '(default)'
+      ? getFirestore(app, firebaseConfig.firestoreDatabaseId)
+      : getFirestore(app))
+  : null;
 
 export const TOURNAMENT_DOC_ID = 'badminton-open-2026';
 export { firebaseConfig };

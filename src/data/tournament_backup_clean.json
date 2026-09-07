@@ -1,0 +1,2126 @@
+{
+  "updatedAt": "2026-09-04T10:02:11.095Z",
+  "players": [
+    {
+      "id": "p-imp-1788276098940-1594",
+      "name": "Hà Tuấn Kiệt",
+      "club": "ISC",
+      "avatarUrl": "",
+      "role": "VĐV"
+    },
+    {
+      "id": "p-imp-1788276098940-7064",
+      "name": "Nguyễn Hồng Đăng",
+      "club": "ISC",
+      "avatarUrl": "",
+      "role": "VĐV"
+    },
+    {
+      "id": "p-imp-1788276098940-7279",
+      "name": "Phạm Đăng Khôi",
+      "club": "CDC",
+      "avatarUrl": "",
+      "role": "VĐV"
+    },
+    {
+      "id": "p-imp-1788276098940-7035",
+      "name": "Trịnh Quốc Việt",
+      "club": "ISC",
+      "avatarUrl": "",
+      "role": "VĐV"
+    },
+    {
+      "id": "p-imp-1788276098941-6454",
+      "name": "Lê Minh Quân",
+      "club": "ISC",
+      "avatarUrl": "",
+      "role": "VĐV"
+    },
+    {
+      "id": "p-imp-1788276098941-3226",
+      "name": "Nguyễn Thanh Nhân",
+      "club": "ISC",
+      "avatarUrl": "",
+      "role": "VĐV"
+    },
+    {
+      "id": "p-imp-1788276098941-8071",
+      "name": "Cao Trọng Phước",
+      "club": "CDC",
+      "avatarUrl": "",
+      "role": "VĐV"
+    },
+    {
+      "id": "p-imp-1788276098941-6278",
+      "name": "Trần Văn Huấn",
+      "club": "ISC",
+      "avatarUrl": "",
+      "role": "VĐV"
+    },
+    {
+      "id": "p-imp-1788276098941-4971",
+      "name": "Đinh Quốc Khánh Nguyên",
+      "club": "ISC",
+      "avatarUrl": "",
+      "role": "VĐV"
+    },
+    {
+      "id": "p-imp-1788276098941-4579",
+      "name": "Huỳnh Hữu Khang",
+      "club": "ISC",
+      "avatarUrl": "",
+      "role": "VĐV"
+    },
+    {
+      "id": "p-imp-1788276107517-7156",
+      "name": "Võ Minh Tuấn",
+      "club": "ISC",
+      "avatarUrl": "",
+      "role": "VĐV"
+    },
+    {
+      "id": "p-imp-1788276107517-1486",
+      "name": "Bùi Ngọc Hoàng",
+      "club": "ISC",
+      "avatarUrl": "",
+      "role": "VĐV"
+    },
+    {
+      "id": "p-imp-1788276107517-2801",
+      "name": "Trần Văn Bắc",
+      "club": "ISC",
+      "avatarUrl": "",
+      "role": "VĐV"
+    },
+    {
+      "id": "p-imp-1788276107517-7545",
+      "name": "Mai Vũ Phong",
+      "club": "CDC",
+      "avatarUrl": "",
+      "role": "VĐV"
+    },
+    {
+      "id": "p-imp-1788276107517-9362",
+      "name": "Hà Cát Thịnh",
+      "club": "CDC",
+      "avatarUrl": "",
+      "role": "VĐV"
+    },
+    {
+      "id": "p-imp-1788276107517-9003",
+      "name": "Nguyễn Minh Trọng",
+      "club": "ISC",
+      "avatarUrl": "",
+      "role": "VĐV"
+    },
+    {
+      "id": "p-imp-1788276107517-1495",
+      "name": "Trịnh Hùng Nam",
+      "club": "ISC",
+      "avatarUrl": "",
+      "role": "VĐV"
+    },
+    {
+      "id": "p-imp-1788276107517-3901",
+      "name": "Nguyễn Thanh Đủ",
+      "club": "ISC",
+      "avatarUrl": "",
+      "role": "VĐV"
+    },
+    {
+      "id": "p-imp-1788276107517-7394",
+      "name": "Nguyễn Sỹ Thành",
+      "club": "ISC",
+      "avatarUrl": "",
+      "role": "VĐV"
+    },
+    {
+      "id": "p-imp-1788276107517-4820",
+      "name": "Phạm Mạnh Hà",
+      "club": "ISC",
+      "avatarUrl": "",
+      "role": "VĐV"
+    }
+  ],
+  "tournament": {
+    "categoryEn": "Men's Doubles",
+    "date": "12 Tháng 09, 2026",
+    "isScheduleKnockoutPublished": false,
+    "totalPairs": 10,
+    "rawDate": "2026-09-12T08:00:00+07:00",
+    "groupsCount": 2,
+    "id": "isc-open-2026",
+    "category": "Đôi Nam",
+    "timeRange": "8h - 12h",
+    "supplementaryRegulations": [
+      {
+        "id": "let_rule",
+        "title": "Quy Định Đánh Lại Điểm (Quả Cầu Hỏng / \"Let\")",
+        "subtitle": "Các trường hợp pha cầu bị hủy và tiến hành phát lại mà không tính điểm",
+        "items": [
+          {
+            "id": "let-1",
+            "label": "1",
+            "title": "Ngoại cảnh can thiệp bất ngờ:",
+            "description": "Có cầu từ sân khác bay vào khu vực thi đấu, hoặc có người/vật cản đột ngột di chuyển vào sân làm ảnh hưởng trực tiếp đến pha cầu đang diễn ra."
+          },
+          {
+            "id": "let-2",
+            "label": "2",
+            "title": "Bên nhận chưa sẵn sàng:",
+            "description": "Bên phát cầu thực hiện giao cầu khi bên nhận chưa có tư thế sẵn sàng (với điều kiện bên nhận không có hành động cố gắng đỡ cầu)."
+          },
+          {
+            "id": "let-3",
+            "label": "3",
+            "title": "Cầu hỏng hoặc mắc kẹt trên lưới:",
+            "description": "Quả cầu bị gãy cánh lông/vỡ nát bất ngờ giữa pha đánh, hoặc cầu bị mắc lại trên đỉnh lưới (ngoại trừ trường hợp quả giao cầu chạm lưới)."
+          },
+          {
+            "id": "let-4",
+            "label": "4",
+            "title": "Tranh chấp không thể phân định:",
+            "description": "Trọng tài hoặc 2 đội không thể xác định chính xác cầu trong hay ngoài sân và không đạt được sự đồng thuận sau khi trao đổi nhanh."
+          }
+        ],
+        "noteTitle": "📌 Lưu ý:",
+        "noteContent": "Khi có hiệu lệnh \"Đánh lại\", bên vừa phát cầu sẽ thực hiện lại quả giao cầu từ ô phát cầu tương ứng với điểm số hiện tại."
+      },
+      {
+        "id": "walkover_rule",
+        "title": "Quy Định Bỏ Cuộc / Bỏ Giải (Walkover - WO)",
+        "subtitle": "Biện pháp xử lý điểm số và thứ hạng khi có cặp VĐV không thể hoàn thành giải đấu",
+        "items": [
+          {
+            "id": "wo-1",
+            "label": "A",
+            "title": "Bỏ cuộc giữa trận (Dừng do chấn thương / sự cố):",
+            "description": "Cặp đấu dừng trận bị xử thua. Cặp đối thủ được tính thắng với điểm tối đa của trận (21 điểm hoặc đủ điểm thắng set), giữ nguyên điểm số hiện có của cặp bỏ cuộc để ghi nhận biên bản."
+          },
+          {
+            "id": "wo-2",
+            "label": "B",
+            "title": "Bỏ giải hoàn toàn ở Vòng Bảng:",
+            "description": "Nếu 1 cặp đôi rút lui hoàn toàn khỏi giải: BTC sẽ xử thua 0 - 21 (Walkover) ở tất cả các trận chưa thi đấu của cặp đó. Các trận đã diễn ra trước đó vẫn được bảo lưu kết quả bảng điểm."
+          },
+          {
+            "id": "wo-3",
+            "label": "C",
+            "title": "Bỏ cuộc tại Vòng Bán Kết / Chung Kết:",
+            "description": "Cặp đối thủ trực tiếp được đặc cách thắng (Walkover) và vào thẳng vòng tiếp theo hoặc nhận hạng giải tương ứng (Quán Quân / Á Quân / Hạng Ba)."
+          },
+          {
+            "id": "wo-4",
+            "label": "D",
+            "title": "Quyền hạn cao nhất của Ban Tổ Chức (BTC):",
+            "description": "Trong các trường hợp phát sinh tranh chấp hoặc trường hợp bất khả kháng, quyết định của BTC là quyết định cuối cùng và có hiệu lực tuyệt đối."
+          }
+        ],
+        "noteTitle": "⚖️ Quyết định:",
+        "noteContent": "Mọi vận động viên tham gia cam kết tuân thủ tinh thần thể thao cao thượng, fair-play và tôn trọng quyết định điều hành giải đấu."
+      }
+    ],
+    "prizes": [
+      {
+        "rank": 1,
+        "title": "Vô Địch",
+        "titleEn": "CHAMPION",
+        "amount": 1000000,
+        "currency": "VND",
+        "medalType": "gold"
+      },
+      {
+        "rank": 2,
+        "title": "Á Quân",
+        "titleEn": "RUNNER-UP",
+        "amount": 700000,
+        "currency": "VND",
+        "medalType": "silver"
+      },
+      {
+        "rank": 3,
+        "title": "Hạng Ba",
+        "titleEn": "THIRD PLACE",
+        "amount": 500000,
+        "currency": "VND",
+        "medalType": "bronze"
+      },
+      {
+        "rank": 4,
+        "title": "Hạng Tư",
+        "titleEn": "FOURTH PLACE",
+        "amount": 300000,
+        "currency": "VND",
+        "medalType": "fourth"
+      }
+    ],
+    "venueName": "Eco District 7 Badminton Courts",
+    "venueMapUrl": "https://maps.app.goo.gl/qh56sHzJs9wCSc8A7",
+    "subtitle": "Giải Cầu Lông Đôi Nam ISC-CDC Mở Rộng 2026",
+    "name": "ISC-CDC BADMINTON OPEN 2026",
+    "isGroupBPublished": true,
+    "isGroupAPublished": true,
+    "isScheduleAPublished": true,
+    "isScheduleBPublished": true,
+    "isKnockoutFinalPublished": false,
+    "venueAddress": "107 Đường Nguyễn Văn Linh, Tân Thuận, Q7",
+    "rulesVersion": 3,
+    "rules": [
+      {
+        "stage": "Vòng Bảng",
+        "formatDescription": "• **Thể thức**: 2 bảng (A & B), 5 cặp/bảng, đấu vòng tròn 1 lượt (10 trận/bảng).\n• **Quy định trận**: Thi đấu **1 set 21 điểm** (cách biệt 2 điểm, chạm tối đa 30 điểm - tới 30 là dừng).\n• **Tính điểm**: Thắng = **1 điểm** | Thua = **0 điểm**.\n• **Xếp hạng khi bằng điểm** (xét lần lượt):\n  1) **Hệ số thua ở trận thua** (`Đ.THUA TT`): Thua ít điểm hơn xếp trên (VD: thua 19–21 [-2] xếp trên thua 17–21 [-4]).\n  2) **Điểm ghi trong trận thua**: Ghi nhiều điểm hơn xếp trên.\n  3) **Hiệu số điểm toàn giải** (Điểm ghi - Điểm mất): Cao hơn xếp trên.\n  4) **Tổng điểm thắng toàn giải**: Ghi nhiều điểm hơn xếp trên.\n  5) **Đối đầu trực tiếp**: Thắng đối đầu xếp trên.\n  6) **Tổng điểm thua toàn giải**: Để thua ít điểm hơn xếp trên.\n• **Vé đi tiếp**: **Top 2 mỗi bảng** (Nhất & Nhì bảng) vào vòng Bán Kết.",
+        "scoringRules": [
+          "Thi đấu 1 set 21 điểm (cách biệt 2 điểm, tối đa 30 điểm - tới 30 là dừng)",
+          "Mỗi trận thắng được tính 1 điểm trên bảng xếp hạng",
+          "Đồng điểm: Ưu tiên đội có hệ số điểm bị thua ít hơn ở các trận thua",
+          "Top 2 mỗi bảng giành vé vào vòng Bán Kết"
+        ],
+        "advancement": "Top 2 mỗi bảng (Nhất & Nhì Bảng A, B) giành quyền bước vào vòng Bán Kết."
+      },
+      {
+        "stage": "Bán Kết",
+        "formatDescription": "• **Thể thức**: Đấu loại trực tiếp theo sơ đồ bắt chéo:\n  - **BK1**: Nhất Bảng A vs Nhì Bảng B\n  - **BK2**: Nhất Bảng B vs Nhì Bảng A\n• **Quy định trận**: Thi đấu **3 set thắng 2** (Best of 3), mỗi set **15 điểm** chạm 15.\n• **Phân nhánh sau trận**:\n  - 2 cặp **Thắng** ➔ Vào trận **Chung Kết** tranh Cúp Vô Địch.\n  - 2 cặp **Thua** ➔ Vào trận **Tranh Hạng Ba**.",
+        "scoringRules": [
+          "Thi đấu 3 set thắng 2 (Best of 3), mỗi set 15 điểm chạm 15",
+          "Sơ đồ bắt chéo: Nhất A vs Nhì B | Nhất B vs Nhì A",
+          "2 cặp thắng vào Chung Kết, 2 cặp thua thi đấu Tranh Hạng Ba"
+        ],
+        "advancement": "2 cặp thắng vào Chung Kết tranh Cúp Vô Địch, 2 cặp thua thi đấu Tranh Hạng Ba."
+      },
+      {
+        "stage": "Chung Kết & Tranh Hạng Ba",
+        "formatDescription": "• **Trận Tranh Hạng Ba**: 2 cặp thua Bán Kết gặp nhau ➔ Tranh **Huy chương Đồng** (Hạng 3) & Hạng 4.\n• **Trận Chung Kết**: 2 cặp thắng Bán Kết tranh tài ➔ Tranh **Cúp Vô Địch** (Huy chương Vàng) & **Á Quân** (Huy chương Bạc).\n• **Quy định trận**: Thi đấu **3 set thắng 2** (Best of 3), mỗi set **15 điểm** chạm 15.\n• **Bế mạc & Trao thưởng**: Trao cúp, huy chương và tiền thưởng cho **Top 4** ngay sau trận Chung Kết.",
+        "scoringRules": [
+          "Chung Kết & Tranh Hạng Ba: Thi đấu 3 set thắng 2 (Best of 3 15 điểm)",
+          "Trao Cúp, Huy chương & Tiền thưởng cho Top 4 chung cuộc"
+        ],
+        "advancement": "Xác định thứ hạng chung cuộc: Quán Quân (Vàng), Á Quân (Bạc), Hạng Ba (Đồng) và Hạng Tư."
+      }
+    ],
+    "isKnockoutSFPublished": true,
+    "status": "IN_PROGRESS"
+  },
+  "version": 1788516131095,
+  "pairs": [
+    {
+      "id": "pair-imp-1788491754289-0-248",
+      "pairNumber": 1,
+      "code": "A1",
+      "name": "Hà Tuấn Kiệt (ISC) & Nguyễn Hồng Đăng (ISC)",
+      "player1": {
+        "id": "p-imp-1788276098940-1594",
+        "name": "Hà Tuấn Kiệt",
+        "club": "ISC",
+        "avatarUrl": "",
+        "role": "VĐV"
+      },
+      "player2": {
+        "id": "p-imp-1788276098940-7064",
+        "name": "Nguyễn Hồng Đăng",
+        "club": "ISC",
+        "avatarUrl": "",
+        "role": "VĐV"
+      },
+      "club": "ISC",
+      "group": "A"
+    },
+    {
+      "id": "pair-imp-1788491754289-1-940",
+      "pairNumber": 2,
+      "code": "A2",
+      "name": "Phạm Đăng Khôi (CDC) & Trịnh Quốc Việt (ISC)",
+      "player1": {
+        "id": "p-imp-1788276098940-7279",
+        "name": "Phạm Đăng Khôi",
+        "club": "CDC",
+        "avatarUrl": "",
+        "role": "VĐV"
+      },
+      "player2": {
+        "id": "p-imp-1788276098940-7035",
+        "name": "Trịnh Quốc Việt",
+        "club": "ISC",
+        "avatarUrl": "",
+        "role": "VĐV"
+      },
+      "club": "CDC - ISC",
+      "group": "A"
+    },
+    {
+      "id": "pair-imp-1788491754289-2-381",
+      "pairNumber": 3,
+      "code": "A3",
+      "name": "Lê Minh Quân (ISC) & Nguyễn Thanh Nhân (ISC)",
+      "player1": {
+        "id": "p-imp-1788276098941-6454",
+        "name": "Lê Minh Quân",
+        "club": "ISC",
+        "avatarUrl": "",
+        "role": "VĐV"
+      },
+      "player2": {
+        "id": "p-imp-1788276098941-3226",
+        "name": "Nguyễn Thanh Nhân",
+        "club": "ISC",
+        "avatarUrl": "",
+        "role": "VĐV"
+      },
+      "club": "ISC",
+      "group": "A"
+    },
+    {
+      "id": "pair-imp-1788491754289-3-821",
+      "pairNumber": 4,
+      "code": "A4",
+      "name": "Cao Trọng Phước (CDC) & Trần Văn Huấn (ISC)",
+      "player1": {
+        "id": "p-imp-1788276098941-8071",
+        "name": "Cao Trọng Phước",
+        "club": "CDC",
+        "avatarUrl": "",
+        "role": "VĐV"
+      },
+      "player2": {
+        "id": "p-imp-1788276098941-6278",
+        "name": "Trần Văn Huấn",
+        "club": "ISC",
+        "avatarUrl": "",
+        "role": "VĐV"
+      },
+      "club": "CDC - ISC",
+      "group": "A"
+    },
+    {
+      "id": "pair-imp-1788491754289-4-836",
+      "pairNumber": 5,
+      "code": "A5",
+      "name": "Đinh Quốc Khánh Nguyên (ISC) & Huỳnh Hữu Khang (ISC)",
+      "player1": {
+        "id": "p-imp-1788276098941-4971",
+        "name": "Đinh Quốc Khánh Nguyên",
+        "club": "ISC",
+        "avatarUrl": "",
+        "role": "VĐV"
+      },
+      "player2": {
+        "id": "p-imp-1788276098941-4579",
+        "name": "Huỳnh Hữu Khang",
+        "club": "ISC",
+        "avatarUrl": "",
+        "role": "VĐV"
+      },
+      "club": "ISC",
+      "group": "A"
+    },
+    {
+      "id": "pair-imp-1788491770990-0-782",
+      "pairNumber": 6,
+      "code": "B1",
+      "name": "Võ Minh Tuấn (ISC) & Bùi Ngọc Hoàng (ISC)",
+      "player1": {
+        "id": "p-imp-1788276107517-7156",
+        "name": "Võ Minh Tuấn",
+        "club": "ISC",
+        "avatarUrl": "",
+        "role": "VĐV"
+      },
+      "player2": {
+        "id": "p-imp-1788276107517-1486",
+        "name": "Bùi Ngọc Hoàng",
+        "club": "ISC",
+        "avatarUrl": "",
+        "role": "VĐV"
+      },
+      "club": "ISC",
+      "group": "B"
+    },
+    {
+      "id": "pair-imp-1788491770990-1-432",
+      "pairNumber": 7,
+      "code": "B2",
+      "name": "Trần Văn Bắc (ISC) & Mai Vũ Phong (CDC)",
+      "player1": {
+        "id": "p-imp-1788276107517-2801",
+        "name": "Trần Văn Bắc",
+        "club": "ISC",
+        "avatarUrl": "",
+        "role": "VĐV"
+      },
+      "player2": {
+        "id": "p-imp-1788276107517-7545",
+        "name": "Mai Vũ Phong",
+        "club": "CDC",
+        "avatarUrl": "",
+        "role": "VĐV"
+      },
+      "club": "ISC - CDC",
+      "group": "B"
+    },
+    {
+      "id": "pair-imp-1788491770990-2-179",
+      "pairNumber": 8,
+      "code": "B3",
+      "name": "Hà Cát Thịnh (CDC) & Nguyễn Minh Trọng (ISC)",
+      "player1": {
+        "id": "p-imp-1788276107517-9362",
+        "name": "Hà Cát Thịnh",
+        "club": "CDC",
+        "avatarUrl": "",
+        "role": "VĐV"
+      },
+      "player2": {
+        "id": "p-imp-1788276107517-9003",
+        "name": "Nguyễn Minh Trọng",
+        "club": "ISC",
+        "avatarUrl": "",
+        "role": "VĐV"
+      },
+      "club": "CDC - ISC",
+      "group": "B"
+    },
+    {
+      "id": "pair-imp-1788491770990-3-151",
+      "pairNumber": 9,
+      "code": "B4",
+      "name": "Trịnh Hùng Nam (ISC) & Nguyễn Thanh Đủ (ISC)",
+      "player1": {
+        "id": "p-imp-1788276107517-1495",
+        "name": "Trịnh Hùng Nam",
+        "club": "ISC",
+        "avatarUrl": "",
+        "role": "VĐV"
+      },
+      "player2": {
+        "id": "p-imp-1788276107517-3901",
+        "name": "Nguyễn Thanh Đủ",
+        "club": "ISC",
+        "avatarUrl": "",
+        "role": "VĐV"
+      },
+      "club": "ISC",
+      "group": "B"
+    },
+    {
+      "id": "pair-imp-1788491770990-4-929",
+      "pairNumber": 10,
+      "code": "B5",
+      "name": "Nguyễn Sỹ Thành (ISC) & Phạm Mạnh Hà (ISC)",
+      "player1": {
+        "id": "p-imp-1788276107517-7394",
+        "name": "Nguyễn Sỹ Thành",
+        "club": "ISC",
+        "avatarUrl": "",
+        "role": "VĐV"
+      },
+      "player2": {
+        "id": "p-imp-1788276107517-4820",
+        "name": "Phạm Mạnh Hà",
+        "club": "ISC",
+        "avatarUrl": "",
+        "role": "VĐV"
+      },
+      "club": "ISC",
+      "group": "B"
+    }
+  ],
+  "matches": [
+    {
+      "pair2": {
+        "id": "pair-imp-1788491754289-1-940",
+        "club": "CDC - ISC",
+        "code": "A2",
+        "player2": {
+          "club": "ISC",
+          "id": "p-imp-1788276098940-7035",
+          "avatarUrl": "",
+          "role": "VĐV",
+          "name": "Trịnh Quốc Việt"
+        },
+        "pairNumber": 2,
+        "name": "Phạm Đăng Khôi (CDC) & Trịnh Quốc Việt (ISC)",
+        "player1": {
+          "name": "Phạm Đăng Khôi",
+          "role": "VĐV",
+          "club": "CDC",
+          "avatarUrl": "",
+          "id": "p-imp-1788276098940-7279"
+        },
+        "group": "A"
+      },
+      "pair1": {
+        "id": "pair-imp-1788491754289-0-248",
+        "pairNumber": 1,
+        "name": "Hà Tuấn Kiệt (ISC) & Nguyễn Hồng Đăng (ISC)",
+        "player2": {
+          "club": "ISC",
+          "avatarUrl": "",
+          "role": "VĐV",
+          "name": "Nguyễn Hồng Đăng",
+          "id": "p-imp-1788276098940-7064"
+        },
+        "group": "A",
+        "player1": {
+          "id": "p-imp-1788276098940-1594",
+          "club": "ISC",
+          "avatarUrl": "",
+          "name": "Hà Tuấn Kiệt",
+          "role": "VĐV"
+        },
+        "code": "A1",
+        "club": "ISC"
+      },
+      "roundLabel": "Vòng bảng - Bảng A",
+      "format": "ONE_SET_21",
+      "sets": [
+        {
+          "pair2Score": 15,
+          "pair1Score": 21,
+          "setNumber": 1,
+          "isFinished": true
+        }
+      ],
+      "winnerId": "pair-imp-1788491754289-0-248",
+      "scheduledTime": "08:30",
+      "group": "A",
+      "status": "FINISHED",
+      "scheduledDate": "12 Tháng 09, 2026",
+      "matchNumber": 1,
+      "id": "m-grp-a-1788491762230-0-602",
+      "round": "GROUP_STAGE",
+      "court": "Sân 01"
+    },
+    {
+      "id": "m-grp-a-1788491762230-2-610",
+      "scheduledTime": "08:30",
+      "scheduledDate": "12 Tháng 09, 2026",
+      "pair1": {
+        "id": "pair-imp-1788491754289-0-248",
+        "pairNumber": 1,
+        "player2": {
+          "club": "ISC",
+          "avatarUrl": "",
+          "role": "VĐV",
+          "name": "Nguyễn Hồng Đăng",
+          "id": "p-imp-1788276098940-7064"
+        },
+        "name": "Hà Tuấn Kiệt (ISC) & Nguyễn Hồng Đăng (ISC)",
+        "code": "A1",
+        "group": "A",
+        "player1": {
+          "avatarUrl": "",
+          "name": "Hà Tuấn Kiệt",
+          "role": "VĐV",
+          "id": "p-imp-1788276098940-1594",
+          "club": "ISC"
+        },
+        "club": "ISC"
+      },
+      "pair2": {
+        "player2": {
+          "id": "p-imp-1788276098941-6278",
+          "club": "ISC",
+          "role": "VĐV",
+          "name": "Trần Văn Huấn",
+          "avatarUrl": ""
+        },
+        "name": "Cao Trọng Phước (CDC) & Trần Văn Huấn (ISC)",
+        "pairNumber": 4,
+        "group": "A",
+        "code": "A4",
+        "id": "pair-imp-1788491754289-3-821",
+        "club": "CDC - ISC",
+        "player1": {
+          "id": "p-imp-1788276098941-8071",
+          "club": "CDC",
+          "role": "VĐV",
+          "name": "Cao Trọng Phước",
+          "avatarUrl": ""
+        }
+      },
+      "sets": [
+        {
+          "pair1Score": 21,
+          "pair2Score": 19,
+          "isFinished": true,
+          "setNumber": 1
+        }
+      ],
+      "matchNumber": 2,
+      "group": "A",
+      "winnerId": "pair-imp-1788491754289-0-248",
+      "round": "GROUP_STAGE",
+      "format": "ONE_SET_21",
+      "roundLabel": "Vòng bảng - Bảng A",
+      "court": "Sân 01",
+      "status": "FINISHED"
+    },
+    {
+      "winnerId": "pair-imp-1788491754289-4-836",
+      "scheduledTime": "08:30",
+      "scheduledDate": "12 Tháng 09, 2026",
+      "round": "GROUP_STAGE",
+      "sets": [
+        {
+          "pair2Score": 21,
+          "pair1Score": 15,
+          "isFinished": true,
+          "setNumber": 1
+        }
+      ],
+      "format": "ONE_SET_21",
+      "roundLabel": "Vòng bảng - Bảng A",
+      "status": "FINISHED",
+      "court": "Sân 01",
+      "pair2": {
+        "code": "A5",
+        "player2": {
+          "club": "ISC",
+          "id": "p-imp-1788276098941-4579",
+          "role": "VĐV",
+          "name": "Huỳnh Hữu Khang",
+          "avatarUrl": ""
+        },
+        "club": "ISC",
+        "pairNumber": 5,
+        "player1": {
+          "club": "ISC",
+          "avatarUrl": "",
+          "id": "p-imp-1788276098941-4971",
+          "name": "Đinh Quốc Khánh Nguyên",
+          "role": "VĐV"
+        },
+        "name": "Đinh Quốc Khánh Nguyên (ISC) & Huỳnh Hữu Khang (ISC)",
+        "id": "pair-imp-1788491754289-4-836",
+        "group": "A"
+      },
+      "pair1": {
+        "club": "ISC",
+        "player1": {
+          "club": "ISC",
+          "avatarUrl": "",
+          "name": "Lê Minh Quân",
+          "role": "VĐV",
+          "id": "p-imp-1788276098941-6454"
+        },
+        "code": "A3",
+        "id": "pair-imp-1788491754289-2-381",
+        "group": "A",
+        "pairNumber": 3,
+        "name": "Lê Minh Quân (ISC) & Nguyễn Thanh Nhân (ISC)",
+        "player2": {
+          "club": "ISC",
+          "name": "Nguyễn Thanh Nhân",
+          "avatarUrl": "",
+          "role": "VĐV",
+          "id": "p-imp-1788276098941-3226"
+        }
+      },
+      "matchNumber": 3,
+      "id": "m-grp-a-1788491762230-1-644",
+      "group": "A"
+    },
+    {
+      "status": "FINISHED",
+      "roundLabel": "Vòng bảng - Bảng A",
+      "court": "Sân 01",
+      "scheduledDate": "12 Tháng 09, 2026",
+      "format": "ONE_SET_21",
+      "round": "GROUP_STAGE",
+      "scheduledTime": "08:30",
+      "id": "m-grp-a-1788491762230-3-799",
+      "matchNumber": 4,
+      "group": "A",
+      "sets": [
+        {
+          "setNumber": 1,
+          "isFinished": true,
+          "pair1Score": 21,
+          "pair2Score": 17
+        }
+      ],
+      "pair2": {
+        "group": "A",
+        "id": "pair-imp-1788491754289-2-381",
+        "pairNumber": 3,
+        "name": "Lê Minh Quân (ISC) & Nguyễn Thanh Nhân (ISC)",
+        "player2": {
+          "name": "Nguyễn Thanh Nhân",
+          "role": "VĐV",
+          "avatarUrl": "",
+          "id": "p-imp-1788276098941-3226",
+          "club": "ISC"
+        },
+        "player1": {
+          "name": "Lê Minh Quân",
+          "role": "VĐV",
+          "avatarUrl": "",
+          "club": "ISC",
+          "id": "p-imp-1788276098941-6454"
+        },
+        "code": "A3",
+        "club": "ISC"
+      },
+      "pair1": {
+        "code": "A2",
+        "id": "pair-imp-1788491754289-1-940",
+        "player1": {
+          "avatarUrl": "",
+          "id": "p-imp-1788276098940-7279",
+          "role": "VĐV",
+          "name": "Phạm Đăng Khôi",
+          "club": "CDC"
+        },
+        "club": "CDC - ISC",
+        "player2": {
+          "id": "p-imp-1788276098940-7035",
+          "avatarUrl": "",
+          "role": "VĐV",
+          "name": "Trịnh Quốc Việt",
+          "club": "ISC"
+        },
+        "pairNumber": 2,
+        "group": "A",
+        "name": "Phạm Đăng Khôi (CDC) & Trịnh Quốc Việt (ISC)"
+      },
+      "winnerId": "pair-imp-1788491754289-1-940"
+    },
+    {
+      "matchNumber": 5,
+      "status": "FINISHED",
+      "group": "A",
+      "winnerId": "pair-imp-1788491754289-3-821",
+      "format": "ONE_SET_21",
+      "id": "m-grp-a-1788491762230-4-83",
+      "pair1": {
+        "code": "A4",
+        "id": "pair-imp-1788491754289-3-821",
+        "club": "CDC - ISC",
+        "player1": {
+          "id": "p-imp-1788276098941-8071",
+          "name": "Cao Trọng Phước",
+          "role": "VĐV",
+          "club": "CDC",
+          "avatarUrl": ""
+        },
+        "player2": {
+          "club": "ISC",
+          "avatarUrl": "",
+          "name": "Trần Văn Huấn",
+          "role": "VĐV",
+          "id": "p-imp-1788276098941-6278"
+        },
+        "pairNumber": 4,
+        "group": "A",
+        "name": "Cao Trọng Phước (CDC) & Trần Văn Huấn (ISC)"
+      },
+      "pair2": {
+        "player2": {
+          "id": "p-imp-1788276098941-4579",
+          "club": "ISC",
+          "avatarUrl": "",
+          "name": "Huỳnh Hữu Khang",
+          "role": "VĐV"
+        },
+        "club": "ISC",
+        "code": "A5",
+        "name": "Đinh Quốc Khánh Nguyên (ISC) & Huỳnh Hữu Khang (ISC)",
+        "pairNumber": 5,
+        "id": "pair-imp-1788491754289-4-836",
+        "player1": {
+          "avatarUrl": "",
+          "role": "VĐV",
+          "name": "Đinh Quốc Khánh Nguyên",
+          "club": "ISC",
+          "id": "p-imp-1788276098941-4971"
+        },
+        "group": "A"
+      },
+      "scheduledDate": "12 Tháng 09, 2026",
+      "court": "Sân 01",
+      "roundLabel": "Vòng bảng - Bảng A",
+      "scheduledTime": "08:30",
+      "sets": [
+        {
+          "setNumber": 1,
+          "isFinished": true,
+          "pair2Score": 18,
+          "pair1Score": 21
+        }
+      ],
+      "round": "GROUP_STAGE"
+    },
+    {
+      "court": "Sân 01",
+      "winnerId": "pair-imp-1788491754289-0-248",
+      "matchNumber": 6,
+      "sets": [
+        {
+          "setNumber": 1,
+          "isFinished": true,
+          "pair1Score": 21,
+          "pair2Score": 17
+        }
+      ],
+      "round": "GROUP_STAGE",
+      "id": "m-grp-a-1788491762230-5-78",
+      "format": "ONE_SET_21",
+      "scheduledTime": "08:30",
+      "group": "A",
+      "scheduledDate": "12 Tháng 09, 2026",
+      "roundLabel": "Vòng bảng - Bảng A",
+      "status": "FINISHED",
+      "pair1": {
+        "player2": {
+          "club": "ISC",
+          "role": "VĐV",
+          "name": "Nguyễn Hồng Đăng",
+          "avatarUrl": "",
+          "id": "p-imp-1788276098940-7064"
+        },
+        "club": "ISC",
+        "code": "A1",
+        "id": "pair-imp-1788491754289-0-248",
+        "pairNumber": 1,
+        "name": "Hà Tuấn Kiệt (ISC) & Nguyễn Hồng Đăng (ISC)",
+        "group": "A",
+        "player1": {
+          "role": "VĐV",
+          "name": "Hà Tuấn Kiệt",
+          "id": "p-imp-1788276098940-1594",
+          "club": "ISC",
+          "avatarUrl": ""
+        }
+      },
+      "pair2": {
+        "name": "Lê Minh Quân (ISC) & Nguyễn Thanh Nhân (ISC)",
+        "group": "A",
+        "player2": {
+          "role": "VĐV",
+          "name": "Nguyễn Thanh Nhân",
+          "club": "ISC",
+          "id": "p-imp-1788276098941-3226",
+          "avatarUrl": ""
+        },
+        "club": "ISC",
+        "player1": {
+          "role": "VĐV",
+          "name": "Lê Minh Quân",
+          "avatarUrl": "",
+          "id": "p-imp-1788276098941-6454",
+          "club": "ISC"
+        },
+        "pairNumber": 3,
+        "id": "pair-imp-1788491754289-2-381",
+        "code": "A3"
+      }
+    },
+    {
+      "group": "A",
+      "roundLabel": "Vòng bảng - Bảng A",
+      "pair1": {
+        "pairNumber": 2,
+        "name": "Phạm Đăng Khôi (CDC) & Trịnh Quốc Việt (ISC)",
+        "id": "pair-imp-1788491754289-1-940",
+        "player2": {
+          "club": "ISC",
+          "avatarUrl": "",
+          "id": "p-imp-1788276098940-7035",
+          "role": "VĐV",
+          "name": "Trịnh Quốc Việt"
+        },
+        "club": "CDC - ISC",
+        "group": "A",
+        "player1": {
+          "name": "Phạm Đăng Khôi",
+          "role": "VĐV",
+          "avatarUrl": "",
+          "club": "CDC",
+          "id": "p-imp-1788276098940-7279"
+        },
+        "code": "A2"
+      },
+      "pair2": {
+        "code": "A5",
+        "player2": {
+          "id": "p-imp-1788276098941-4579",
+          "name": "Huỳnh Hữu Khang",
+          "role": "VĐV",
+          "club": "ISC",
+          "avatarUrl": ""
+        },
+        "id": "pair-imp-1788491754289-4-836",
+        "group": "A",
+        "club": "ISC",
+        "player1": {
+          "club": "ISC",
+          "id": "p-imp-1788276098941-4971",
+          "avatarUrl": "",
+          "role": "VĐV",
+          "name": "Đinh Quốc Khánh Nguyên"
+        },
+        "name": "Đinh Quốc Khánh Nguyên (ISC) & Huỳnh Hữu Khang (ISC)",
+        "pairNumber": 5
+      },
+      "format": "ONE_SET_21",
+      "court": "Sân 01",
+      "id": "m-grp-a-1788491762230-6-475",
+      "scheduledDate": "12 Tháng 09, 2026",
+      "scheduledTime": "08:30",
+      "matchNumber": 7,
+      "winnerId": "pair-imp-1788491754289-4-836",
+      "sets": [
+        {
+          "setNumber": 1,
+          "isFinished": true,
+          "pair2Score": 21,
+          "pair1Score": 18
+        }
+      ],
+      "status": "FINISHED",
+      "round": "GROUP_STAGE"
+    },
+    {
+      "scheduledDate": "12 Tháng 09, 2026",
+      "scheduledTime": "08:30",
+      "winnerId": "pair-imp-1788491754289-2-381",
+      "round": "GROUP_STAGE",
+      "sets": [
+        {
+          "pair1Score": 21,
+          "pair2Score": 17,
+          "isFinished": true,
+          "setNumber": 1
+        }
+      ],
+      "roundLabel": "Vòng bảng - Bảng A",
+      "id": "m-grp-a-1788491762230-7-650",
+      "court": "Sân 01",
+      "pair2": {
+        "pairNumber": 4,
+        "name": "Cao Trọng Phước (CDC) & Trần Văn Huấn (ISC)",
+        "player2": {
+          "club": "ISC",
+          "role": "VĐV",
+          "name": "Trần Văn Huấn",
+          "id": "p-imp-1788276098941-6278",
+          "avatarUrl": ""
+        },
+        "id": "pair-imp-1788491754289-3-821",
+        "group": "A",
+        "player1": {
+          "club": "CDC",
+          "avatarUrl": "",
+          "name": "Cao Trọng Phước",
+          "role": "VĐV",
+          "id": "p-imp-1788276098941-8071"
+        },
+        "code": "A4",
+        "club": "CDC - ISC"
+      },
+      "pair1": {
+        "pairNumber": 3,
+        "group": "A",
+        "player2": {
+          "avatarUrl": "",
+          "id": "p-imp-1788276098941-3226",
+          "club": "ISC",
+          "name": "Nguyễn Thanh Nhân",
+          "role": "VĐV"
+        },
+        "name": "Lê Minh Quân (ISC) & Nguyễn Thanh Nhân (ISC)",
+        "id": "pair-imp-1788491754289-2-381",
+        "code": "A3",
+        "player1": {
+          "id": "p-imp-1788276098941-6454",
+          "avatarUrl": "",
+          "name": "Lê Minh Quân",
+          "role": "VĐV",
+          "club": "ISC"
+        },
+        "club": "ISC"
+      },
+      "format": "ONE_SET_21",
+      "group": "A",
+      "status": "FINISHED",
+      "matchNumber": 8
+    },
+    {
+      "scheduledTime": "08:30",
+      "scheduledDate": "12 Tháng 09, 2026",
+      "court": "Sân 01",
+      "roundLabel": "Vòng bảng - Bảng A",
+      "round": "GROUP_STAGE",
+      "group": "A",
+      "format": "ONE_SET_21",
+      "sets": [
+        {
+          "pair1Score": 21,
+          "pair2Score": 19,
+          "setNumber": 1,
+          "isFinished": true
+        }
+      ],
+      "status": "FINISHED",
+      "pair2": {
+        "pairNumber": 5,
+        "code": "A5",
+        "player2": {
+          "avatarUrl": "",
+          "name": "Huỳnh Hữu Khang",
+          "role": "VĐV",
+          "id": "p-imp-1788276098941-4579",
+          "club": "ISC"
+        },
+        "club": "ISC",
+        "id": "pair-imp-1788491754289-4-836",
+        "player1": {
+          "id": "p-imp-1788276098941-4971",
+          "avatarUrl": "",
+          "name": "Đinh Quốc Khánh Nguyên",
+          "role": "VĐV",
+          "club": "ISC"
+        },
+        "name": "Đinh Quốc Khánh Nguyên (ISC) & Huỳnh Hữu Khang (ISC)",
+        "group": "A"
+      },
+      "matchNumber": 9,
+      "id": "m-grp-a-1788491762230-8-51",
+      "pair1": {
+        "club": "ISC",
+        "player2": {
+          "id": "p-imp-1788276098940-7064",
+          "role": "VĐV",
+          "name": "Nguyễn Hồng Đăng",
+          "avatarUrl": "",
+          "club": "ISC"
+        },
+        "code": "A1",
+        "id": "pair-imp-1788491754289-0-248",
+        "group": "A",
+        "pairNumber": 1,
+        "name": "Hà Tuấn Kiệt (ISC) & Nguyễn Hồng Đăng (ISC)",
+        "player1": {
+          "id": "p-imp-1788276098940-1594",
+          "club": "ISC",
+          "name": "Hà Tuấn Kiệt",
+          "avatarUrl": "",
+          "role": "VĐV"
+        }
+      },
+      "winnerId": "pair-imp-1788491754289-0-248"
+    },
+    {
+      "scheduledTime": "08:30",
+      "pair2": {
+        "id": "pair-imp-1788491754289-3-821",
+        "club": "CDC - ISC",
+        "code": "A4",
+        "player1": {
+          "avatarUrl": "",
+          "id": "p-imp-1788276098941-8071",
+          "role": "VĐV",
+          "name": "Cao Trọng Phước",
+          "club": "CDC"
+        },
+        "group": "A",
+        "pairNumber": 4,
+        "player2": {
+          "id": "p-imp-1788276098941-6278",
+          "club": "ISC",
+          "role": "VĐV",
+          "name": "Trần Văn Huấn",
+          "avatarUrl": ""
+        },
+        "name": "Cao Trọng Phước (CDC) & Trần Văn Huấn (ISC)"
+      },
+      "scheduledDate": "12 Tháng 09, 2026",
+      "pair1": {
+        "id": "pair-imp-1788491754289-1-940",
+        "club": "CDC - ISC",
+        "player1": {
+          "club": "CDC",
+          "id": "p-imp-1788276098940-7279",
+          "role": "VĐV",
+          "name": "Phạm Đăng Khôi",
+          "avatarUrl": ""
+        },
+        "code": "A2",
+        "pairNumber": 2,
+        "group": "A",
+        "name": "Phạm Đăng Khôi (CDC) & Trịnh Quốc Việt (ISC)",
+        "player2": {
+          "id": "p-imp-1788276098940-7035",
+          "role": "VĐV",
+          "name": "Trịnh Quốc Việt",
+          "avatarUrl": "",
+          "club": "ISC"
+        }
+      },
+      "group": "A",
+      "round": "GROUP_STAGE",
+      "matchNumber": 10,
+      "status": "FINISHED",
+      "court": "Sân 01",
+      "roundLabel": "Vòng bảng - Bảng A",
+      "sets": [
+        {
+          "pair2Score": 19,
+          "pair1Score": 21,
+          "isFinished": true,
+          "setNumber": 1
+        }
+      ],
+      "format": "ONE_SET_21",
+      "winnerId": "pair-imp-1788491754289-1-940",
+      "id": "m-grp-a-1788491762230-9-915"
+    },
+    {
+      "pair1": {
+        "id": "pair-imp-1788491754289-0-248",
+        "player1": {
+          "id": "p-imp-1788276098940-1594",
+          "club": "ISC",
+          "avatarUrl": "",
+          "role": "VĐV",
+          "name": "Hà Tuấn Kiệt"
+        },
+        "name": "Hà Tuấn Kiệt (ISC) & Nguyễn Hồng Đăng (ISC)",
+        "code": "A1",
+        "player2": {
+          "id": "p-imp-1788276098940-7064",
+          "avatarUrl": "",
+          "name": "Nguyễn Hồng Đăng",
+          "role": "VĐV",
+          "club": "ISC"
+        },
+        "group": "A",
+        "pairNumber": 1,
+        "club": "ISC"
+      },
+      "sets": [
+        {
+          "setNumber": 1,
+          "pair1Score": 15,
+          "pair2Score": 12,
+          "isFinished": true
+        },
+        {
+          "setNumber": 2,
+          "pair1Score": 15,
+          "pair2Score": 13,
+          "isFinished": true
+        }
+      ],
+      "scheduledTime": "10:15",
+      "pair2": {
+        "name": "Trần Văn Bắc (ISC) & Mai Vũ Phong (CDC)",
+        "player1": {
+          "role": "VĐV",
+          "name": "Trần Văn Bắc",
+          "avatarUrl": "",
+          "club": "ISC",
+          "id": "p-imp-1788276107517-2801"
+        },
+        "club": "ISC - CDC",
+        "player2": {
+          "name": "Mai Vũ Phong",
+          "role": "VĐV",
+          "avatarUrl": "",
+          "club": "CDC",
+          "id": "p-imp-1788276107517-7545"
+        },
+        "pairNumber": 7,
+        "group": "B",
+        "code": "B2",
+        "id": "pair-imp-1788491770990-1-432"
+      },
+      "matchNumber": 21,
+      "scheduledDate": "12/09/2026",
+      "id": "m-sf-1",
+      "format": "BEST_OF_3_15",
+      "round": "SEMI_FINAL",
+      "court": "Sân 01",
+      "status": "FINISHED",
+      "roundLabel": "Bán Kết 1 (Nhất A vs Nhì B)",
+      "winnerId": "pair-imp-1788491754289-0-248"
+    },
+    {
+      "format": "BEST_OF_3_15",
+      "scheduledDate": "12/09/2026",
+      "court": "Sân 02",
+      "matchNumber": 22,
+      "scheduledTime": "10:15",
+      "sets": [
+        {
+          "setNumber": 1,
+          "pair1Score": 15,
+          "pair2Score": 13,
+          "isFinished": true
+        },
+        {
+          "setNumber": 2,
+          "pair1Score": 12,
+          "pair2Score": 15,
+          "isFinished": true
+        },
+        {
+          "setNumber": 3,
+          "pair1Score": 15,
+          "pair2Score": 12,
+          "isFinished": true
+        }
+      ],
+      "round": "SEMI_FINAL",
+      "id": "m-sf-2",
+      "status": "FINISHED",
+      "roundLabel": "Bán Kết 2 (Nhất B vs Nhì A)",
+      "pair1": {
+        "group": "B",
+        "player2": {
+          "id": "p-imp-1788276107517-1486",
+          "club": "ISC",
+          "avatarUrl": "",
+          "role": "VĐV",
+          "name": "Bùi Ngọc Hoàng"
+        },
+        "pairNumber": 6,
+        "name": "Võ Minh Tuấn (ISC) & Bùi Ngọc Hoàng (ISC)",
+        "code": "B1",
+        "club": "ISC",
+        "player1": {
+          "name": "Võ Minh Tuấn",
+          "role": "VĐV",
+          "avatarUrl": "",
+          "club": "ISC",
+          "id": "p-imp-1788276107517-7156"
+        },
+        "id": "pair-imp-1788491770990-0-782"
+      },
+      "pair2": {
+        "code": "A5",
+        "player1": {
+          "club": "ISC",
+          "avatarUrl": "",
+          "name": "Đinh Quốc Khánh Nguyên",
+          "role": "VĐV",
+          "id": "p-imp-1788276098941-4971"
+        },
+        "club": "ISC",
+        "pairNumber": 5,
+        "player2": {
+          "avatarUrl": "",
+          "id": "p-imp-1788276098941-4579",
+          "club": "ISC",
+          "name": "Huỳnh Hữu Khang",
+          "role": "VĐV"
+        },
+        "group": "A",
+        "name": "Đinh Quốc Khánh Nguyên (ISC) & Huỳnh Hữu Khang (ISC)",
+        "id": "pair-imp-1788491754289-4-836"
+      },
+      "winnerId": "pair-imp-1788491770990-0-782"
+    },
+    {
+      "id": "m-third",
+      "roundLabel": "Trận Tranh Hạng Ba",
+      "pair1": {
+        "name": "Trần Văn Bắc (ISC) & Mai Vũ Phong (CDC)",
+        "player1": {
+          "role": "VĐV",
+          "name": "Trần Văn Bắc",
+          "avatarUrl": "",
+          "club": "ISC",
+          "id": "p-imp-1788276107517-2801"
+        },
+        "club": "ISC - CDC",
+        "player2": {
+          "name": "Mai Vũ Phong",
+          "role": "VĐV",
+          "avatarUrl": "",
+          "club": "CDC",
+          "id": "p-imp-1788276107517-7545"
+        },
+        "pairNumber": 7,
+        "group": "B",
+        "code": "B2",
+        "id": "pair-imp-1788491770990-1-432"
+      },
+      "matchNumber": 23,
+      "pair2": {
+        "code": "A5",
+        "player1": {
+          "club": "ISC",
+          "avatarUrl": "",
+          "name": "Đinh Quốc Khánh Nguyên",
+          "role": "VĐV",
+          "id": "p-imp-1788276098941-4971"
+        },
+        "club": "ISC",
+        "pairNumber": 5,
+        "player2": {
+          "avatarUrl": "",
+          "id": "p-imp-1788276098941-4579",
+          "club": "ISC",
+          "name": "Huỳnh Hữu Khang",
+          "role": "VĐV"
+        },
+        "group": "A",
+        "name": "Đinh Quốc Khánh Nguyên (ISC) & Huỳnh Hữu Khang (ISC)",
+        "id": "pair-imp-1788491754289-4-836"
+      },
+      "format": "BEST_OF_3_15",
+      "sets": [
+        {
+          "pair1Score": 0,
+          "setNumber": 1,
+          "pair2Score": 0,
+          "isFinished": false
+        },
+        {
+          "isFinished": false,
+          "setNumber": 2,
+          "pair1Score": 0,
+          "pair2Score": 0
+        },
+        {
+          "isFinished": false,
+          "pair1Score": 0,
+          "pair2Score": 0,
+          "setNumber": 3
+        }
+      ],
+      "court": "Sân 02",
+      "notes": "Tranh giải Ba (500.000đ) và giải Tư (300.000đ).",
+      "status": "UPCOMING",
+      "scheduledTime": "11:00",
+      "scheduledDate": "12/09/2026",
+      "round": "THIRD_PLACE"
+    },
+    {
+      "roundLabel": "CHUNG KẾT TRANH CÚP VÔ ĐỊCH",
+      "id": "m-final",
+      "matchNumber": 24,
+      "pair1": {
+        "id": "pair-imp-1788491754289-0-248",
+        "player1": {
+          "id": "p-imp-1788276098940-1594",
+          "club": "ISC",
+          "avatarUrl": "",
+          "role": "VĐV",
+          "name": "Hà Tuấn Kiệt"
+        },
+        "name": "Hà Tuấn Kiệt (ISC) & Nguyễn Hồng Đăng (ISC)",
+        "code": "A1",
+        "player2": {
+          "id": "p-imp-1788276098940-7064",
+          "avatarUrl": "",
+          "name": "Nguyễn Hồng Đăng",
+          "role": "VĐV",
+          "club": "ISC"
+        },
+        "group": "A",
+        "pairNumber": 1,
+        "club": "ISC"
+      },
+      "pair2": {
+        "group": "B",
+        "player2": {
+          "id": "p-imp-1788276107517-1486",
+          "club": "ISC",
+          "avatarUrl": "",
+          "role": "VĐV",
+          "name": "Bùi Ngọc Hoàng"
+        },
+        "pairNumber": 6,
+        "name": "Võ Minh Tuấn (ISC) & Bùi Ngọc Hoàng (ISC)",
+        "code": "B1",
+        "club": "ISC",
+        "player1": {
+          "name": "Võ Minh Tuấn",
+          "role": "VĐV",
+          "avatarUrl": "",
+          "club": "ISC",
+          "id": "p-imp-1788276107517-7156"
+        },
+        "id": "pair-imp-1788491770990-0-782"
+      },
+      "court": "Sân 01 (Sân Trung Tâm)",
+      "notes": "Trận Siêu Chung Kết tranh Cúp Vô Địch 1.000.000đ & Huy chương vàng!",
+      "status": "UPCOMING",
+      "format": "BEST_OF_3_15",
+      "scheduledDate": "12/09/2026",
+      "sets": [
+        {
+          "pair1Score": 0,
+          "setNumber": 1,
+          "pair2Score": 0,
+          "isFinished": false
+        },
+        {
+          "setNumber": 2,
+          "pair2Score": 0,
+          "pair1Score": 0,
+          "isFinished": false
+        },
+        {
+          "setNumber": 3,
+          "pair2Score": 0,
+          "pair1Score": 0,
+          "isFinished": false
+        }
+      ],
+      "round": "FINAL",
+      "scheduledTime": "11:30"
+    },
+    {
+      "roundLabel": "Vòng bảng - Bảng B",
+      "round": "GROUP_STAGE",
+      "sets": [
+        {
+          "setNumber": 1,
+          "pair1Score": 21,
+          "pair2Score": 12,
+          "isFinished": true
+        }
+      ],
+      "scheduledDate": "12 Tháng 09, 2026",
+      "scheduledTime": "08:30",
+      "winnerId": "pair-imp-1788491770990-1-432",
+      "court": "Sân 01",
+      "id": "m-grp-b-1788491777256-0-817",
+      "pair2": {
+        "name": "Trịnh Hùng Nam (ISC) & Nguyễn Thanh Đủ (ISC)",
+        "player2": {
+          "name": "Nguyễn Thanh Đủ",
+          "role": "VĐV",
+          "avatarUrl": "",
+          "club": "ISC",
+          "id": "p-imp-1788276107517-3901"
+        },
+        "pairNumber": 9,
+        "club": "ISC",
+        "id": "pair-imp-1788491770990-3-151",
+        "player1": {
+          "name": "Trịnh Hùng Nam",
+          "role": "VĐV",
+          "id": "p-imp-1788276107517-1495",
+          "avatarUrl": "",
+          "club": "ISC"
+        },
+        "group": "B",
+        "code": "B4"
+      },
+      "pair1": {
+        "id": "pair-imp-1788491770990-1-432",
+        "player2": {
+          "role": "VĐV",
+          "name": "Mai Vũ Phong",
+          "id": "p-imp-1788276107517-7545",
+          "club": "CDC",
+          "avatarUrl": ""
+        },
+        "name": "Trần Văn Bắc (ISC) & Mai Vũ Phong (CDC)",
+        "group": "B",
+        "code": "B2",
+        "pairNumber": 7,
+        "player1": {
+          "id": "p-imp-1788276107517-2801",
+          "club": "ISC",
+          "avatarUrl": "",
+          "role": "VĐV",
+          "name": "Trần Văn Bắc"
+        },
+        "club": "ISC - CDC"
+      },
+      "status": "FINISHED",
+      "group": "B",
+      "format": "ONE_SET_21",
+      "matchNumber": 35
+    },
+    {
+      "format": "ONE_SET_21",
+      "scheduledDate": "12 Tháng 09, 2026",
+      "court": "Sân 01",
+      "matchNumber": 36,
+      "winnerId": "pair-imp-1788491770990-0-782",
+      "scheduledTime": "08:30",
+      "sets": [
+        {
+          "setNumber": 1,
+          "isFinished": true,
+          "pair1Score": 21,
+          "pair2Score": 17
+        }
+      ],
+      "round": "GROUP_STAGE",
+      "status": "FINISHED",
+      "group": "B",
+      "roundLabel": "Vòng bảng - Bảng B",
+      "pair1": {
+        "group": "B",
+        "id": "pair-imp-1788491770990-0-782",
+        "name": "Võ Minh Tuấn (ISC) & Bùi Ngọc Hoàng (ISC)",
+        "player2": {
+          "club": "ISC",
+          "id": "p-imp-1788276107517-1486",
+          "role": "VĐV",
+          "name": "Bùi Ngọc Hoàng",
+          "avatarUrl": ""
+        },
+        "code": "B1",
+        "player1": {
+          "name": "Võ Minh Tuấn",
+          "role": "VĐV",
+          "avatarUrl": "",
+          "club": "ISC",
+          "id": "p-imp-1788276107517-7156"
+        },
+        "pairNumber": 6,
+        "club": "ISC"
+      },
+      "id": "m-grp-b-1788491777256-1-569",
+      "pair2": {
+        "name": "Nguyễn Sỹ Thành (ISC) & Phạm Mạnh Hà (ISC)",
+        "player1": {
+          "id": "p-imp-1788276107517-7394",
+          "club": "ISC",
+          "avatarUrl": "",
+          "name": "Nguyễn Sỹ Thành",
+          "role": "VĐV"
+        },
+        "id": "pair-imp-1788491770990-4-929",
+        "pairNumber": 10,
+        "club": "ISC",
+        "group": "B",
+        "code": "B5",
+        "player2": {
+          "name": "Phạm Mạnh Hà",
+          "id": "p-imp-1788276107517-4820",
+          "role": "VĐV",
+          "avatarUrl": "",
+          "club": "ISC"
+        }
+      }
+    },
+    {
+      "pair2": {
+        "player1": {
+          "role": "VĐV",
+          "name": "Trịnh Hùng Nam",
+          "id": "p-imp-1788276107517-1495",
+          "club": "ISC",
+          "avatarUrl": ""
+        },
+        "pairNumber": 9,
+        "id": "pair-imp-1788491770990-3-151",
+        "name": "Trịnh Hùng Nam (ISC) & Nguyễn Thanh Đủ (ISC)",
+        "group": "B",
+        "code": "B4",
+        "player2": {
+          "role": "VĐV",
+          "name": "Nguyễn Thanh Đủ",
+          "club": "ISC",
+          "id": "p-imp-1788276107517-3901",
+          "avatarUrl": ""
+        },
+        "club": "ISC"
+      },
+      "pair1": {
+        "pairNumber": 8,
+        "code": "B3",
+        "club": "CDC - ISC",
+        "player1": {
+          "id": "p-imp-1788276107517-9362",
+          "avatarUrl": "",
+          "role": "VĐV",
+          "name": "Hà Cát Thịnh",
+          "club": "CDC"
+        },
+        "player2": {
+          "avatarUrl": "",
+          "id": "p-imp-1788276107517-9003",
+          "club": "ISC",
+          "role": "VĐV",
+          "name": "Nguyễn Minh Trọng"
+        },
+        "name": "Hà Cát Thịnh (CDC) & Nguyễn Minh Trọng (ISC)",
+        "id": "pair-imp-1788491770990-2-179",
+        "group": "B"
+      },
+      "matchNumber": 37,
+      "sets": [
+        {
+          "isFinished": true,
+          "setNumber": 1,
+          "pair1Score": 19,
+          "pair2Score": 21
+        }
+      ],
+      "scheduledDate": "12 Tháng 09, 2026",
+      "group": "B",
+      "scheduledTime": "08:30",
+      "id": "m-grp-b-1788491777256-2-437",
+      "round": "GROUP_STAGE",
+      "format": "ONE_SET_21",
+      "status": "FINISHED",
+      "winnerId": "pair-imp-1788491770990-3-151",
+      "roundLabel": "Vòng bảng - Bảng B",
+      "court": "Sân 01"
+    },
+    {
+      "group": "B",
+      "roundLabel": "Vòng bảng - Bảng B",
+      "pair2": {
+        "player2": {
+          "club": "CDC",
+          "avatarUrl": "",
+          "name": "Mai Vũ Phong",
+          "role": "VĐV",
+          "id": "p-imp-1788276107517-7545"
+        },
+        "code": "B2",
+        "pairNumber": 7,
+        "club": "ISC - CDC",
+        "id": "pair-imp-1788491770990-1-432",
+        "group": "B",
+        "name": "Trần Văn Bắc (ISC) & Mai Vũ Phong (CDC)",
+        "player1": {
+          "avatarUrl": "",
+          "club": "ISC",
+          "id": "p-imp-1788276107517-2801",
+          "name": "Trần Văn Bắc",
+          "role": "VĐV"
+        }
+      },
+      "id": "m-grp-b-1788491777256-3-234",
+      "pair1": {
+        "code": "B1",
+        "club": "ISC",
+        "player1": {
+          "club": "ISC",
+          "id": "p-imp-1788276107517-7156",
+          "name": "Võ Minh Tuấn",
+          "role": "VĐV",
+          "avatarUrl": ""
+        },
+        "player2": {
+          "avatarUrl": "",
+          "id": "p-imp-1788276107517-1486",
+          "club": "ISC",
+          "name": "Bùi Ngọc Hoàng",
+          "role": "VĐV"
+        },
+        "id": "pair-imp-1788491770990-0-782",
+        "name": "Võ Minh Tuấn (ISC) & Bùi Ngọc Hoàng (ISC)",
+        "group": "B",
+        "pairNumber": 6
+      },
+      "scheduledTime": "08:30",
+      "scheduledDate": "12 Tháng 09, 2026",
+      "status": "FINISHED",
+      "sets": [
+        {
+          "setNumber": 1,
+          "pair2Score": 15,
+          "pair1Score": 21,
+          "isFinished": true
+        }
+      ],
+      "court": "Sân 01",
+      "format": "ONE_SET_21",
+      "matchNumber": 38,
+      "round": "GROUP_STAGE",
+      "winnerId": "pair-imp-1788491770990-0-782"
+    },
+    {
+      "scheduledDate": "12 Tháng 09, 2026",
+      "group": "B",
+      "scheduledTime": "08:30",
+      "id": "m-grp-b-1788491777256-4-148",
+      "pair1": {
+        "club": "CDC - ISC",
+        "player2": {
+          "id": "p-imp-1788276107517-9003",
+          "name": "Nguyễn Minh Trọng",
+          "role": "VĐV",
+          "club": "ISC",
+          "avatarUrl": ""
+        },
+        "code": "B3",
+        "id": "pair-imp-1788491770990-2-179",
+        "pairNumber": 8,
+        "player1": {
+          "name": "Hà Cát Thịnh",
+          "role": "VĐV",
+          "id": "p-imp-1788276107517-9362",
+          "club": "CDC",
+          "avatarUrl": ""
+        },
+        "name": "Hà Cát Thịnh (CDC) & Nguyễn Minh Trọng (ISC)",
+        "group": "B"
+      },
+      "pair2": {
+        "player2": {
+          "club": "ISC",
+          "name": "Phạm Mạnh Hà",
+          "avatarUrl": "",
+          "role": "VĐV",
+          "id": "p-imp-1788276107517-4820"
+        },
+        "id": "pair-imp-1788491770990-4-929",
+        "name": "Nguyễn Sỹ Thành (ISC) & Phạm Mạnh Hà (ISC)",
+        "group": "B",
+        "club": "ISC",
+        "pairNumber": 10,
+        "code": "B5",
+        "player1": {
+          "avatarUrl": "",
+          "id": "p-imp-1788276107517-7394",
+          "club": "ISC",
+          "role": "VĐV",
+          "name": "Nguyễn Sỹ Thành"
+        }
+      },
+      "court": "Sân 01",
+      "status": "FINISHED",
+      "winnerId": "pair-imp-1788491770990-2-179",
+      "format": "ONE_SET_21",
+      "sets": [
+        {
+          "isFinished": true,
+          "setNumber": 1,
+          "pair2Score": 17,
+          "pair1Score": 21
+        }
+      ],
+      "matchNumber": 39,
+      "round": "GROUP_STAGE",
+      "roundLabel": "Vòng bảng - Bảng B"
+    },
+    {
+      "winnerId": "pair-imp-1788491770990-0-782",
+      "id": "m-grp-b-1788491777256-5-117",
+      "round": "GROUP_STAGE",
+      "court": "Sân 01",
+      "pair1": {
+        "id": "pair-imp-1788491770990-0-782",
+        "code": "B1",
+        "pairNumber": 6,
+        "player2": {
+          "club": "ISC",
+          "avatarUrl": "",
+          "id": "p-imp-1788276107517-1486",
+          "name": "Bùi Ngọc Hoàng",
+          "role": "VĐV"
+        },
+        "club": "ISC",
+        "player1": {
+          "id": "p-imp-1788276107517-7156",
+          "club": "ISC",
+          "avatarUrl": "",
+          "role": "VĐV",
+          "name": "Võ Minh Tuấn"
+        },
+        "group": "B",
+        "name": "Võ Minh Tuấn (ISC) & Bùi Ngọc Hoàng (ISC)"
+      },
+      "sets": [
+        {
+          "isFinished": true,
+          "pair2Score": 19,
+          "pair1Score": 21,
+          "setNumber": 1
+        }
+      ],
+      "pair2": {
+        "code": "B4",
+        "id": "pair-imp-1788491770990-3-151",
+        "player1": {
+          "name": "Trịnh Hùng Nam",
+          "role": "VĐV",
+          "id": "p-imp-1788276107517-1495",
+          "club": "ISC",
+          "avatarUrl": ""
+        },
+        "group": "B",
+        "club": "ISC",
+        "pairNumber": 9,
+        "player2": {
+          "avatarUrl": "",
+          "club": "ISC",
+          "id": "p-imp-1788276107517-3901",
+          "name": "Nguyễn Thanh Đủ",
+          "role": "VĐV"
+        },
+        "name": "Trịnh Hùng Nam (ISC) & Nguyễn Thanh Đủ (ISC)"
+      },
+      "scheduledTime": "08:30",
+      "scheduledDate": "12 Tháng 09, 2026",
+      "status": "FINISHED",
+      "group": "B",
+      "roundLabel": "Vòng bảng - Bảng B",
+      "matchNumber": 40,
+      "format": "ONE_SET_21"
+    },
+    {
+      "id": "m-grp-b-1788491777256-6-175",
+      "scheduledDate": "12 Tháng 09, 2026",
+      "pair1": {
+        "pairNumber": 7,
+        "player2": {
+          "role": "VĐV",
+          "name": "Mai Vũ Phong",
+          "avatarUrl": "",
+          "id": "p-imp-1788276107517-7545",
+          "club": "CDC"
+        },
+        "name": "Trần Văn Bắc (ISC) & Mai Vũ Phong (CDC)",
+        "group": "B",
+        "code": "B2",
+        "player1": {
+          "club": "ISC",
+          "avatarUrl": "",
+          "id": "p-imp-1788276107517-2801",
+          "role": "VĐV",
+          "name": "Trần Văn Bắc"
+        },
+        "club": "ISC - CDC",
+        "id": "pair-imp-1788491770990-1-432"
+      },
+      "scheduledTime": "08:30",
+      "pair2": {
+        "club": "ISC",
+        "code": "B5",
+        "id": "pair-imp-1788491770990-4-929",
+        "player2": {
+          "id": "p-imp-1788276107517-4820",
+          "role": "VĐV",
+          "name": "Phạm Mạnh Hà",
+          "club": "ISC",
+          "avatarUrl": ""
+        },
+        "group": "B",
+        "player1": {
+          "name": "Nguyễn Sỹ Thành",
+          "role": "VĐV",
+          "avatarUrl": "",
+          "club": "ISC",
+          "id": "p-imp-1788276107517-7394"
+        },
+        "name": "Nguyễn Sỹ Thành (ISC) & Phạm Mạnh Hà (ISC)",
+        "pairNumber": 10
+      },
+      "sets": [
+        {
+          "pair1Score": 21,
+          "pair2Score": 17,
+          "setNumber": 1,
+          "isFinished": true
+        }
+      ],
+      "roundLabel": "Vòng bảng - Bảng B",
+      "group": "B",
+      "winnerId": "pair-imp-1788491770990-1-432",
+      "round": "GROUP_STAGE",
+      "format": "ONE_SET_21",
+      "court": "Sân 01",
+      "matchNumber": 41,
+      "status": "FINISHED"
+    },
+    {
+      "sets": [
+        {
+          "isFinished": true,
+          "setNumber": 1,
+          "pair2Score": 19,
+          "pair1Score": 21
+        }
+      ],
+      "pair1": {
+        "code": "B1",
+        "id": "pair-imp-1788491770990-0-782",
+        "club": "ISC",
+        "player1": {
+          "id": "p-imp-1788276107517-7156",
+          "name": "Võ Minh Tuấn",
+          "role": "VĐV",
+          "club": "ISC",
+          "avatarUrl": ""
+        },
+        "player2": {
+          "id": "p-imp-1788276107517-1486",
+          "name": "Bùi Ngọc Hoàng",
+          "role": "VĐV",
+          "avatarUrl": "",
+          "club": "ISC"
+        },
+        "pairNumber": 6,
+        "group": "B",
+        "name": "Võ Minh Tuấn (ISC) & Bùi Ngọc Hoàng (ISC)"
+      },
+      "pair2": {
+        "group": "B",
+        "player1": {
+          "id": "p-imp-1788276107517-9362",
+          "name": "Hà Cát Thịnh",
+          "role": "VĐV",
+          "avatarUrl": "",
+          "club": "CDC"
+        },
+        "pairNumber": 8,
+        "name": "Hà Cát Thịnh (CDC) & Nguyễn Minh Trọng (ISC)",
+        "code": "B3",
+        "club": "CDC - ISC",
+        "player2": {
+          "id": "p-imp-1788276107517-9003",
+          "name": "Nguyễn Minh Trọng",
+          "role": "VĐV",
+          "avatarUrl": "",
+          "club": "ISC"
+        },
+        "id": "pair-imp-1788491770990-2-179"
+      },
+      "group": "B",
+      "roundLabel": "Vòng bảng - Bảng B",
+      "winnerId": "pair-imp-1788491770990-0-782",
+      "id": "m-grp-b-1788491777256-7-394",
+      "matchNumber": 42,
+      "scheduledTime": "08:30",
+      "status": "FINISHED",
+      "scheduledDate": "12 Tháng 09, 2026",
+      "round": "GROUP_STAGE",
+      "court": "Sân 01",
+      "format": "ONE_SET_21"
+    },
+    {
+      "pair2": {
+        "code": "B5",
+        "player2": {
+          "name": "Phạm Mạnh Hà",
+          "role": "VĐV",
+          "avatarUrl": "",
+          "club": "ISC",
+          "id": "p-imp-1788276107517-4820"
+        },
+        "group": "B",
+        "pairNumber": 10,
+        "club": "ISC",
+        "id": "pair-imp-1788491770990-4-929",
+        "player1": {
+          "club": "ISC",
+          "id": "p-imp-1788276107517-7394",
+          "role": "VĐV",
+          "name": "Nguyễn Sỹ Thành",
+          "avatarUrl": ""
+        },
+        "name": "Nguyễn Sỹ Thành (ISC) & Phạm Mạnh Hà (ISC)"
+      },
+      "matchNumber": 43,
+      "pair1": {
+        "club": "ISC",
+        "id": "pair-imp-1788491770990-3-151",
+        "code": "B4",
+        "player1": {
+          "id": "p-imp-1788276107517-1495",
+          "name": "Trịnh Hùng Nam",
+          "role": "VĐV",
+          "avatarUrl": "",
+          "club": "ISC"
+        },
+        "pairNumber": 9,
+        "player2": {
+          "club": "ISC",
+          "avatarUrl": "",
+          "role": "VĐV",
+          "name": "Nguyễn Thanh Đủ",
+          "id": "p-imp-1788276107517-3901"
+        },
+        "name": "Trịnh Hùng Nam (ISC) & Nguyễn Thanh Đủ (ISC)",
+        "group": "B"
+      },
+      "format": "ONE_SET_21",
+      "scheduledTime": "08:30",
+      "group": "B",
+      "status": "FINISHED",
+      "scheduledDate": "12 Tháng 09, 2026",
+      "winnerId": "pair-imp-1788491770990-3-151",
+      "roundLabel": "Vòng bảng - Bảng B",
+      "id": "m-grp-b-1788491777256-8-679",
+      "round": "GROUP_STAGE",
+      "sets": [
+        {
+          "pair1Score": 21,
+          "pair2Score": 16,
+          "isFinished": true,
+          "setNumber": 1
+        }
+      ],
+      "court": "Sân 01"
+    },
+    {
+      "round": "GROUP_STAGE",
+      "sets": [
+        {
+          "isFinished": true,
+          "setNumber": 1,
+          "pair1Score": 21,
+          "pair2Score": 18
+        }
+      ],
+      "scheduledTime": "08:30",
+      "roundLabel": "Vòng bảng - Bảng B",
+      "matchNumber": 44,
+      "scheduledDate": "12 Tháng 09, 2026",
+      "court": "Sân 01",
+      "winnerId": "pair-imp-1788491770990-1-432",
+      "pair2": {
+        "group": "B",
+        "id": "pair-imp-1788491770990-2-179",
+        "player1": {
+          "club": "CDC",
+          "avatarUrl": "",
+          "id": "p-imp-1788276107517-9362",
+          "name": "Hà Cát Thịnh",
+          "role": "VĐV"
+        },
+        "name": "Hà Cát Thịnh (CDC) & Nguyễn Minh Trọng (ISC)",
+        "code": "B3",
+        "player2": {
+          "avatarUrl": "",
+          "club": "ISC",
+          "role": "VĐV",
+          "name": "Nguyễn Minh Trọng",
+          "id": "p-imp-1788276107517-9003"
+        },
+        "pairNumber": 8,
+        "club": "CDC - ISC"
+      },
+      "pair1": {
+        "name": "Trần Văn Bắc (ISC) & Mai Vũ Phong (CDC)",
+        "pairNumber": 7,
+        "group": "B",
+        "player1": {
+          "avatarUrl": "",
+          "name": "Trần Văn Bắc",
+          "role": "VĐV",
+          "id": "p-imp-1788276107517-2801",
+          "club": "ISC"
+        },
+        "id": "pair-imp-1788491770990-1-432",
+        "club": "ISC - CDC",
+        "player2": {
+          "club": "CDC",
+          "role": "VĐV",
+          "name": "Mai Vũ Phong",
+          "id": "p-imp-1788276107517-7545",
+          "avatarUrl": ""
+        },
+        "code": "B2"
+      },
+      "id": "m-grp-b-1788491777256-9-415",
+      "status": "FINISHED",
+      "group": "B",
+      "format": "ONE_SET_21"
+    }
+  ]
+}
